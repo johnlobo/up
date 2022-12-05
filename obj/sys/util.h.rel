@@ -1,0 +1,12 @@
+XL3
+H 1 areas 9 global symbols
+S sys_util_h_times_e Ref000000
+S sys_util_BCD_Compare Ref000000
+S sys_util_BCD_Add Ref000000
+S sys_util_hl_div_c Ref000000
+S .__.ABS. Def000000
+S sys_util_get_random_number Ref000000
+S sys_util_delay Ref000000
+S string_buffer Ref000000
+S sys_util_BCD_GetEnd Ref000000
+A _CODE size 0 flags 0 addr 0

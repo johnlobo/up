@@ -1,0 +1,111 @@
+XL3
+H 2 areas 28 global symbols
+M input_system
+S cpct_setInterruptHandler_asm Ref000000
+S cpct_getScreenToSprite_asm Ref000000
+S cpct_isKeyPressed_asm Ref000000
+S cpct_setPalette_asm Ref000000
+S _g_palette0 Ref000000
+S cpct_drawSprite_asm Ref000000
+S _cpct_keyboardStatusBuffer Ref000000
+S cpct_waitHalts_asm Ref000000
+S cpct_setSeed_mxor_asm Ref000000
+S .__.ABS. Def000000
+S cpct_setVideoMemoryPage_asm Ref000000
+S _s_small_numbers_00 Ref000000
+S _s_small_numbers_01 Ref000000
+S _s_small_numbers_02 Ref000000
+S _s_small_numbers_03 Ref000000
+S _s_small_numbers_04 Ref000000
+S _s_small_numbers_05 Ref000000
+S _s_small_numbers_06 Ref000000
+S _s_small_numbers_07 Ref000000
+S cpct_isAnyKeyPressed_asm Ref000000
+S _s_small_numbers_08 Ref000000
+S cpct_scanKeyboard_if_asm Ref000000
+S _s_small_numbers_09 Ref000000
+S cpct_waitVSYNC_asm Ref000000
+S cpct_setVideoMode_asm Ref000000
+S cpct_px2byteM0_asm Ref000000
+S _s_font_0 Ref000000
+S cpct_disableFirmware_asm Ref000000
+S cpct_getRandom_mxor_u8_asm Ref000000
+S cpct_drawSolidBox_asm Ref000000
+S cpct_drawSpriteMaskedAlignedTable_asm Ref000000
+S cpct_waitVSYNCStart_asm Ref000000
+S cpct_getScreenPtr_asm Ref000000
+A _CODE size 76 flags 0 addr 0
+S sys_input_init Def00004D
+S sys_input_waitKeyPressed Def000039
+S sys_input_wait4anykey Def000006
+S sys_input_getKeyPressed Def000013
+S sys_input_main_menu_update Def00006E
+S sys_input_clean_buffer Def000000
+A _DATA size 2 flags 0 addr 0
+S sys_input_main_menu_actions Def000000
+T 00 00 00
+R 00 00 01 00
+T 00 00 00 00 00
+R 00 00 01 00
+T 00 00 00
+R 00 00 00 00
+T 00 00 00 CD 00 00 20 FB C9
+R 00 00 00 00 02 04 13 00
+T 06 00 00
+R 00 00 00 00
+T 06 00 00 21 00 00
+R 00 00 00 00
+T 09 00 00
+R 00 00 00 00
+T 09 00 00 E5 CD 00 00 B7 E1 23 28 F7 C9
+R 00 00 00 00 02 05 13 00
+T 13 00 00
+R 00 00 00 00
+T 13 00 00 21 00 00 AF
+R 00 00 00 00 02 04 06 00
+T 17 00 00
+R 00 00 00 00
+T 17 00 00 FE 0A 28 14 32 2B 00 7E EE FF 28 06 67
+R 00 00 00 00 00 08 00 00
+T 24 00 00 3A 2B 00 6F C9
+R 00 00 00 00 00 04 00 00
+T 29 00 00
+R 00 00 00 00
+T 29 00 00 23 3E 00 3C 18 E8
+R 00 00 00 00
+T 2F 00 00
+R 00 00 00 00
+T 2F 00 00 21 00 00 3E 00 32 38 00 C9
+R 00 00 00 00 00 09 00 00
+T 38 00 00
+R 00 00 00 00
+T 38 00 00 00
+R 00 00 00 00
+T 39 00 00
+R 00 00 00 00
+T 39 00 00 CD 13 00 3A 38 00 B7 20 F7 AF B4 B5 28
+R 00 00 00 00 00 04 00 00 00 07 00 00
+T 46 00 00 F2 3E 01 32 38 00 C9
+R 00 00 00 00 00 07 00 00
+T 4D 00 00
+R 00 00 00 00
+T 4D 00 00 C9
+R 00 00 00 00
+T 4E 00 00
+R 00 00 00 00
+T 4E 00 00 18 05
+R 00 00 00 00
+T 50 00 00
+R 00 00 00 00
+T 50 00 00 01 04 00 FD 09
+R 00 00 00 00
+T 55 00 00
+R 00 00 00 00
+T 55 00 00 FD 6E 00 FD 66 01 7D B4 C8 CD 00 00 28
+R 00 00 00 00 02 0D 02 00
+T 62 00 00 ED 21 50 00 E5 FD 6E 02 FD 66 03 E9
+R 00 00 00 00 00 05 00 00
+T 6E 00 00
+R 00 00 00 00
+T 6E 00 00 FD 21 00 00 CD 4E 00 C9
+R 00 00 00 00 00 05 01 00 00 08 00 00
