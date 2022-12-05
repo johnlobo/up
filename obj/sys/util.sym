@@ -1,0 +1,37 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
+    .__.H$L.=  0000 L   |   0 BCD_Add_   003D R   |   0 BCD_cp_d   004B R
+    BUFFER_S=  000A     |     FONT_HEI=  0009     |     FONT_WID=  0002 
+    SCORE_NU=  0004     |     S_SMALL_=  0005     |     S_SMALL_=  0002 
+    ZERO_KEY=  00FF     |     _cpct_ke   **** GX  |     _g_palet   **** GX
+  0 _random_   0062 R   |     _s_font_   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    cpct_dis   **** GX  |     cpct_dra   **** GX  |     cpct_dra   **** GX
+    cpct_dra   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
+    cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_isA   **** GX
+    cpct_isK   **** GX  |     cpct_mem   **** GX  |     cpct_mem   **** GX
+    cpct_sca   **** GX  |     cpct_sca   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_cmp_an=  0010 
+    e_cmp_co=  0020     |     e_cmp_de=  0023     |     e_cmp_ia=  0008 
+    e_cmp_in=  0004     |     e_cmp_mo=  0002     |     e_cmp_re=  0001 
+    e_type_i=  0000     |   0 random_m=  005F R   |   1 string_b   0000 GR
+  0 sys_util   003C GR  |   0 sys_util   0046 GR  |   0 sys_util   0031 GR
+  0 sys_util   006B GR  |   0 sys_util   0055 GR  |   0 sys_util   0000 GR
+  0 sys_util   0024 GR
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE      size   73   flags    0
+   1 _DATA      size    B   flags    0
+

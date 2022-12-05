@@ -1,0 +1,233 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__GSFINAL                      
+     00000000  l__GSINIT                       
+     00000000  l__HOME                         
+     00000000  l__INITIALIZED                  
+     00000000  l__INITIALIZER                  
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000025  l__DATA                         
+     00000200  s__CODE                         
+     00000A1F  l__CODE                         
+     00000C1F  s__DATA                         
+     00000C44  s__GSFINAL                      
+     00000C44  s__GSINIT                       
+     00000C44  s__HOME                         
+     00000C44  s__INITIALIZED                  
+     00000C44  s__INITIALIZER                  
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000200    00000A1F =        2591. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000200  _s_small_numbers_00                small_numbers
+     0000020A  _s_small_numbers_01                small_numbers
+     00000214  _s_small_numbers_02                small_numbers
+     0000021E  _s_small_numbers_03                small_numbers
+     00000228  _s_small_numbers_04                small_numbers
+     00000232  _s_small_numbers_05                small_numbers
+     0000023C  _s_small_numbers_06                small_numbers
+     00000246  _s_small_numbers_07                small_numbers
+     00000250  _s_small_numbers_08                small_numbers
+     0000025A  _s_small_numbers_09                small_numbers
+     00000264  _s_font_0                          font_chars_0
+     000005B2  _g_palette0                        g_palette0
+     000005C2  _main                              cpct_keyboard
+     000005DF  man_array_init                     array_manager
+     000005F9  man_array_create_element           array_manager
+     00000624  man_array_remove_element           array_manager
+     00000675  man_array_get_element              array_manager
+     00000688  man_array_get_random_element       array_manager
+     000006B4  man_array_move_all_elements        array_manager
+     000006DC  man_array_execute_each             array_manager
+     0000070D  sys_render_init                    cpct_keyboard
+     0000073B  sys_render_update                  cpct_keyboard
+     0000073C  sys_util_h_times_e                 sys_util
+     00000760  sys_util_hl_div_c                  sys_util
+     0000076D  sys_util_BCD_GetEnd                sys_util
+     00000778  sys_util_BCD_Add                   sys_util
+     00000782  sys_util_BCD_Compare               sys_util
+     00000791  sys_util_get_random_number         sys_util
+     000007A7  sys_util_delay                     sys_util
+     000007AF  _cpct_setInterruptHandler          cpct_firmware
+     000007AF  cpct_setInterruptHandler_asm       cpct_firmware
+     000007C0  cpct_safeInterruptHandlerHook      cpct_firmware
+     000007D6  cpct_getScreenToSprite_asm         cpct_sprites
+     000007F8  cpct_setPalette_asm                cpct_video
+     0000080B  _cpct_isKeyPressed                 cpct_keyboard
+     0000080B  cpct_isKeyPressed_asm              cpct_keyboard
+     00000817  cpct_setPALColour_asm              cpct_video
+     00000821  cpct_drawStringM1_asm              cpct_strings
+     00000845  cpct_drawCharM1_inner_asm          cpct_strings
+     00000885  cpct_char2pxM1                     cpct_strings
+     00000895  cpct_drawSprite_asm                cpct_sprites
+     00000935  _cpct_keyboardStatusBuffer         cpct_keyboard
+     0000093F  cpct_waitHalts_asm                 cpct_memutils
+     00000943  _cpct_setSeed_mxor                 cpct_random
+     00000943  cpct_setSeed_mxor_asm              cpct_random
+     0000094B  cpct_setSeed_xsp40_u8_asm          cpct_random
+     00000956  cpct_memset_f64_asm                cpct_memutils
+     0000099C  _cpct_getRandom_xsp40_u8           cpct_random
+     0000099C  cpct_getRandom_xsp40_u8_asm        cpct_random
+     000009A1  _cpct_seed1_xsp40_u8               cpct_random
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00000200    00000A1F =        2591. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000009A4  _cpct_seed2_xsp40_u8               cpct_random
+     000009BE  _cpct_seed3_xsp40_u8               cpct_random
+     000009C1  _cpct_isAnyKeyPressed              cpct_keyboard
+     000009C1  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     000009CE  _cpct_scanKeyboard_if              cpct_keyboard
+     000009CE  cpct_scanKeyboard_if_asm           cpct_keyboard
+     00000A36  cpct_setVideoMode_asm              cpct_video
+     00000A43  _cpct_waitVSYNC                    cpct_video
+     00000A43  cpct_waitVSYNC_asm                 cpct_video
+     00000A4B  cpct_memset_asm                    cpct_memutils
+     00000A53  _cpct_disableFirmware              cpct_firmware
+     00000A53  _cpct_removeInterruptHandler       cpct_firmware
+     00000A53  cpct_disableFirmware_asm           cpct_firmware
+     00000A53  cpct_removeInterruptHandler_asm    cpct_firmware
+     00000A63  cpct_drawSolidBox_asm              cpct_sprites
+     00000B06  _cpct_getRandom_mxor_u8            cpct_random
+     00000B06  cpct_getRandom_mxor_u8_asm         cpct_random
+     00000B07  cpct_randomIdx_mxor_u8             cpct_random
+     00000B2B  cpct_drawSpriteBlended_asm         cpct_sprites
+     00000B31  _cpct_dsb_blendFunction            cpct_sprites
+     00000B52  _cpct_mode_rom_status              cpct_firmware
+     00000B53  cpct_getScreenPtr_asm              cpct_video
+     00000B65  _cpct_scanKeyboard                 cpct_keyboard
+     00000B65  cpct_scanKeyboard_asm              cpct_keyboard
+     00000B96  _cpct_waitVSYNCStart               cpct_video
+     00000B96  cpct_waitVSYNCStart_asm            cpct_video
+     00000BA3  cpct_setDrawCharM1_asm             cpct_strings
+     00000BF4  _cpct_mxor32_seed                  cpct_random
+     00000BF8  _cpct_nextRandom_mxor_u32          cpct_random
+     00000BF8  cpct_nextRandom_mxor_u32_asm       cpct_random
+     00000C1B  dc_mode1_ct                        
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               00000C1F    00000025 =          37. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000C39  string_buffer                      sys_util
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+
+Files Linked                              [ module(s) ]
+
+obj/assets/sprites/small_numbers.rel      [ small_numbers ]
+obj/assets/sprites/font_chars_0.rel       [ font_chars_0 ]
+obj/assets/sprites/g_palette0.rel         [ g_palette0 ]
+obj/main.rel                              [ cpct_keyboard ]
+obj/common.h.rel                          [  ]
+obj/man/fight.rel                         [ fight_manager ]
+obj/man/fight.h.rel                       [ fight_manager ]
+obj/man/game.h.rel                        [ game_manager ]
+obj/man/array.rel                         [ array_manager ]
+obj/man/array.h.rel                       [ array_manager ]
+obj/man/game.rel                          [ game_manager ]
+obj/sys/render.rel                        [ cpct_keyboard ]
+obj/sys/util.rel                          [ sys_util ]
+obj/sys/util.h.rel                        [  ]
+obj/sys/render.h.rel                      [ render_system ]
+
+
+Libraries Linked                          [ object file ]
+
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setInterruptHandler.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getScreenToSprite_asmbindin ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPalette_asmbindings.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isKeyPressed.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPALColour_asmbindings.re ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawStringM1_asmbindings.re ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawCharM1_inner.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSprite_asmbindings.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ keyboard.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitHalts_asmbindings.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setSeed_mxor.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setSeed_xsp40_u8_asmbinding ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_memset_f64_asmbinding.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getRandom_xsp40_u8.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isAnyKeyPressed.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard_if.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setVideoMode_asmbindings.re ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitVSYNC.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_memset_asmbinding.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_removeInterruptHandler.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSolidBox_asmbindings.re ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getRandom_mxor_u8.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSpriteBlended_asmbindin ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpc_mode_rom_status.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getScreenPtr_asmbindings.re ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitVSYNCStart.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setDrawCharM1_asmbindings.r ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_mxor32_seed.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_nextRandom_mxor_u32.rel ]
+/home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_dc_mode1_ct.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+
+User Base Address Definitions
+
+_CODE = 0x0200
+_DATA = 0x0000
+
+

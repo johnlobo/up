@@ -1,0 +1,26 @@
+-mjwx
+-i obj/up.ihx
+-b _CODE = 0x0200
+-b _DATA = 0x0000
+-u
+-k /home/drodri/sources/retro/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/bin/../share/sdcc/lib/z80
+-k /mnt/c/sources/retro/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/share/sdcc/lib/z80
+-l /home/drodri/sources/retro/cpctelera/cpctelera/cpctelera.lib
+-l z80
+obj/assets/sprites/small_numbers.rel
+obj/assets/sprites/font_chars_0.rel
+obj/assets/sprites/g_palette0.rel
+obj/main.rel
+obj/common.h.rel
+obj/man/fight.rel
+obj/man/fight.h.rel
+obj/man/game.h.rel
+obj/man/array.rel
+obj/man/array.h.rel
+obj/man/game.rel
+obj/sys/render.rel
+obj/sys/util.rel
+obj/sys/util.h.rel
+obj/sys/render.h.rel
+
+-e
