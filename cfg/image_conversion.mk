@@ -41,7 +41,6 @@
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
 
-
 PALETTE0=0 8 13 3 6 15 24 16 9 12 20 14 2 4 1 26
 
 $(eval $(call IMG2SP, SET_MODE        , 0                  ))
@@ -52,6 +51,10 @@ $(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE0)         ))
 $(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE0), g_palette0 ))
 $(eval $(call IMG2SP, CONVERT         , assets/font_chars_0.png , 4, 423, s_font_0, ,))
 $(eval $(call IMG2SP, CONVERT         , assets/small_numbers.png , 4, 5, s_small_numbers, ,))
+
+
+
+
 
 ##
 ## OLD MACROS (For compatibility)

@@ -1,5 +1,5 @@
 XL2
-H 1 areas 2C global symbols
+H 1 areas 2D global symbols
 M array_manager
 S cpct_setInterruptHandler_asm Ref0000
 S man_array_get_random_element Ref0000
@@ -17,6 +17,7 @@ S cpct_setSeed_mxor_asm Ref0000
 S .__.ABS. Def0000
 S cpct_setSeed_xsp40_u8_asm Ref0000
 S man_array_get_element Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
 S cpct_memset_f64_asm Ref0000
 S man_array_move_all_elements Ref0000
 S _s_small_numbers_00 Ref0000

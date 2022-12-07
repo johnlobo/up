@@ -17,11 +17,11 @@ Symbol Table
     cpct_isK   **** GX  |     cpct_mem   **** GX  |     cpct_mem   **** GX
     cpct_sca   **** GX  |     cpct_sca   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
-    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_cmp_an=  0010 
-    e_cmp_co=  0020     |     e_cmp_de=  0023     |     e_cmp_ia=  0008 
-    e_cmp_in=  0004     |     e_cmp_mo=  0002     |     e_cmp_re=  0001 
-    e_type_i=  0000 
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
+    e_cmp_an=  0010     |     e_cmp_co=  0020     |     e_cmp_de=  0023 
+    e_cmp_ia=  0008     |     e_cmp_in=  0004     |     e_cmp_mo=  0002 
+    e_cmp_re=  0001     |     e_type_i=  0000 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]

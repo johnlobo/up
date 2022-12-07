@@ -54,6 +54,7 @@
 .globl cpct_getRandom_mxor_u8_asm
 .globl cpct_waitVSYNCStart_asm
 .globl cpct_setSeed_mxor_asm
+.globl cpct_setVideoMemoryPage_asm
 
 ;;===============================================================================
 ;; DEFINED CONSTANTS

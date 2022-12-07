@@ -111,74 +111,75 @@ Hexadecimal [16-Bits]
 
                              55 .globl cpct_waitVSYNCStart_asm
                              56 .globl cpct_setSeed_mxor_asm
-                             57 
-                             58 ;;===============================================================================
-                             59 ;; DEFINED CONSTANTS
-                             60 ;;===============================================================================
-                             61 
-                             62 ;;tipos de entidades
-                     0000    63 e_type_invalid              = 0x00
-                             64 
-                             65 ;;tipos de componentes
-                     0001    66 e_cmp_render = 0x01     ;;entidad renderizable
-                     0002    67 e_cmp_movable = 0x02    ;;entidad que se puede mover
-                     0004    68 e_cmp_input = 0x04      ;;entidad controlable por input  
-                     0008    69 e_cmp_ia = 0x08         ;;entidad controlable con ia
-                     0010    70 e_cmp_animated = 0x10   ;;entidad animada
-                     0020    71 e_cmp_collider = 0x20   ;;entidad que puede colisionar
-                     0023    72 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
-                             73 
+                             57 .globl cpct_setVideoMemoryPage_asm
+                             58 
+                             59 ;;===============================================================================
+                             60 ;; DEFINED CONSTANTS
+                             61 ;;===============================================================================
+                             62 
+                             63 ;;tipos de entidades
+                     0000    64 e_type_invalid              = 0x00
+                             65 
+                             66 ;;tipos de componentes
+                     0001    67 e_cmp_render = 0x01     ;;entidad renderizable
+                     0002    68 e_cmp_movable = 0x02    ;;entidad que se puede mover
+                     0004    69 e_cmp_input = 0x04      ;;entidad controlable por input  
+                     0008    70 e_cmp_ia = 0x08         ;;entidad controlable con ia
+                     0010    71 e_cmp_animated = 0x10   ;;entidad animada
+                     0020    72 e_cmp_collider = 0x20   ;;entidad que puede colisionar
+                     0023    73 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
                              74 
-                             75 ;; Keyboard constants
-                     000A    76 BUFFER_SIZE = 10
-                     00FF    77 ZERO_KEYS_ACTIVATED = #0xFF
-                             78 
-                             79 ;; Score constants
-                     0004    80 SCORE_NUM_BYTES = 4
-                             81 
-                             82 ;; SMALL NUMBERS CONSTANTS
-                     0002    83 S_SMALL_NUMBERS_WIDTH = 2
-                     0005    84 S_SMALL_NUMBERS_HEIGHT = 5
-                             85 ;; Font constants
-                     0002    86 FONT_WIDTH = 2
-                     0009    87 FONT_HEIGHT = 9
-                             88 
+                             75 
+                             76 ;; Keyboard constants
+                     000A    77 BUFFER_SIZE = 10
+                     00FF    78 ZERO_KEYS_ACTIVATED = #0xFF
+                             79 
+                             80 ;; Score constants
+                     0004    81 SCORE_NUM_BYTES = 4
+                             82 
+                             83 ;; SMALL NUMBERS CONSTANTS
+                     0002    84 S_SMALL_NUMBERS_WIDTH = 2
+                     0005    85 S_SMALL_NUMBERS_HEIGHT = 5
+                             86 ;; Font constants
+                     0002    87 FONT_WIDTH = 2
+                     0009    88 FONT_HEIGHT = 9
                              89 
-                             90 ;;===============================================================================
-                             91 ;; DEFINED MACROS
-                             92 ;;===============================================================================
-                             93 .mdelete BeginStruct
-                             94 .macro BeginStruct struct
-                             95     struct'_offset = 0
-                             96 .endm
-                             97 
-                             98 .mdelete Field
-                             99 .macro Field struct, field, size
-                            100     struct'_'field = struct'_offset
-                            101     struct'_offset = struct'_offset + size
-                            102 .endm
-                            103 
-                            104 .mdelete EndStruct
-                            105 .macro EndStruct struct
-                            106     sizeof_'struct = struct'_offset
-                            107 .endm
-                            108 
-                            109 ;;===============================================================================
+                             90 
+                             91 ;;===============================================================================
+                             92 ;; DEFINED MACROS
+                             93 ;;===============================================================================
+                             94 .mdelete BeginStruct
+                             95 .macro BeginStruct struct
+                             96     struct'_offset = 0
+                             97 .endm
+                             98 
+                             99 .mdelete Field
+                            100 .macro Field struct, field, size
+                            101     struct'_'field = struct'_offset
+                            102     struct'_offset = struct'_offset + size
+                            103 .endm
+                            104 
+                            105 .mdelete EndStruct
+                            106 .macro EndStruct struct
+                            107     sizeof_'struct = struct'_offset
+                            108 .endm
+                            109 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
 Hexadecimal [16-Bits]
 
 
 
-                            110 ;; Macro
-                            111 ;;
-                            112 ;; Macro modified from cpctelera cpctm_screenPtr_asm
-                            113 ;;===============================================================================
-                            114 
-                            115 .mdelete m_center_screen_ptr 
-                            116 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
-                            117    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
-                            118 .endm
-                            119 
+                            110 ;;===============================================================================
+                            111 ;; Macro
+                            112 ;;
+                            113 ;; Macro modified from cpctelera cpctm_screenPtr_asm
+                            114 ;;===============================================================================
+                            115 
+                            116 .mdelete m_center_screen_ptr 
+                            117 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
+                            118    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
+                            119 .endm
+                            120 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 
@@ -5299,74 +5300,75 @@ Hexadecimal [16-Bits]
 
                              55 .globl cpct_waitVSYNCStart_asm
                              56 .globl cpct_setSeed_mxor_asm
-                             57 
-                             58 ;;===============================================================================
-                             59 ;; DEFINED CONSTANTS
-                             60 ;;===============================================================================
-                             61 
-                             62 ;;tipos de entidades
-                     0000    63 e_type_invalid              = 0x00
-                             64 
-                             65 ;;tipos de componentes
-                     0001    66 e_cmp_render = 0x01     ;;entidad renderizable
-                     0002    67 e_cmp_movable = 0x02    ;;entidad que se puede mover
-                     0004    68 e_cmp_input = 0x04      ;;entidad controlable por input  
-                     0008    69 e_cmp_ia = 0x08         ;;entidad controlable con ia
-                     0010    70 e_cmp_animated = 0x10   ;;entidad animada
-                     0020    71 e_cmp_collider = 0x20   ;;entidad que puede colisionar
-                     0023    72 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
-                             73 
+                             57 .globl cpct_setVideoMemoryPage_asm
+                             58 
+                             59 ;;===============================================================================
+                             60 ;; DEFINED CONSTANTS
+                             61 ;;===============================================================================
+                             62 
+                             63 ;;tipos de entidades
+                     0000    64 e_type_invalid              = 0x00
+                             65 
+                             66 ;;tipos de componentes
+                     0001    67 e_cmp_render = 0x01     ;;entidad renderizable
+                     0002    68 e_cmp_movable = 0x02    ;;entidad que se puede mover
+                     0004    69 e_cmp_input = 0x04      ;;entidad controlable por input  
+                     0008    70 e_cmp_ia = 0x08         ;;entidad controlable con ia
+                     0010    71 e_cmp_animated = 0x10   ;;entidad animada
+                     0020    72 e_cmp_collider = 0x20   ;;entidad que puede colisionar
+                     0023    73 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
                              74 
-                             75 ;; Keyboard constants
-                     000A    76 BUFFER_SIZE = 10
-                     00FF    77 ZERO_KEYS_ACTIVATED = #0xFF
-                             78 
-                             79 ;; Score constants
-                     0004    80 SCORE_NUM_BYTES = 4
-                             81 
-                             82 ;; SMALL NUMBERS CONSTANTS
-                     0002    83 S_SMALL_NUMBERS_WIDTH = 2
-                     0005    84 S_SMALL_NUMBERS_HEIGHT = 5
-                             85 ;; Font constants
-                     0002    86 FONT_WIDTH = 2
-                     0009    87 FONT_HEIGHT = 9
-                             88 
+                             75 
+                             76 ;; Keyboard constants
+                     000A    77 BUFFER_SIZE = 10
+                     00FF    78 ZERO_KEYS_ACTIVATED = #0xFF
+                             79 
+                             80 ;; Score constants
+                     0004    81 SCORE_NUM_BYTES = 4
+                             82 
+                             83 ;; SMALL NUMBERS CONSTANTS
+                     0002    84 S_SMALL_NUMBERS_WIDTH = 2
+                     0005    85 S_SMALL_NUMBERS_HEIGHT = 5
+                             86 ;; Font constants
+                     0002    87 FONT_WIDTH = 2
+                     0009    88 FONT_HEIGHT = 9
                              89 
-                             90 ;;===============================================================================
-                             91 ;; DEFINED MACROS
-                             92 ;;===============================================================================
-                             93 .mdelete BeginStruct
-                             94 .macro BeginStruct struct
-                             95     struct'_offset = 0
-                             96 .endm
-                             97 
-                             98 .mdelete Field
-                             99 .macro Field struct, field, size
-                            100     struct'_'field = struct'_offset
-                            101     struct'_offset = struct'_offset + size
-                            102 .endm
-                            103 
-                            104 .mdelete EndStruct
-                            105 .macro EndStruct struct
-                            106     sizeof_'struct = struct'_offset
-                            107 .endm
-                            108 
-                            109 ;;===============================================================================
+                             90 
+                             91 ;;===============================================================================
+                             92 ;; DEFINED MACROS
+                             93 ;;===============================================================================
+                             94 .mdelete BeginStruct
+                             95 .macro BeginStruct struct
+                             96     struct'_offset = 0
+                             97 .endm
+                             98 
+                             99 .mdelete Field
+                            100 .macro Field struct, field, size
+                            101     struct'_'field = struct'_offset
+                            102     struct'_offset = struct'_offset + size
+                            103 .endm
+                            104 
+                            105 .mdelete EndStruct
+                            106 .macro EndStruct struct
+                            107     sizeof_'struct = struct'_offset
+                            108 .endm
+                            109 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 103.
 Hexadecimal [16-Bits]
 
 
 
-                            110 ;; Macro
-                            111 ;;
-                            112 ;; Macro modified from cpctelera cpctm_screenPtr_asm
-                            113 ;;===============================================================================
-                            114 
-                            115 .mdelete m_center_screen_ptr 
-                            116 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
-                            117    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
-                            118 .endm
-                            119 
+                            110 ;;===============================================================================
+                            111 ;; Macro
+                            112 ;;
+                            113 ;; Macro modified from cpctelera cpctm_screenPtr_asm
+                            114 ;;===============================================================================
+                            115 
+                            116 .mdelete m_center_screen_ptr 
+                            117 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
+                            118    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
+                            119 .endm
+                            120 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 104.
 Hexadecimal [16-Bits]
 

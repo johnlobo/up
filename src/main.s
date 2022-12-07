@@ -17,11 +17,17 @@
 ;;-------------------------------------------------------------------------------
 
 ;; Include all CPCtelera constant definitions, macros and variables
-.include "cpctelera.h.s"
-.include "sys/render.h.s"
-.include "man/game.h.s"
-.include "man/fight.h.s"
 
+.include "common.h.s"
+.include "cpctelera.h.s"
+.include "sys/system.h.s"
+.include "sys/render.h.s"
+.include "sys/messages.h.s"
+.include "man/game.h.s"
+
+.module main
+
+;;-----------------------------------------------------------------
 ;;
 ;; Start of _DATA area 
 ;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
@@ -30,53 +36,63 @@
 ;;
 .area _DATA
 
-;; Define one Zero-terminated string to be used later on
-string: .asciz "CPCtelera up and running!";
+_game_loaded_string: .asciz " GAME LOADED - V.001"      ;;27 chars, 54 bytes
+
 
 ;;
 ;; Start of _CODE area
 ;; 
 .area _CODE
 
-;; 
-;; Declare all function entry points as global symbols for the compiler.
-;; (The linker will know what to do with them)
-;; WARNING: Every global symbol declared will be linked, so DO NOT declare 
-;; symbols for functions you do not use.
-;;
-.globl cpct_disableFirmware_asm
-.globl cpct_getScreenPtr_asm
-.globl cpct_setDrawCharM1_asm
-.globl cpct_drawStringM1_asm
 
+;;-----------------------------------------------------------------
+;;
+;; main_init
+;;   Draw player1
+;;  Input:  
+;;  Output: 
+;;  Destroyed: af, bc,de, hl
+;;
+main_init::
+
+;;   call sys_audio_init
+;;
+   call sys_render_init
+
+   ld e, #6                           ;; x
+   ld d, #78                           ;; y
+   ld b, #44                           ;; h
+   ld c, #60                           ;; w
+   ld hl, #_game_loaded_string         ;; message
+   ld a, #1                            ;; wait for a key
+   call sys_messages_show
+
+   ;; set random seed using hl form message show
+
+   call cpct_setSeed_mxor_asm
+     
+   ret
+   
+;;-----------------------------------------------------------------
 ;;
 ;; MAIN function. This is the entry point of the application.
 ;;    _main:: global symbol is required for correctly compiling and linking
 ;;
 _main::
-   ;; Disable firmware to prevent it from interfering with string drawing
-   call cpct_disableFirmware_asm
 
-   ;; Set up draw char colours before calling draw string
-   ld    d, #0         ;; D = Background PEN (0)
-   ld    e, #3         ;; E = Foreground PEN (3)
+   ld sp, #0x8000                               ;; Move the stack to 0x8000
+   
+   call sys_system_disable_firmware
 
-   call cpct_setDrawCharM1_asm   ;; Set draw char colours
+   call main_init
 
-   ;; Calculate a video-memory location for printing a string
-   ld   de, #CPCT_VMEM_START_ASM ;; DE = Pointer to start of the screen
-   ld    b, #24                  ;; B = y coordinate (24 = 0x18)
-   ld    c, #16                  ;; C = x coordinate (16 = 0x10)
+start:
 
-   call cpct_getScreenPtr_asm    ;; Calculate video memory location and return it in HL
+   call man_game_init
 
-   ;; Print the string in video memory
-   ;; HL already points to video memory, as it is the return
-   ;; value from cpct_getScreenPtr_asm
-   ld   iy, #string    ;; IY = Pointer to the string 
-
-   call cpct_drawStringM1_asm  ;; Draw the string
-
-   ;; Loop forever
+;; Loop forever
 loop:
+   
+   call man_game_update
+   
    jr    loop

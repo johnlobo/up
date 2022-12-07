@@ -81,18 +81,19 @@ Symbol Table
     cpct_pag=  0020     |     cpct_pag=  0030     |     cpct_sca   **** GX
     cpct_sca   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
-    cpct_wai   **** GX  |     e_cmp_an=  0010     |     e_cmp_co=  0020 
-    e_cmp_de=  0023     |     e_cmp_ia=  0008     |     e_cmp_in=  0004 
-    e_cmp_mo=  0002     |     e_cmp_re=  0001     |     e_type_i=  0000 
-    firmware=  0038     |   0 loop_eac   0116 R   |   0 man_arra   001A GR
-  0 man_arra   00FD GR  |   0 man_arra   0096 GR  |   0 man_arra   00A9 GR
-  0 man_arra   0000 GR  |   0 man_arra   00D5 GR  |   0 man_arra   0045 GR
-    opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
-    opc_LD_D=  0016     |   0 return_p   011F R   |   0 routine    012B R
-    sizeof_a=  0007     |     string_b   **** GX  |     sys_util   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_cmp_an=  0010 
+    e_cmp_co=  0020     |     e_cmp_de=  0023     |     e_cmp_ia=  0008 
+    e_cmp_in=  0004     |     e_cmp_mo=  0002     |     e_cmp_re=  0001 
+    e_type_i=  0000     |     firmware=  0038     |   0 loop_eac   0116 R
+  0 man_arra   001A GR  |   0 man_arra   00FD GR  |   0 man_arra   0096 GR
+  0 man_arra   00A9 GR  |   0 man_arra   0000 GR  |   0 man_arra   00D5 GR
+  0 man_arra   0045 GR  |     opc_DI  =  00F3     |     opc_EI  =  00FB 
+    opc_JR  =  0018     |     opc_LD_D=  0016     |   0 return_p   011F R
+  0 routine    012B R   |     sizeof_a=  0007     |     string_b   **** GX
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
     sys_util   **** GX  |     sys_util   **** GX  |     sys_util   **** GX
+    sys_util   **** GX
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]

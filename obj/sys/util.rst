@@ -90,74 +90,75 @@ Hexadecimal [16-Bits]
 
                              55 .globl cpct_waitVSYNCStart_asm
                              56 .globl cpct_setSeed_mxor_asm
-                             57 
-                             58 ;;===============================================================================
-                             59 ;; DEFINED CONSTANTS
-                             60 ;;===============================================================================
-                             61 
-                             62 ;;tipos de entidades
-                     0000    63 e_type_invalid              = 0x00
-                             64 
-                             65 ;;tipos de componentes
-                     0001    66 e_cmp_render = 0x01     ;;entidad renderizable
-                     0002    67 e_cmp_movable = 0x02    ;;entidad que se puede mover
-                     0004    68 e_cmp_input = 0x04      ;;entidad controlable por input  
-                     0008    69 e_cmp_ia = 0x08         ;;entidad controlable con ia
-                     0010    70 e_cmp_animated = 0x10   ;;entidad animada
-                     0020    71 e_cmp_collider = 0x20   ;;entidad que puede colisionar
-                     0023    72 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
-                             73 
+                             57 .globl cpct_setVideoMemoryPage_asm
+                             58 
+                             59 ;;===============================================================================
+                             60 ;; DEFINED CONSTANTS
+                             61 ;;===============================================================================
+                             62 
+                             63 ;;tipos de entidades
+                     0000    64 e_type_invalid              = 0x00
+                             65 
+                             66 ;;tipos de componentes
+                     0001    67 e_cmp_render = 0x01     ;;entidad renderizable
+                     0002    68 e_cmp_movable = 0x02    ;;entidad que se puede mover
+                     0004    69 e_cmp_input = 0x04      ;;entidad controlable por input  
+                     0008    70 e_cmp_ia = 0x08         ;;entidad controlable con ia
+                     0010    71 e_cmp_animated = 0x10   ;;entidad animada
+                     0020    72 e_cmp_collider = 0x20   ;;entidad que puede colisionar
+                     0023    73 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
                              74 
-                             75 ;; Keyboard constants
-                     000A    76 BUFFER_SIZE = 10
-                     00FF    77 ZERO_KEYS_ACTIVATED = #0xFF
-                             78 
-                             79 ;; Score constants
-                     0004    80 SCORE_NUM_BYTES = 4
-                             81 
-                             82 ;; SMALL NUMBERS CONSTANTS
-                     0002    83 S_SMALL_NUMBERS_WIDTH = 2
-                     0005    84 S_SMALL_NUMBERS_HEIGHT = 5
-                             85 ;; Font constants
-                     0002    86 FONT_WIDTH = 2
-                     0009    87 FONT_HEIGHT = 9
-                             88 
+                             75 
+                             76 ;; Keyboard constants
+                     000A    77 BUFFER_SIZE = 10
+                     00FF    78 ZERO_KEYS_ACTIVATED = #0xFF
+                             79 
+                             80 ;; Score constants
+                     0004    81 SCORE_NUM_BYTES = 4
+                             82 
+                             83 ;; SMALL NUMBERS CONSTANTS
+                     0002    84 S_SMALL_NUMBERS_WIDTH = 2
+                     0005    85 S_SMALL_NUMBERS_HEIGHT = 5
+                             86 ;; Font constants
+                     0002    87 FONT_WIDTH = 2
+                     0009    88 FONT_HEIGHT = 9
                              89 
-                             90 ;;===============================================================================
-                             91 ;; DEFINED MACROS
-                             92 ;;===============================================================================
-                             93 .mdelete BeginStruct
-                             94 .macro BeginStruct struct
-                             95     struct'_offset = 0
-                             96 .endm
-                             97 
-                             98 .mdelete Field
-                             99 .macro Field struct, field, size
-                            100     struct'_'field = struct'_offset
-                            101     struct'_offset = struct'_offset + size
-                            102 .endm
-                            103 
-                            104 .mdelete EndStruct
-                            105 .macro EndStruct struct
-                            106     sizeof_'struct = struct'_offset
-                            107 .endm
-                            108 
-                            109 ;;===============================================================================
+                             90 
+                             91 ;;===============================================================================
+                             92 ;; DEFINED MACROS
+                             93 ;;===============================================================================
+                             94 .mdelete BeginStruct
+                             95 .macro BeginStruct struct
+                             96     struct'_offset = 0
+                             97 .endm
+                             98 
+                             99 .mdelete Field
+                            100 .macro Field struct, field, size
+                            101     struct'_'field = struct'_offset
+                            102     struct'_offset = struct'_offset + size
+                            103 .endm
+                            104 
+                            105 .mdelete EndStruct
+                            106 .macro EndStruct struct
+                            107     sizeof_'struct = struct'_offset
+                            108 .endm
+                            109 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
 Hexadecimal [16-Bits]
 
 
 
-                            110 ;; Macro
-                            111 ;;
-                            112 ;; Macro modified from cpctelera cpctm_screenPtr_asm
-                            113 ;;===============================================================================
-                            114 
-                            115 .mdelete m_center_screen_ptr 
-                            116 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
-                            117    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
-                            118 .endm
-                            119 
+                            110 ;;===============================================================================
+                            111 ;; Macro
+                            112 ;;
+                            113 ;; Macro modified from cpctelera cpctm_screenPtr_asm
+                            114 ;;===============================================================================
+                            115 
+                            116 .mdelete m_center_screen_ptr 
+                            117 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
+                            118    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
+                            119 .endm
+                            120 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
 Hexadecimal [16-Bits]
 
@@ -172,7 +173,7 @@ Hexadecimal [16-Bits]
                              28 .area _DATA
                              29 
                              30 
-   0C39 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
+   1B4A 20 20 20 20 20 20    31 string_buffer:: .asciz "          "
         20 20 20 20 00
                              32 
                              33 
@@ -197,39 +198,39 @@ Hexadecimal [16-Bits]
                              52 ;; Credits:
                              53 ;;  Z80Heaven (http://z80-heaven.wikidot.com/advanced-math#toc9)
                              54 
-   073C                      55 sys_util_h_times_e::
-   073C 16 00         [ 7]   56   ld d,#0
-   073E 6A            [ 4]   57   ld l,d
-   073F CB 24         [ 8]   58   sla h 
-   0741 30 01         [12]   59   jr nc,.+3 
-   0743 6B            [ 4]   60   ld l,e
-   0744 29            [11]   61   add hl,hl 
-   0745 30 01         [12]   62   jr nc,.+3 
-   0747 19            [11]   63   add hl,de
-   0748 29            [11]   64   add hl,hl 
-   0749 30 01         [12]   65   jr nc,.+3 
-   074B 19            [11]   66   add hl,de
-   074C 29            [11]   67   add hl,hl 
-   074D 30 01         [12]   68   jr nc,.+3 
-   074F 19            [11]   69   add hl,de
-   0750 29            [11]   70   add hl,hl 
-   0751 30 01         [12]   71   jr nc,.+3 
-   0753 19            [11]   72   add hl,de
-   0754 29            [11]   73   add hl,hl 
-   0755 30 01         [12]   74   jr nc,.+3 
-   0757 19            [11]   75   add hl,de
+   07E0                      55 sys_util_h_times_e::
+   07E0 16 00         [ 7]   56   ld d,#0
+   07E2 6A            [ 4]   57   ld l,d
+   07E3 CB 24         [ 8]   58   sla h 
+   07E5 30 01         [12]   59   jr nc,.+3 
+   07E7 6B            [ 4]   60   ld l,e
+   07E8 29            [11]   61   add hl,hl 
+   07E9 30 01         [12]   62   jr nc,.+3 
+   07EB 19            [11]   63   add hl,de
+   07EC 29            [11]   64   add hl,hl 
+   07ED 30 01         [12]   65   jr nc,.+3 
+   07EF 19            [11]   66   add hl,de
+   07F0 29            [11]   67   add hl,hl 
+   07F1 30 01         [12]   68   jr nc,.+3 
+   07F3 19            [11]   69   add hl,de
+   07F4 29            [11]   70   add hl,hl 
+   07F5 30 01         [12]   71   jr nc,.+3 
+   07F7 19            [11]   72   add hl,de
+   07F8 29            [11]   73   add hl,hl 
+   07F9 30 01         [12]   74   jr nc,.+3 
+   07FB 19            [11]   75   add hl,de
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 
 
 
-   0758 29            [11]   76   add hl,hl 
-   0759 30 01         [12]   77   jr nc,.+3 
-   075B 19            [11]   78   add hl,de
-   075C 29            [11]   79   add hl,hl 
-   075D D0            [11]   80   ret nc 
-   075E 19            [11]   81   add hl,de
-   075F C9            [10]   82   ret
+   07FC 29            [11]   76   add hl,hl 
+   07FD 30 01         [12]   77   jr nc,.+3 
+   07FF 19            [11]   78   add hl,de
+   0800 29            [11]   79   add hl,hl 
+   0801 D0            [11]   80   ret nc 
+   0802 19            [11]   81   add hl,de
+   0803 C9            [10]   82   ret
                              83 
                              84 ;;-----------------------------------------------------------------;; 
                              85 ;;  sys_util_h_times_e
@@ -244,17 +245,17 @@ Hexadecimal [16-Bits]
                              94 ;;     DE is not changed
                              95 ;;     HL is the quotient
                              96 ;;
-   0760                      97 sys_util_hl_div_c::
-   0760 06 10         [ 7]   98        ld b,#16
-   0762 AF            [ 4]   99        xor a
-   0763 29            [11]  100          add hl,hl
-   0764 17            [ 4]  101          rla
-   0765 B9            [ 4]  102          cp c
-   0766 38 02         [12]  103          jr c,.+4
-   0768 2C            [ 4]  104            inc l
-   0769 91            [ 4]  105            sub c
-   076A 10 F7         [13]  106          djnz .-7
-   076C C9            [10]  107        ret
+   0804                      97 sys_util_hl_div_c::
+   0804 06 10         [ 7]   98        ld b,#16
+   0806 AF            [ 4]   99        xor a
+   0807 29            [11]  100          add hl,hl
+   0808 17            [ 4]  101          rla
+   0809 B9            [ 4]  102          cp c
+   080A 38 02         [12]  103          jr c,.+4
+   080C 2C            [ 4]  104            inc l
+   080D 91            [ 4]  105            sub c
+   080E 10 F7         [13]  106          djnz .-7
+   0810 C9            [10]  107        ret
                             108 
                             109 ;;-----------------------------------------------------------------
                             110 ;;
@@ -269,24 +270,24 @@ Hexadecimal [16-Bits]
                             119 ;;
                             120 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             121 ;;
-   076D                     122 sys_util_BCD_GetEnd::
+   0811                     122 sys_util_BCD_GetEnd::
                             123 ;Some of our commands need to start from the most significant byte
                             124 ;This will shift HL and DE along b bytes
-   076D C5            [11]  125 	push bc
-   076E 48            [ 4]  126 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
-   076F 0D            [ 4]  127 	dec c
-   0770 06 00         [ 7]  128 	ld b,#0
-   0772 09            [11]  129 	add hl,bc
-   0773 EB            [ 4]  130 	ex de, hl	;We've done HL, but we also want to do DE
+   0811 C5            [11]  125 	push bc
+   0812 48            [ 4]  126 	ld c,b	;We want to add BC, but we need to add one less than the number of bytes
+   0813 0D            [ 4]  127 	dec c
+   0814 06 00         [ 7]  128 	ld b,#0
+   0816 09            [11]  129 	add hl,bc
+   0817 EB            [ 4]  130 	ex de, hl	;We've done HL, but we also want to do DE
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 7.
 Hexadecimal [16-Bits]
 
 
 
-   0774 09            [11]  131 	add hl,bc
-   0775 EB            [ 4]  132 	ex de, hl
-   0776 C1            [10]  133 	pop bc
-   0777 C9            [10]  134 	ret
+   0818 09            [11]  131 	add hl,bc
+   0819 EB            [ 4]  132 	ex de, hl
+   081A C1            [10]  133 	pop bc
+   081B C9            [10]  134 	ret
                             135 
                             136 ;;-----------------------------------------------------------------
                             137 ;;
@@ -300,17 +301,17 @@ Hexadecimal [16-Bits]
                             145 ;;
                             146 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             147 ;;
-   0778                     148 sys_util_BCD_Add::
-   0778 B7            [ 4]  149     or a
-   0779                     150 BCD_Add_Again:
-   0779 1A            [ 7]  151     ld a, (de)
-   077A 8E            [ 7]  152     adc (hl)
-   077B 27            [ 4]  153     daa
-   077C 12            [ 7]  154     ld (de), a
-   077D 13            [ 6]  155     inc de
-   077E 23            [ 6]  156     inc hl
-   077F 10 F8         [13]  157     djnz BCD_Add_Again
-   0781 C9            [10]  158     ret
+   081C                     148 sys_util_BCD_Add::
+   081C B7            [ 4]  149     or a
+   081D                     150 BCD_Add_Again:
+   081D 1A            [ 7]  151     ld a, (de)
+   081E 8E            [ 7]  152     adc (hl)
+   081F 27            [ 4]  153     daa
+   0820 12            [ 7]  154     ld (de), a
+   0821 13            [ 6]  155     inc de
+   0822 23            [ 6]  156     inc hl
+   0823 10 F8         [13]  157     djnz BCD_Add_Again
+   0825 C9            [10]  158     ret
                             159   
                             160 ;;-----------------------------------------------------------------
                             161 ;;
@@ -324,19 +325,19 @@ Hexadecimal [16-Bits]
                             169 ;;
                             170 ;;  Chibi Akumas BCD code (https://www.chibiakumas.com/z80/advanced.php#LessonA1)
                             171 ;;
-   0782                     172 sys_util_BCD_Compare::
-   0782 06 04         [ 7]  173   ld b, #SCORE_NUM_BYTES
-   0784 CD 6D 07      [17]  174   call sys_util_BCD_GetEnd
-   0787                     175 BCD_cp_direct:
-   0787 1A            [ 7]  176   ld a, (de)
-   0788 BE            [ 7]  177   cp (hl)
-   0789 D8            [11]  178   ret c
-   078A C0            [11]  179   ret nz
-   078B 1B            [ 6]  180   dec de
-   078C 2B            [ 6]  181   dec hl
-   078D 10 F8         [13]  182   djnz BCD_cp_direct
-   078F B7            [ 4]  183   or a                    ;; Clear carry
-   0790 C9            [10]  184   ret
+   0826                     172 sys_util_BCD_Compare::
+   0826 06 04         [ 7]  173   ld b, #SCORE_NUM_BYTES
+   0828 CD 11 08      [17]  174   call sys_util_BCD_GetEnd
+   082B                     175 BCD_cp_direct:
+   082B 1A            [ 7]  176   ld a, (de)
+   082C BE            [ 7]  177   cp (hl)
+   082D D8            [11]  178   ret c
+   082E C0            [11]  179   ret nz
+   082F 1B            [ 6]  180   dec de
+   0830 2B            [ 6]  181   dec hl
+   0831 10 F8         [13]  182   djnz BCD_cp_direct
+   0833 B7            [ 4]  183   or a                    ;; Clear carry
+   0834 C9            [10]  184   ret
                             185 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 8.
 Hexadecimal [16-Bits]
@@ -352,21 +353,21 @@ Hexadecimal [16-Bits]
                             192 ;;  Output: a: random number
                             193 ;;  Destroyed: af, bc,de, hl
                             194 
-   0791                     195 sys_util_get_random_number::
-   0791 32 9B 07      [13]  196   ld (#random_max_number), a
-   0794 CD 06 0B      [17]  197   call cpct_getRandom_mxor_u8_asm
-   0797 7D            [ 4]  198   ld a, l                             ;; Calculates a pseudo modulus of max number
-   0798 26 00         [ 7]  199   ld h,#0                             ;; Load hl with the random number
+   0835                     195 sys_util_get_random_number::
+   0835 32 3F 08      [13]  196   ld (#random_max_number), a
+   0838 CD 6B 1A      [17]  197   call cpct_getRandom_mxor_u8_asm
+   083B 7D            [ 4]  198   ld a, l                             ;; Calculates a pseudo modulus of max number
+   083C 26 00         [ 7]  199   ld h,#0                             ;; Load hl with the random number
                      005F   200 random_max_number = .+1
-   079A 0E 00         [ 7]  201   ld c, #0                            ;; Load c with the max number
-   079C 06 00         [ 7]  202   ld b, #0
-   079E                     203 _random_mod_loop:
-   079E B7            [ 4]  204   or a                                ;; ??
-   079F ED 42         [15]  205   sbc hl,bc                           ;; hl = hl - bc
-   07A1 F2 9E 07      [10]  206   jp p, _random_mod_loop              ;; Jump back if hl > 0
-   07A4 09            [11]  207   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
-   07A5 7D            [ 4]  208   ld a,l                              ;; loads the normalized random number in a
-   07A6 C9            [10]  209 ret
+   083E 0E 00         [ 7]  201   ld c, #0                            ;; Load c with the max number
+   0840 06 00         [ 7]  202   ld b, #0
+   0842                     203 _random_mod_loop:
+   0842 B7            [ 4]  204   or a                                ;; ??
+   0843 ED 42         [15]  205   sbc hl,bc                           ;; hl = hl - bc
+   0845 F2 42 08      [10]  206   jp p, _random_mod_loop              ;; Jump back if hl > 0
+   0848 09            [11]  207   add hl,bc                           ;; Adds MAX_MODEL_CARD to hl back to get back to positive values
+   0849 7D            [ 4]  208   ld a,l                              ;; loads the normalized random number in a
+   084A C9            [10]  209 ret
                             210 
                             211 ;;-----------------------------------------------------------------
                             212 ;;
@@ -377,9 +378,9 @@ Hexadecimal [16-Bits]
                             217 ;;  Output: 
                             218 ;;  Destroyed: af, bc
                             219 ;;
-   07A7                     220 sys_util_delay::
-   07A7 C5            [11]  221   push bc
-   07A8 CD 96 0B      [17]  222   call cpct_waitVSYNCStart_asm
-   07AB C1            [10]  223   pop bc
-   07AC 10 F9         [13]  224   djnz sys_util_delay
-   07AE C9            [10]  225   ret
+   084B                     220 sys_util_delay::
+   084B C5            [11]  221   push bc
+   084C CD FB 1A      [17]  222   call cpct_waitVSYNCStart_asm
+   084F C1            [10]  223   pop bc
+   0850 10 F9         [13]  224   djnz sys_util_delay
+   0852 C9            [10]  225   ret

@@ -15,9 +15,76 @@
 
 .module render_system
 
+
 ;;===============================================================================
-;; GLOBAL METHODS
+;; PUBLIC CONSTANTS
 ;;===============================================================================
 
+;;===============================================================================
+;; PUBLIC VARIABLES
+;;===============================================================================
+.globl sys_render_back_buffer
+.globl sys_render_front_buffer
+.globl sys_render_touched_zones
+
+.globl transparency_table
+
+
+;;===============================================================================
+;; PUBLIC METHODS
+;;===============================================================================
 .globl sys_render_init
-.globl sys_render_update
+
+;;===============================================================================
+;; MACRO
+;;===============================================================================
+.mdelete ld_de_backbuffer
+.macro ld_de_backbuffer
+   ld   a, (sys_render_back_buffer)          ;; DE = Pointer to start of the screen
+   ld   d, a
+   ld   e, #00
+.endm
+
+.mdelete ld_de_frontbuffer
+.macro ld_de_frontbuffer
+   ld   a, (sys_render_front_buffer)         ;; DE = Pointer to start of the screen
+   ld   d, a
+   ld   e, #00
+.endm
+
+.mdelete m_screenPtr_backbuffer
+.macro m_screenPtr_backbuffer X, Y
+   push hl
+   ld de, #(80 * (Y / 8) + 2048 * (Y & 7) + X)
+   ld a, (sys_render_back_buffer)
+   ld h, a
+   ld l, #0         
+   add hl, de
+   ex de, hl
+   pop hl
+.endm
+
+.mdelete m_screenPtr_frontbuffer
+.macro m_screenPtr_frontbuffer X, Y
+   push hl
+   ld de, #(80 * (Y / 8) + 2048 * (Y & 7) + X)
+   ld a, (sys_render_front_buffer)
+   ld h, a
+   ld l, #0         
+   add hl, de
+   ex de, hl
+   pop hl
+.endm
+
+
+.mdelete m_draw_blank_small_number
+.macro m_draw_blank_small_number
+   push de
+   push hl
+   ld c, #5
+   ld b, #5
+   ld a, #0                         ;; Patern of solid box
+   call cpct_drawSolidBox_asm
+   pop hl
+   pop de
+.endm

@@ -18,9 +18,17 @@ obj/man/game.h.rel
 obj/man/array.rel
 obj/man/array.h.rel
 obj/man/game.rel
+obj/sys/system.rel
 obj/sys/render.rel
+obj/sys/text.h.rel
 obj/sys/util.rel
+obj/sys/system.h.rel
 obj/sys/util.h.rel
+obj/sys/messages.h.rel
+obj/sys/text.rel
+obj/sys/messages.rel
+obj/sys/input.h.rel
 obj/sys/render.h.rel
+obj/sys/input.rel
 
 -e

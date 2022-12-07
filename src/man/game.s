@@ -1,4 +1,5 @@
 ;;-----------------------------LICENSE NOTICE------------------------------------
+;;
 ;;  This program is free software: you can redistribute it and/or modify
 ;;  it under the terms of the GNU Lesser General Public License as published by
 ;;  the Free Software Foundation, either version 3 of the License, or
@@ -14,3 +15,44 @@
 ;;-------------------------------------------------------------------------------
 
 .module game_manager
+.include "common.h.s"
+.include "cpctelera.h.s"
+
+
+
+;;
+;; Start of _DATA area 
+;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
+;;  any one of them for any purpose. Usually, compiler puts _DATA area contents
+;;  right after _CODE area contents.
+;;
+.area _DATA
+
+;;
+;; Start of _CODE area
+;; 
+.area _CODE
+
+;;-----------------------------------------------------------------
+;;
+;; man_game_init
+;;
+;;  
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+man_game_init::
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; man_game_update
+;;
+;;   
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+man_game_update::
+    ret

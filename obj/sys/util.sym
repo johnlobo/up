@@ -18,14 +18,14 @@ Symbol Table
     cpct_isK   **** GX  |     cpct_mem   **** GX  |     cpct_mem   **** GX
     cpct_sca   **** GX  |     cpct_sca   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
-    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_cmp_an=  0010 
-    e_cmp_co=  0020     |     e_cmp_de=  0023     |     e_cmp_ia=  0008 
-    e_cmp_in=  0004     |     e_cmp_mo=  0002     |     e_cmp_re=  0001 
-    e_type_i=  0000     |   0 random_m=  005F R   |   1 string_b   0000 GR
-  0 sys_util   003C GR  |   0 sys_util   0046 GR  |   0 sys_util   0031 GR
-  0 sys_util   006B GR  |   0 sys_util   0055 GR  |   0 sys_util   0000 GR
-  0 sys_util   0024 GR
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
+    e_cmp_an=  0010     |     e_cmp_co=  0020     |     e_cmp_de=  0023 
+    e_cmp_ia=  0008     |     e_cmp_in=  0004     |     e_cmp_mo=  0002 
+    e_cmp_re=  0001     |     e_type_i=  0000     |   0 random_m=  005F R
+  1 string_b   0000 GR  |   0 sys_util   003C GR  |   0 sys_util   0046 GR
+  0 sys_util   0031 GR  |   0 sys_util   006B GR  |   0 sys_util   0055 GR
+  0 sys_util   0000 GR  |   0 sys_util   0024 GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]

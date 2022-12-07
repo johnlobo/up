@@ -1,6 +1,6 @@
 XL2
-H 1 areas 27 global symbols
-M cpct_keyboard
+H 4 areas 2F global symbols
+M render_system
 S cpct_setInterruptHandler_asm Ref0000
 S cpct_getScreenToSprite_asm Ref0000
 S cpct_isKeyPressed_asm Ref0000
@@ -13,6 +13,7 @@ S cpct_waitHalts_asm Ref0000
 S cpct_setSeed_mxor_asm Ref0000
 S .__.ABS. Def0000
 S cpct_setSeed_xsp40_u8_asm Ref0000
+S cpct_setVideoMemoryPage_asm Ref0000
 S cpct_memset_f64_asm Ref0000
 S _s_small_numbers_00 Ref0000
 S _s_small_numbers_01 Ref0000
@@ -38,20 +39,84 @@ S cpct_drawSpriteBlended_asm Ref0000
 S cpct_waitVSYNCStart_asm Ref0000
 S cpct_scanKeyboard_asm Ref0000
 S cpct_getScreenPtr_asm Ref0000
-A _CODE size 2F flags 0 addr 0
-S sys_render_init Def0000
-S sys_render_update Def002E
+A _CODE size 4D flags 0 addr 0
+S sys_render_clear_front_buffer Def0015
+S sys_render_init Def0035
+S sys_render_clear_back_buffer Def000B
+S sys_render_switch_buffers Def001F
+S sys_render_clear_buffer Def0000
+A _DATA size 5 flags 0 addr 0
+S sys_render_back_buffer Def0003
+S sys_render_touched_zones Def0004
+S sys_render_front_buffer Def0002
+A _ABS size 0 flags 8 addr 0
+A _ABS0 size 100 flags 8 addr 100
+S transparency_table Def0100
+T 00 00 00 00 C0 80 00
+R 00 00 01 00
+T 00 01
+R 00 00 03 00
+T 00 01
+R 00 00 03 00
+T 00 01 FF AA 55 00 AA AA 00 00 55 00 55 00 00 00
+R 00 00 03 00
+T 0E 01 00 00 AA AA 00 00 AA AA 00 00 00 00 00 00
+R 00 00 03 00
+T 1C 01 00 00 00 00 55 00 55 00 00 00 00 00 55 00
+R 00 00 03 00
+T 2A 01 55 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T 38 01 00 00 00 00 00 00 00 00 AA AA 00 00 AA AA
+R 00 00 03 00
+T 46 01 00 00 00 00 00 00 00 00 00 00 AA AA 00 00
+R 00 00 03 00
+T 54 01 AA AA 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T 62 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T 70 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T 7E 01 00 00 55 00 55 00 00 00 00 00 55 00 55 00
+R 00 00 03 00
+T 8C 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T 9A 01 00 00 00 00 00 00 55 00 55 00 00 00 00 00
+R 00 00 03 00
+T A8 01 55 00 55 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T B6 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T C4 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T D2 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T E0 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T EE 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 03 00
+T FC 01 00 00 00 00
+R 00 00 03 00
 T 00 00
 R 00 00 00 00
-T 00 00 0E 00 CD 00 00 21 40 1F 11 00 00 01 A0 0F
-R 00 00 00 00 02 05 1A 00
-T 0E 00 CD 00 00 21 00 00 11 10 00 CD 00 00 21
-R 00 00 00 00 02 03 0C 00 02 06 04 00 02 0C 03 00
-T 1B 00 10 14 CD 00 00 21 00 C0 11 01 C0 01 FF 3F
-R 00 00 00 00 02 05 05 00
-T 29 00 36 00 ED B0 C9
+T 00 00 36 00 54 5D 13 01 FF 3F ED B0 C9
 R 00 00 00 00
-T 2E 00
+T 0B 00
 R 00 00 00 00
-T 2E 00 C9
+T 0B 00 3A 03 00 67 2E 00 CD 00 00 C9
+R 00 00 00 00 00 03 01 00 00 09 00 00
+T 15 00
 R 00 00 00 00
+T 15 00 3A 02 00 67 2E 00 CD 00 00 C9
+R 00 00 00 00 00 03 01 00 00 09 00 00
+T 1F 00
+R 00 00 00 00
+T 1F 00 2A 02 00 7D 32 03 00 7C 32 02 00 CB 3F CB
+R 00 00 00 00 00 03 01 00 00 07 01 00 00 0B 01 00
+T 2D 00 3F 6F CD 00 00 C3 00 00
+R 00 00 00 00 02 05 1A 00 02 08 0C 00
+T 35 00
+R 00 00 00 00
+T 35 00 0E 00 CD 00 00 21 00 00 11 10 00 CD 00 00
+R 00 00 00 00 02 05 1B 00 02 08 04 00 02 0E 03 00
+T 43 00 21 10 14 CD 00 00 CD 15 00 C9
+R 00 00 00 00 02 06 05 00 00 09 00 00

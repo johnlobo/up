@@ -111,74 +111,75 @@ Hexadecimal [16-Bits]
 
                              55 .globl cpct_waitVSYNCStart_asm
                              56 .globl cpct_setSeed_mxor_asm
-                             57 
-                             58 ;;===============================================================================
-                             59 ;; DEFINED CONSTANTS
-                             60 ;;===============================================================================
-                             61 
-                             62 ;;tipos de entidades
-                     0000    63 e_type_invalid              = 0x00
-                             64 
-                             65 ;;tipos de componentes
-                     0001    66 e_cmp_render = 0x01     ;;entidad renderizable
-                     0002    67 e_cmp_movable = 0x02    ;;entidad que se puede mover
-                     0004    68 e_cmp_input = 0x04      ;;entidad controlable por input  
-                     0008    69 e_cmp_ia = 0x08         ;;entidad controlable con ia
-                     0010    70 e_cmp_animated = 0x10   ;;entidad animada
-                     0020    71 e_cmp_collider = 0x20   ;;entidad que puede colisionar
-                     0023    72 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
-                             73 
+                             57 .globl cpct_setVideoMemoryPage_asm
+                             58 
+                             59 ;;===============================================================================
+                             60 ;; DEFINED CONSTANTS
+                             61 ;;===============================================================================
+                             62 
+                             63 ;;tipos de entidades
+                     0000    64 e_type_invalid              = 0x00
+                             65 
+                             66 ;;tipos de componentes
+                     0001    67 e_cmp_render = 0x01     ;;entidad renderizable
+                     0002    68 e_cmp_movable = 0x02    ;;entidad que se puede mover
+                     0004    69 e_cmp_input = 0x04      ;;entidad controlable por input  
+                     0008    70 e_cmp_ia = 0x08         ;;entidad controlable con ia
+                     0010    71 e_cmp_animated = 0x10   ;;entidad animada
+                     0020    72 e_cmp_collider = 0x20   ;;entidad que puede colisionar
+                     0023    73 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
                              74 
-                             75 ;; Keyboard constants
-                     000A    76 BUFFER_SIZE = 10
-                     00FF    77 ZERO_KEYS_ACTIVATED = #0xFF
-                             78 
-                             79 ;; Score constants
-                     0004    80 SCORE_NUM_BYTES = 4
-                             81 
-                             82 ;; SMALL NUMBERS CONSTANTS
-                     0002    83 S_SMALL_NUMBERS_WIDTH = 2
-                     0005    84 S_SMALL_NUMBERS_HEIGHT = 5
-                             85 ;; Font constants
-                     0002    86 FONT_WIDTH = 2
-                     0009    87 FONT_HEIGHT = 9
-                             88 
+                             75 
+                             76 ;; Keyboard constants
+                     000A    77 BUFFER_SIZE = 10
+                     00FF    78 ZERO_KEYS_ACTIVATED = #0xFF
+                             79 
+                             80 ;; Score constants
+                     0004    81 SCORE_NUM_BYTES = 4
+                             82 
+                             83 ;; SMALL NUMBERS CONSTANTS
+                     0002    84 S_SMALL_NUMBERS_WIDTH = 2
+                     0005    85 S_SMALL_NUMBERS_HEIGHT = 5
+                             86 ;; Font constants
+                     0002    87 FONT_WIDTH = 2
+                     0009    88 FONT_HEIGHT = 9
                              89 
-                             90 ;;===============================================================================
-                             91 ;; DEFINED MACROS
-                             92 ;;===============================================================================
-                             93 .mdelete BeginStruct
-                             94 .macro BeginStruct struct
-                             95     struct'_offset = 0
-                             96 .endm
-                             97 
-                             98 .mdelete Field
-                             99 .macro Field struct, field, size
-                            100     struct'_'field = struct'_offset
-                            101     struct'_offset = struct'_offset + size
-                            102 .endm
-                            103 
-                            104 .mdelete EndStruct
-                            105 .macro EndStruct struct
-                            106     sizeof_'struct = struct'_offset
-                            107 .endm
-                            108 
-                            109 ;;===============================================================================
+                             90 
+                             91 ;;===============================================================================
+                             92 ;; DEFINED MACROS
+                             93 ;;===============================================================================
+                             94 .mdelete BeginStruct
+                             95 .macro BeginStruct struct
+                             96     struct'_offset = 0
+                             97 .endm
+                             98 
+                             99 .mdelete Field
+                            100 .macro Field struct, field, size
+                            101     struct'_'field = struct'_offset
+                            102     struct'_offset = struct'_offset + size
+                            103 .endm
+                            104 
+                            105 .mdelete EndStruct
+                            106 .macro EndStruct struct
+                            107     sizeof_'struct = struct'_offset
+                            108 .endm
+                            109 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
 Hexadecimal [16-Bits]
 
 
 
-                            110 ;; Macro
-                            111 ;;
-                            112 ;; Macro modified from cpctelera cpctm_screenPtr_asm
-                            113 ;;===============================================================================
-                            114 
-                            115 .mdelete m_center_screen_ptr 
-                            116 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
-                            117    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
-                            118 .endm
-                            119 
+                            110 ;;===============================================================================
+                            111 ;; Macro
+                            112 ;;
+                            113 ;; Macro modified from cpctelera cpctm_screenPtr_asm
+                            114 ;;===============================================================================
+                            115 
+                            116 .mdelete m_center_screen_ptr 
+                            117 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
+                            118    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
+                            119 .endm
+                            120 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
 Hexadecimal [16-Bits]
 
@@ -219,7 +220,7 @@ Hexadecimal [16-Bits]
                              50 ;;===============================================================================
                              51 ;; DATA ARRAY STRUCTURE CREATION
                              52 ;;===============================================================================
-   05DF                      53 BeginStruct a
+   05EA                      53 BeginStruct a
                      0000     1     a_offset = 0
    0000                      54 Field a, count , 1
                      0000     1     a_count = a_offset
@@ -5299,74 +5300,75 @@ Hexadecimal [16-Bits]
 
                              55 .globl cpct_waitVSYNCStart_asm
                              56 .globl cpct_setSeed_mxor_asm
-                             57 
-                             58 ;;===============================================================================
-                             59 ;; DEFINED CONSTANTS
-                             60 ;;===============================================================================
-                             61 
-                             62 ;;tipos de entidades
-                     0000    63 e_type_invalid              = 0x00
-                             64 
-                             65 ;;tipos de componentes
-                     0001    66 e_cmp_render = 0x01     ;;entidad renderizable
-                     0002    67 e_cmp_movable = 0x02    ;;entidad que se puede mover
-                     0004    68 e_cmp_input = 0x04      ;;entidad controlable por input  
-                     0008    69 e_cmp_ia = 0x08         ;;entidad controlable con ia
-                     0010    70 e_cmp_animated = 0x10   ;;entidad animada
-                     0020    71 e_cmp_collider = 0x20   ;;entidad que puede colisionar
-                     0023    72 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
-                             73 
+                             57 .globl cpct_setVideoMemoryPage_asm
+                             58 
+                             59 ;;===============================================================================
+                             60 ;; DEFINED CONSTANTS
+                             61 ;;===============================================================================
+                             62 
+                             63 ;;tipos de entidades
+                     0000    64 e_type_invalid              = 0x00
+                             65 
+                             66 ;;tipos de componentes
+                     0001    67 e_cmp_render = 0x01     ;;entidad renderizable
+                     0002    68 e_cmp_movable = 0x02    ;;entidad que se puede mover
+                     0004    69 e_cmp_input = 0x04      ;;entidad controlable por input  
+                     0008    70 e_cmp_ia = 0x08         ;;entidad controlable con ia
+                     0010    71 e_cmp_animated = 0x10   ;;entidad animada
+                     0020    72 e_cmp_collider = 0x20   ;;entidad que puede colisionar
+                     0023    73 e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
                              74 
-                             75 ;; Keyboard constants
-                     000A    76 BUFFER_SIZE = 10
-                     00FF    77 ZERO_KEYS_ACTIVATED = #0xFF
-                             78 
-                             79 ;; Score constants
-                     0004    80 SCORE_NUM_BYTES = 4
-                             81 
-                             82 ;; SMALL NUMBERS CONSTANTS
-                     0002    83 S_SMALL_NUMBERS_WIDTH = 2
-                     0005    84 S_SMALL_NUMBERS_HEIGHT = 5
-                             85 ;; Font constants
-                     0002    86 FONT_WIDTH = 2
-                     0009    87 FONT_HEIGHT = 9
-                             88 
+                             75 
+                             76 ;; Keyboard constants
+                     000A    77 BUFFER_SIZE = 10
+                     00FF    78 ZERO_KEYS_ACTIVATED = #0xFF
+                             79 
+                             80 ;; Score constants
+                     0004    81 SCORE_NUM_BYTES = 4
+                             82 
+                             83 ;; SMALL NUMBERS CONSTANTS
+                     0002    84 S_SMALL_NUMBERS_WIDTH = 2
+                     0005    85 S_SMALL_NUMBERS_HEIGHT = 5
+                             86 ;; Font constants
+                     0002    87 FONT_WIDTH = 2
+                     0009    88 FONT_HEIGHT = 9
                              89 
-                             90 ;;===============================================================================
-                             91 ;; DEFINED MACROS
-                             92 ;;===============================================================================
-                             93 .mdelete BeginStruct
-                             94 .macro BeginStruct struct
-                             95     struct'_offset = 0
-                             96 .endm
-                             97 
-                             98 .mdelete Field
-                             99 .macro Field struct, field, size
-                            100     struct'_'field = struct'_offset
-                            101     struct'_offset = struct'_offset + size
-                            102 .endm
-                            103 
-                            104 .mdelete EndStruct
-                            105 .macro EndStruct struct
-                            106     sizeof_'struct = struct'_offset
-                            107 .endm
-                            108 
-                            109 ;;===============================================================================
+                             90 
+                             91 ;;===============================================================================
+                             92 ;; DEFINED MACROS
+                             93 ;;===============================================================================
+                             94 .mdelete BeginStruct
+                             95 .macro BeginStruct struct
+                             96     struct'_offset = 0
+                             97 .endm
+                             98 
+                             99 .mdelete Field
+                            100 .macro Field struct, field, size
+                            101     struct'_'field = struct'_offset
+                            102     struct'_offset = struct'_offset + size
+                            103 .endm
+                            104 
+                            105 .mdelete EndStruct
+                            106 .macro EndStruct struct
+                            107     sizeof_'struct = struct'_offset
+                            108 .endm
+                            109 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 103.
 Hexadecimal [16-Bits]
 
 
 
-                            110 ;; Macro
-                            111 ;;
-                            112 ;; Macro modified from cpctelera cpctm_screenPtr_asm
-                            113 ;;===============================================================================
-                            114 
-                            115 .mdelete m_center_screen_ptr 
-                            116 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
-                            117    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
-                            118 .endm
-                            119 
+                            110 ;;===============================================================================
+                            111 ;; Macro
+                            112 ;;
+                            113 ;; Macro modified from cpctelera cpctm_screenPtr_asm
+                            114 ;;===============================================================================
+                            115 
+                            116 .mdelete m_center_screen_ptr 
+                            117 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
+                            118    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
+                            119 .endm
+                            120 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 104.
 Hexadecimal [16-Bits]
 
@@ -5438,41 +5440,41 @@ Hexadecimal [16-Bits]
                              47 ;;  Modified: AF, HL
                              48 ;;
    0000                      49 man_array_init::
-   05DF AF            [ 4]   50     xor a
-   05E0 DD 77 00      [19]   51     ld a_count(ix), a           ;; Initialize the number of elements in the array
+   05EA AF            [ 4]   50     xor a
+   05EB DD 77 00      [19]   51     ld a_count(ix), a           ;; Initialize the number of elements in the array
                              52 
    0004                      53     ld__hl_ix                   ;; point hl to the start of the array 
                               1    ;; LD HL, IX
                               2    ;;------------
    0004                       3    ld__a_ixl
-   05E3 DD 7D                 1    .dw #0x7DDD  ;; Opcode for ld a, ixl
-   05E5 6F            [ 4]    4    ld  l, a
+   05EE DD 7D                 1    .dw #0x7DDD  ;; Opcode for ld a, ixl
+   05F0 6F            [ 4]    4    ld  l, a
    0007                       5    ld__a_ixh
-   05E6 DD 7C                 1    .dw #0x7CDD  ;; Opcode for ld a, ixh
-   05E8 67            [ 4]    6    ld  h, a
+   05F1 DD 7C                 1    .dw #0x7CDD  ;; Opcode for ld a, ixh
+   05F3 67            [ 4]    6    ld  h, a
                               7    ;;------------
-   05E9 3E 06         [ 7]   54     ld a, #a_array
+   05F4 3E 06         [ 7]   54     ld a, #a_array
    000C                      55     add_hl_a
    000C                       1    add_REGPAIR_a  h, l
                               1    ;; First Perform RH = E + A
-   05EB 85            [ 4]    2    add l    ;; [1] A' = RL + A 
-   05EC 6F            [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
+   05F6 85            [ 4]    2    add l    ;; [1] A' = RL + A 
+   05F7 6F            [ 4]    3    ld  l, a ;; [1] RL' = A' = RL + A. It might generate Carry that must be added to RH
                               4    
                               5    ;; Then Perform RH = RH + Carry 
-   05ED 8C            [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
-   05EE 95            [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
-   05EF 67            [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
+   05F8 8C            [ 4]    6    adc h    ;; [1] A'' = A' + RH + Carry = RL + A + RH + Carry
+   05F9 95            [ 4]    7    sub l    ;; [1] Remove RL'. A''' = A'' - RL' = RL + A + RH + Carry - (RL + A) = RH + Carry
+   05FA 67            [ 4]    8    ld  h, a ;; [1] Save into RH (RH' = A''' = RH + Carry)
                              56     
-   05F0 DD 75 03      [19]   57     ld a_pend(ix), l            ;; load pointer to the end in hl
-   05F3 DD 74 04      [19]   58     ld a_pend+1(ix), h
+   05FB DD 75 03      [19]   57     ld a_pend(ix), l            ;; load pointer to the end in hl
+   05FE DD 74 04      [19]   58     ld a_pend+1(ix), h
                              59 
-   05F6 36 00         [10]   60     ld  (hl), #e_type_invalid   ;;ponemos el primer elemento del array con tipo invalido
+   0601 36 00         [10]   60     ld  (hl), #e_type_invalid   ;;ponemos el primer elemento del array con tipo invalido
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 106.
 Hexadecimal [16-Bits]
 
 
 
-   05F8 C9            [10]   61     ret
+   0603 C9            [10]   61     ret
                              62 
                              63 
                              64 ;;-----------------------------------------------------------------
@@ -5485,32 +5487,32 @@ Hexadecimal [16-Bits]
                              71 ;;  Output: hl: points to the new created entity
                              72 ;;  Modified: AF, BC, DE, HL
                              73 ;;
-   05F9                      74 man_array_create_element::
-   05F9 06 00         [ 7]   75     ld b, #0                        ;; bc = component size
-   05FB DD 7E 02      [19]   76     ld a, a_component_size(ix)      ;;
-   05FE 4F            [ 4]   77     ld c, a                         ;;    
-   05FF 32 19 06      [13]   78     ld (_create_size), a            ;; self modifying code to move the size of the entity to bc
-   0602 AF            [ 4]   79     xor a                           ;; ld a, #0
-   0603 32 1A 06      [13]   80     ld (_create_size+1), a          ;;
+   0604                      74 man_array_create_element::
+   0604 06 00         [ 7]   75     ld b, #0                        ;; bc = component size
+   0606 DD 7E 02      [19]   76     ld a, a_component_size(ix)      ;;
+   0609 4F            [ 4]   77     ld c, a                         ;;    
+   060A 32 24 06      [13]   78     ld (_create_size), a            ;; self modifying code to move the size of the entity to bc
+   060D AF            [ 4]   79     xor a                           ;; ld a, #0
+   060E 32 25 06      [13]   80     ld (_create_size+1), a          ;;
                              81     
-   0606 DD 5E 03      [19]   82     ld e, a_pend(ix)                ;; Load the address of the next element in de
-   0609 DD 56 04      [19]   83     ld d, a_pend+1(ix)              ;;
-   060C D5            [11]   84     push de                         ;; Store the address of the next element to return it at the end
-   060D ED B0         [21]   85     ldir                            ;; de=pend, bc=component_size, hl=pointer to the entity to be added
+   0611 DD 5E 03      [19]   82     ld e, a_pend(ix)                ;; Load the address of the next element in de
+   0614 DD 56 04      [19]   83     ld d, a_pend+1(ix)              ;;
+   0617 D5            [11]   84     push de                         ;; Store the address of the next element to return it at the end
+   0618 ED B0         [21]   85     ldir                            ;; de=pend, bc=component_size, hl=pointer to the entity to be added
                              86 
-   060F DD 34 00      [23]   87     inc a_count(ix)                 ;; increase the number of entities
+   061A DD 34 00      [23]   87     inc a_count(ix)                 ;; increase the number of entities
                              88 
-   0612 DD 6E 03      [19]   89     ld l, a_pend(ix)                ;; load in hl the pointer to the next entity
-   0615 DD 66 04      [19]   90     ld h, a_pend+1(ix)
+   061D DD 6E 03      [19]   89     ld l, a_pend(ix)                ;; load in hl the pointer to the next entity
+   0620 DD 66 04      [19]   90     ld h, a_pend+1(ix)
                      003A    91 _create_size = .+1
-   0618 01 00 00      [10]   92     ld   bc, #00
-   061B 09            [11]   93     add  hl, bc
+   0623 01 00 00      [10]   92     ld   bc, #00
+   0626 09            [11]   93     add  hl, bc
                              94 
-   061C DD 75 03      [19]   95     ld   a_pend(ix), l              ;; update the pointer to the next entity
-   061F DD 74 04      [19]   96     ld   a_pend+1(ix), h            ;;
+   0627 DD 75 03      [19]   95     ld   a_pend(ix), l              ;; update the pointer to the next entity
+   062A DD 74 04      [19]   96     ld   a_pend+1(ix), h            ;;
                              97 
-   0622 E1            [10]   98     pop hl                          ;; restore the new element address in hl
-   0623 C9            [10]   99 ret
+   062D E1            [10]   98     pop hl                          ;; restore the new element address in hl
+   062E C9            [10]   99 ret
                             100 
                             101 
                             102 
@@ -5524,78 +5526,78 @@ Hexadecimal [16-Bits]
                             110 ;;  Output: 
                             111 ;;  Modified: AF, BC, DE, HL
                             112 ;;
-   0624                     113 man_array_remove_element::
+   062F                     113 man_array_remove_element::
                             114 
-   0624 47            [ 4]  115     ld b, a                     ;; copy element to erase to b
+   062F 47            [ 4]  115     ld b, a                     ;; copy element to erase to b
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 107.
 Hexadecimal [16-Bits]
 
 
 
-   0625 DD 7E 00      [19]  116     ld a, a_count(ix)           ;; check if we have to erase the last element
-   0628 3D            [ 4]  117     dec a                       ;;
-   0629 B8            [ 4]  118     cp b                        ;;
-   062A 28 2F         [12]  119     jr z, _last_element         ;;  jump if we have to erase the last element
+   0630 DD 7E 00      [19]  116     ld a, a_count(ix)           ;; check if we have to erase the last element
+   0633 3D            [ 4]  117     dec a                       ;;
+   0634 B8            [ 4]  118     cp b                        ;;
+   0635 28 2F         [12]  119     jr z, _last_element         ;;  jump if we have to erase the last element
                             120 
-   062C DD E5         [15]  121     push ix                     ;; hl to the start of the array    
-   062E E1            [10]  122     pop hl                      ;;
-   062F 11 06 00      [10]  123     ld de, #a_array             ;;
-   0632 19            [11]  124     add hl, de                  ;;
+   0637 DD E5         [15]  121     push ix                     ;; hl to the start of the array    
+   0639 E1            [10]  122     pop hl                      ;;
+   063A 11 06 00      [10]  123     ld de, #a_array             ;;
+   063D 19            [11]  124     add hl, de                  ;;
                             125 
-   0633 78            [ 4]  126     ld a, b                     ;; restore a value from b
-   0634 B7            [ 4]  127     or a                        ;; if we have to erase the first element we are don with hl
-   0635 CA 40 06      [10]  128     jp z, _calc_end_of_element  ;; 
+   063E 78            [ 4]  126     ld a, b                     ;; restore a value from b
+   063F B7            [ 4]  127     or a                        ;; if we have to erase the first element we are don with hl
+   0640 CA 4B 06      [10]  128     jp z, _calc_end_of_element  ;; 
                             129 
-   0638 16 00         [ 7]  130     ld d, #0                 ;; copy the size of an entity in de
-   063A DD 5E 02      [19]  131     ld e, a_component_size(ix)  ;;
-   063D                     132 _start_loop:                    ;;
-   063D 19            [11]  133     add hl, de                  ;; hl advance a card
-   063E 10 FD         [13]  134     djnz _start_loop            ;; hl points to the start of the element to remove
+   0643 16 00         [ 7]  130     ld d, #0                 ;; copy the size of an entity in de
+   0645 DD 5E 02      [19]  131     ld e, a_component_size(ix)  ;;
+   0648                     132 _start_loop:                    ;;
+   0648 19            [11]  133     add hl, de                  ;; hl advance a card
+   0649 10 FD         [13]  134     djnz _start_loop            ;; hl points to the start of the element to remove
                             135 
-   0640                     136 _calc_end_of_element:
-   0640 54            [ 4]  137     ld d, h                     ;; copy hl in de-> de=start of the element to remove
-   0641 5D            [ 4]  138     ld e, l                     ;;
+   064B                     136 _calc_end_of_element:
+   064B 54            [ 4]  137     ld d, h                     ;; copy hl in de-> de=start of the element to remove
+   064C 5D            [ 4]  138     ld e, l                     ;;
                             139 
-   0642 06 00         [ 7]  140     ld b, #0                    ;; add size of an element to hl
-   0644 DD 4E 02      [19]  141     ld c, a_component_size(ix)  ;; 
-   0647 09            [11]  142     add hl,bc                   ;; hl= end of the element to remove
+   064D 06 00         [ 7]  140     ld b, #0                    ;; add size of an element to hl
+   064F DD 4E 02      [19]  141     ld c, a_component_size(ix)  ;; 
+   0652 09            [11]  142     add hl,bc                   ;; hl= end of the element to remove
                             143 
-   0648 D5            [11]  144     push de                     ;; save de
-   0649 E5            [11]  145     push hl                     ;; save hl
-   064A EB            [ 4]  146     ex de, hl                   ;; we have in de the end of the element to remove
+   0653 D5            [11]  144     push de                     ;; save de
+   0654 E5            [11]  145     push hl                     ;; save hl
+   0655 EB            [ 4]  146     ex de, hl                   ;; we have in de the end of the element to remove
                             147 
-   064B DD 6E 03      [19]  148     ld l, a_pend(ix)            ;; calculate the amount of data to move
-   064E DD 66 04      [19]  149     ld h, a_pend+1(ix)          ;; 
-   0651 ED 52         [15]  150     sbc hl, de                  ;;
-   0653 44            [ 4]  151     ld b, h                     ;; move hl to bc
-   0654 4D            [ 4]  152     ld c, l                     ;; bc = size of data to move
+   0656 DD 6E 03      [19]  148     ld l, a_pend(ix)            ;; calculate the amount of data to move
+   0659 DD 66 04      [19]  149     ld h, a_pend+1(ix)          ;; 
+   065C ED 52         [15]  150     sbc hl, de                  ;;
+   065E 44            [ 4]  151     ld b, h                     ;; move hl to bc
+   065F 4D            [ 4]  152     ld c, l                     ;; bc = size of data to move
                             153 
-   0655 E1            [10]  154     pop hl                      ;; restore hl
-   0656 D1            [10]  155     pop de                      ;; restore de
+   0660 E1            [10]  154     pop hl                      ;; restore hl
+   0661 D1            [10]  155     pop de                      ;; restore de
                             156 
-   0657 ED B0         [21]  157     ldir
-   0659 18 03         [12]  158     jr _move_pend
+   0662 ED B0         [21]  157     ldir
+   0664 18 03         [12]  158     jr _move_pend
                             159 
-   065B                     160 _last_element:
-   065B DD 35 05      [23]  161     dec a_selected(ix)
+   0666                     160 _last_element:
+   0666 DD 35 05      [23]  161     dec a_selected(ix)
                             162     
-   065E                     163 _move_pend:
-   065E DD 6E 03      [19]  164     ld l, a_pend(ix)            ;; calculate the amount of data to move
-   0661 DD 66 04      [19]  165     ld h, a_pend+1(ix)          ;; 
-   0664 06 00         [ 7]  166     ld b, #0                    ;; copy the size of an entity in bc
-   0666 DD 4E 02      [19]  167     ld c, a_component_size(ix)  ;; 
-   0669 ED 42         [15]  168     sbc  hl, bc                 ;;
-   066B DD 75 03      [19]  169     ld a_pend(ix), l            ;; store hl in pend
-   066E DD 74 04      [19]  170     ld a_pend+1(ix), h          ;; 
+   0669                     163 _move_pend:
+   0669 DD 6E 03      [19]  164     ld l, a_pend(ix)            ;; calculate the amount of data to move
+   066C DD 66 04      [19]  165     ld h, a_pend+1(ix)          ;; 
+   066F 06 00         [ 7]  166     ld b, #0                    ;; copy the size of an entity in bc
+   0671 DD 4E 02      [19]  167     ld c, a_component_size(ix)  ;; 
+   0674 ED 42         [15]  168     sbc  hl, bc                 ;;
+   0676 DD 75 03      [19]  169     ld a_pend(ix), l            ;; store hl in pend
+   0679 DD 74 04      [19]  170     ld a_pend+1(ix), h          ;; 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 108.
 Hexadecimal [16-Bits]
 
 
 
                             171 
-   0671 DD 35 00      [23]  172     dec a_count(ix) 
+   067C DD 35 00      [23]  172     dec a_count(ix) 
                             173 
-   0674 C9            [10]  174 ret
+   067F C9            [10]  174 ret
                             175 
                             176 ;;-----------------------------------------------------------------
                             177 ;;
@@ -5607,23 +5609,23 @@ Hexadecimal [16-Bits]
                             183 ;;  Output: hl: pointer to the element
                             184 ;;  Modified: AF, BC, DE, HL
                             185 ;;
-   0675                     186 man_array_get_element::
-   0675 DD E5         [15]  187     push ix                     ;; load in hl the beginning of the array
-   0677 E1            [10]  188     pop hl                      ;;
-   0678 11 06 00      [10]  189     ld de, #a_array
-   067B 19            [11]  190     add hl, de
+   0680                     186 man_array_get_element::
+   0680 DD E5         [15]  187     push ix                     ;; load in hl the beginning of the array
+   0682 E1            [10]  188     pop hl                      ;;
+   0683 11 06 00      [10]  189     ld de, #a_array
+   0686 19            [11]  190     add hl, de
                             191 
-   067C B7            [ 4]  192     or a                        ;; check if we have to retrieve the first card
-   067D C8            [11]  193     ret z                       ;; retrurn if we want to get the first card
+   0687 B7            [ 4]  192     or a                        ;; check if we have to retrieve the first card
+   0688 C8            [11]  193     ret z                       ;; retrurn if we want to get the first card
                             194 
-   067E 47            [ 4]  195     ld b, a
-   067F 16 00         [ 7]  196     ld d, #0                    ;; copy the size of an entity in de
-   0681 DD 5E 02      [19]  197     ld e, a_component_size(ix)  ;; 
-   0684                     198 _g_e_sum_loop:                  ;;
-   0684 19            [11]  199     add hl, de                  ;;  add de to hl until we reach the card
-   0685 10 FD         [13]  200     djnz _g_e_sum_loop          ;;
+   0689 47            [ 4]  195     ld b, a
+   068A 16 00         [ 7]  196     ld d, #0                    ;; copy the size of an entity in de
+   068C DD 5E 02      [19]  197     ld e, a_component_size(ix)  ;; 
+   068F                     198 _g_e_sum_loop:                  ;;
+   068F 19            [11]  199     add hl, de                  ;;  add de to hl until we reach the card
+   0690 10 FD         [13]  200     djnz _g_e_sum_loop          ;;
                             201 
-   0687 C9            [10]  202     ret
+   0692 C9            [10]  202     ret
                             203 
                             204 
                             205 ;;-----------------------------------------------------------------
@@ -5637,43 +5639,43 @@ Hexadecimal [16-Bits]
                             213 ;;          a : number of element.
                             214 ;;  Modified: AF, BC, DE, HL
                             215 ;;
-   0688                     216 man_array_get_random_element::
-   0688 32 9A 06      [13]  217     ld (SUB_OFFSET), a
-   068B 32 9F 06      [13]  218     ld (ADD_OFFSET), a
-   068E DD E5         [15]  219     push ix                         ;; load in hl the beginning of the array
-   0690 E1            [10]  220     pop hl                          ;;
-   0691 11 06 00      [10]  221     ld de, #a_array 
-   0694 19            [11]  222     add hl, de                      ;; move hl to the beginning of the array
-   0695 E5            [11]  223     push hl                         ;; save hl (array address)
+   0693                     216 man_array_get_random_element::
+   0693 32 A5 06      [13]  217     ld (SUB_OFFSET), a
+   0696 32 AA 06      [13]  218     ld (ADD_OFFSET), a
+   0699 DD E5         [15]  219     push ix                         ;; load in hl the beginning of the array
+   069B E1            [10]  220     pop hl                          ;;
+   069C 11 06 00      [10]  221     ld de, #a_array 
+   069F 19            [11]  222     add hl, de                      ;; move hl to the beginning of the array
+   06A0 E5            [11]  223     push hl                         ;; save hl (array address)
                             224 
-   0696 DD 7E 00      [19]  225     ld a, a_count(ix)               ;; load max number in a
+   06A1 DD 7E 00      [19]  225     ld a, a_count(ix)               ;; load max number in a
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 109.
 Hexadecimal [16-Bits]
 
 
 
                      00BB   226     SUB_OFFSET = . +1
-   0699 D6 00         [ 7]  227     sub #0x00
-   069B CD 91 07      [17]  228     call sys_util_get_random_number
+   06A4 D6 00         [ 7]  227     sub #0x00
+   06A6 CD 35 08      [17]  228     call sys_util_get_random_number
                      00C0   229     ADD_OFFSET = . +1
-   069E C6 00         [ 7]  230     add #0x00
-   06A0 32 B2 06      [13]  231     ld (_r_e_output), a             ;; store the random number in the output variable
-   06A3 E1            [10]  232     pop hl                          ;; restore hl (array address)
-   06A4 B7            [ 4]  233     or a                            ;; check if we have to retrieve the first card
-   06A5 CA B1 06      [10]  234     jp z, _g_r_e_return             ;; jump if we wnat to get the first card
+   06A9 C6 00         [ 7]  230     add #0x00
+   06AB 32 BD 06      [13]  231     ld (_r_e_output), a             ;; store the random number in the output variable
+   06AE E1            [10]  232     pop hl                          ;; restore hl (array address)
+   06AF B7            [ 4]  233     or a                            ;; check if we have to retrieve the first card
+   06B0 CA BC 06      [10]  234     jp z, _g_r_e_return             ;; jump if we wnat to get the first card
                             235 
-   06A8 47            [ 4]  236     ld b, a
+   06B3 47            [ 4]  236     ld b, a
                             237     ;;ld de, #sizeof_e                ;; copy the size of a card in de
-   06A9 DD 5E 02      [19]  238     ld e, a_component_size(ix)
-   06AC 16 00         [ 7]  239     ld d, #0
-   06AE                     240 _g_r_e_sum_loop:                    ;;
-   06AE 19            [11]  241     add hl, de                      ;;  add de to hl until we reach the card
-   06AF 10 FD         [13]  242     djnz _g_r_e_sum_loop            ;;
+   06B4 DD 5E 02      [19]  238     ld e, a_component_size(ix)
+   06B7 16 00         [ 7]  239     ld d, #0
+   06B9                     240 _g_r_e_sum_loop:                    ;;
+   06B9 19            [11]  241     add hl, de                      ;;  add de to hl until we reach the card
+   06BA 10 FD         [13]  242     djnz _g_r_e_sum_loop            ;;
                             243 
-   06B1                     244 _g_r_e_return:
+   06BC                     244 _g_r_e_return:
                      00D3   245 _r_e_output = .+1   
-   06B1 3E 00         [ 7]  246     ld a, #00
-   06B3 C9            [10]  247     ret
+   06BC 3E 00         [ 7]  246     ld a, #00
+   06BE C9            [10]  247     ret
                             248 
                             249 
                             250 
@@ -5688,35 +5690,35 @@ Hexadecimal [16-Bits]
                             259 ;;  Output: 
                             260 ;;  Modified: AF, BC, DE, HL
                             261 ;;
-   06B4                     262 man_array_move_all_elements::
-   06B4 22 C0 06      [16]  263     ld (FIRST_ARRAY), hl
-   06B7 22 CF 06      [16]  264     ld (THIRD_ARRAY), hl
-   06BA EB            [ 4]  265     ex de, hl
-   06BB 22 C8 06      [16]  266     ld (SECOND_ARRAY), hl
-   06BE                     267 _move_loop:
+   06BF                     262 man_array_move_all_elements::
+   06BF 22 CB 06      [16]  263     ld (FIRST_ARRAY), hl
+   06C2 22 DA 06      [16]  264     ld (THIRD_ARRAY), hl
+   06C5 EB            [ 4]  265     ex de, hl
+   06C6 22 D3 06      [16]  266     ld (SECOND_ARRAY), hl
+   06C9                     267 _move_loop:
                      00E1   268 FIRST_ARRAY = .+2
-   06BE DD 21 00 00   [14]  269     ld ix, #0000
-   06C2 AF            [ 4]  270     xor a
-   06C3 CD 75 06      [17]  271     call man_array_get_element
+   06C9 DD 21 00 00   [14]  269     ld ix, #0000
+   06CD AF            [ 4]  270     xor a
+   06CE CD 80 06      [17]  271     call man_array_get_element
                             272 
                      00E9   273 SECOND_ARRAY = .+2
-   06C6 DD 21 00 00   [14]  274     ld ix, #0000
-   06CA CD F9 05      [17]  275     call man_array_create_element
+   06D1 DD 21 00 00   [14]  274     ld ix, #0000
+   06D5 CD 04 06      [17]  275     call man_array_create_element
                             276 
                      00F0   277 THIRD_ARRAY = .+2    
-   06CD DD 21 00 00   [14]  278     ld ix, #0000
-   06D1 AF            [ 4]  279     xor a
-   06D2 CD 24 06      [17]  280     call man_array_remove_element
+   06D8 DD 21 00 00   [14]  278     ld ix, #0000
+   06DC AF            [ 4]  279     xor a
+   06DD CD 2F 06      [17]  280     call man_array_remove_element
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 110.
 Hexadecimal [16-Bits]
 
 
 
                             281     
-   06D5 DD 7E 00      [19]  282     ld a, a_count(ix)
-   06D8 B7            [ 4]  283     or a
-   06D9 20 E3         [12]  284     jr nz, _move_loop
-   06DB C9            [10]  285     ret
+   06E0 DD 7E 00      [19]  282     ld a, a_count(ix)
+   06E3 B7            [ 4]  283     or a
+   06E4 20 E3         [12]  284     jr nz, _move_loop
+   06E6 C9            [10]  285     ret
                             286 
                             287 ;;-----------------------------------------------------------------
                             288 ;;
@@ -5728,49 +5730,49 @@ Hexadecimal [16-Bits]
                             294 ;;  Output: 
                             295 ;;  Modified: AF, BC, DE, HL
                             296 ;;
-   06DC                     297 man_array_execute_each::
-   06DC DD 7E 00      [19]  298     ld a, a_count(ix)       ;; retrieve number of elements in the array
-   06DF B7            [ 4]  299     or a                    ;; If no elements in arrary return
-   06E0 C8            [11]  300     ret z 
+   06E7                     297 man_array_execute_each::
+   06E7 DD 7E 00      [19]  298     ld a, a_count(ix)       ;; retrieve number of elements in the array
+   06EA B7            [ 4]  299     or a                    ;; If no elements in arrary return
+   06EB C8            [11]  300     ret z 
                             301 
-   06E1 47            [ 4]  302     ld b, a                 ;; move the number of elements to b for indexing djnz
+   06EC 47            [ 4]  302     ld b, a                 ;; move the number of elements to b for indexing djnz
                             303 
-   06E2 22 0A 07      [16]  304     ld (routine), hl        ;; store routine in memory
+   06ED 22 15 07      [16]  304     ld (routine), hl        ;; store routine in memory
                             305 
-   06E5 DD 7E 02      [19]  306     ld a, a_component_size(ix)  ;; store component_size in memory
-   06E8 32 0C 07      [13]  307     ld (comp_size), a       ;;    
+   06F0 DD 7E 02      [19]  306     ld a, a_component_size(ix)  ;; store component_size in memory
+   06F3 32 17 07      [13]  307     ld (comp_size), a       ;;    
                             308     
-   06EB DD E5         [15]  309     push ix                 ;; load start of array in hl
-   06ED E1            [10]  310     pop hl                  ;;
-   06EE 11 06 00      [10]  311     ld de, #a_array         ;;
-   06F1 19            [11]  312     add hl, de              ;;
+   06F6 DD E5         [15]  309     push ix                 ;; load start of array in hl
+   06F8 E1            [10]  310     pop hl                  ;;
+   06F9 11 06 00      [10]  311     ld de, #a_array         ;;
+   06FC 19            [11]  312     add hl, de              ;;
                             313     
-   06F2 E5            [11]  314     push hl                 ;;
-   06F3 DD E1         [14]  315     pop ix                  ;;  load ix with the first element
+   06FD E5            [11]  314     push hl                 ;;
+   06FE DD E1         [14]  315     pop ix                  ;;  load ix with the first element
                             316 
-   06F5                     317 loop_each:
-   06F5 C5            [11]  318     push bc                 ;; save index in stack
-   06F6 21 FE 06      [10]  319     ld hl, #return_point    ;;
-   06F9 E5            [11]  320     push hl                 ;; set the return point in the stack
+   0700                     317 loop_each:
+   0700 C5            [11]  318     push bc                 ;; save index in stack
+   0701 21 09 07      [10]  319     ld hl, #return_point    ;;
+   0704 E5            [11]  320     push hl                 ;; set the return point in the stack
                             321 
-   06FA 2A 0A 07      [16]  322     ld hl, (routine)        ;; Move routine to hl
-   06FD E9            [ 4]  323     jp (hl)                 ;; jump to the routine
+   0705 2A 15 07      [16]  322     ld hl, (routine)        ;; Move routine to hl
+   0708 E9            [ 4]  323     jp (hl)                 ;; jump to the routine
                             324 
-   06FE                     325 return_point:
-   06FE 16 00         [ 7]  326     ld d, #0                ;; retrieve component_size
-   0700 3A 0C 07      [13]  327     ld a, (comp_size)       ;;
-   0703 5F            [ 4]  328     ld e, a                 ;;
+   0709                     325 return_point:
+   0709 16 00         [ 7]  326     ld d, #0                ;; retrieve component_size
+   070B 3A 17 07      [13]  327     ld a, (comp_size)       ;;
+   070E 5F            [ 4]  328     ld e, a                 ;;
                             329 
-   0704 DD 19         [15]  330     add ix, de              ;; move ix to the next element
+   070F DD 19         [15]  330     add ix, de              ;; move ix to the next element
                             331 
-   0706 C1            [10]  332     pop bc                  ;; restore index
-   0707 10 EC         [13]  333     djnz loop_each
+   0711 C1            [10]  332     pop bc                  ;; restore index
+   0712 10 EC         [13]  333     djnz loop_each
                             334 
-   0709 C9            [10]  335     ret
+   0714 C9            [10]  335     ret
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 111.
 Hexadecimal [16-Bits]
 
 
 
-   070A 00 00               336 routine: .dw #0000
-   070C 00                  337 comp_size: .db #0
+   0715 00 00               336 routine: .dw #0000
+   0717 00                  337 comp_size: .db #0
