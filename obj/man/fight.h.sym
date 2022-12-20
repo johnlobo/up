@@ -1,34 +1,35 @@
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
-Hexadecimal [16-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
+Hexadecimal [24-Bits]
 
 Symbol Table
 
-    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
-    .__.H$L.=  0000 L   |     BUFFER_S=  000A     |     COMBAT_C=  0003 
-    COMBAT_M=  000C     |     FONT_HEI=  0009     |     FONT_WID=  0002 
-    SCORE_NU=  0004     |     S_SMALL_=  0005     |     S_SMALL_=  0002 
-    ZERO_KEY=  00FF     |     _cpct_ke   **** GX  |     _g_palet   **** GX
-    _s_font_   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
-    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
-    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
-    _s_small   **** GX  |     _s_small   **** GX  |     combat_c=  001F 
-    combat_n=  0000     |     combat_o=  0043     |     combat_r=  001E 
-    cpct_dis   **** GX  |     cpct_dra   **** GX  |     cpct_dra   **** GX
-    cpct_dra   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
-    cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_isA   **** GX
-    cpct_isK   **** GX  |     cpct_mem   **** GX  |     cpct_mem   **** GX
-    cpct_sca   **** GX  |     cpct_sca   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_wai   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
-    e_cmp_an=  0010     |     e_cmp_co=  0020     |     e_cmp_de=  0023 
-    e_cmp_ia=  0008     |     e_cmp_in=  0004     |     e_cmp_mo=  0002 
-    e_cmp_re=  0001     |     e_type_i=  0000     |     sizeof_c=  0043 
+    .__.$$$.=  002710 L   |     .__.ABS.=  000000 G   |     .__.CPU.=  000000 L
+    .__.H$L.=  000000 L   |     BUFFER_S=  00000A     |     COMBAT_C=  000003 
+    COMBAT_M=  00000C     |     FONT_HEI=  000009     |     FONT_WID=  000002 
+    SCORE_NU=  000004     |     S_SMALL_=  000005     |     S_SMALL_=  000002 
+    ZERO_KEY=  0000FF     |     _cpct_ke   ****** GX  |     _g_palet   ****** GX
+    _s_font_   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
+    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
+    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
+    _s_small   ****** GX  |     _s_small   ****** GX  |     cpct_dis   ****** GX
+    cpct_dra   ****** GX  |     cpct_dra   ****** GX  |     cpct_dra   ****** GX
+    cpct_get   ****** GX  |     cpct_get   ****** GX  |     cpct_get   ****** GX
+    cpct_get   ****** GX  |     cpct_isA   ****** GX  |     cpct_isK   ****** GX
+    cpct_mem   ****** GX  |     cpct_mem   ****** GX  |     cpct_sca   ****** GX
+    cpct_sca   ****** GX  |     cpct_set   ****** GX  |     cpct_set   ****** GX
+    cpct_set   ****** GX  |     cpct_set   ****** GX  |     cpct_set   ****** GX
+    cpct_set   ****** GX  |     cpct_set   ****** GX  |     cpct_wai   ****** GX
+    cpct_wai   ****** GX  |     cpct_wai   ****** GX  |     e_cmp_an=  000010 
+    e_cmp_co=  000020     |     e_cmp_de=  000023     |     e_cmp_ia=  000008 
+    e_cmp_in=  000004     |     e_cmp_mo=  000002     |     e_cmp_re=  000001 
+    e_type_i=  000000     |     fight_ca=  000020     |     fight_cu=  00001F 
+    fight_na=  000000     |     fight_of=  000044     |     fight_ro=  00001E 
+    man_figh   ****** GX  |     man_figh   ****** GX  |     sizeof_f=  000044 
 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
-Hexadecimal [16-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
+Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE      size    0   flags    0
+   0 _CODE      size      0   flags    0
 

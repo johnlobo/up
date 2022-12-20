@@ -16,3 +16,51 @@
 
 
 .module fight_manager
+
+;;
+;; Start of _DATA area 
+;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
+;;  any one of them for any purpose. Usually, compiler puts _DATA area contents
+;;  right after _CODE area contents.
+;;
+.area _DATA
+
+first_lvl::
+.asciz "THE DOOR                     "  ;; Name
+.db 5                                   ;; Rounds
+.db 0                                   ;; curent round
+.db 1, 2, 3
+.db 1, 2, 3
+.db 1, 2, 3
+.db 1, 2, 3
+.db 1, 2, 3
+
+;;
+;; Start of _CODE area
+;; 
+.area _CODE
+
+;;-----------------------------------------------------------------
+;;
+;; man_fight_init
+;;
+;;  
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+man_fight_init::
+    ret
+
+
+;;-----------------------------------------------------------------
+;;
+;; man_fight_update
+;;
+;;  
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+man_fight_update::
+    ret

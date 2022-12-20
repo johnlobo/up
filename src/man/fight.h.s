@@ -32,6 +32,9 @@ COMBAT_MAX_ROUNDS = 12
 ;; Global routines
 ;;------------------------------------------------------------------------------
 
+.globl man_fight_init
+.globl man_fight_update
+
 
 ;;===============================================================================
 ;; MACROS
@@ -39,24 +42,11 @@ COMBAT_MAX_ROUNDS = 12
 
 
 ;;===============================================================================
-;; COMPONENT DEFINITION MACRO
-;;===============================================================================
-
-.macro DefineComponentCombat _Tname, _N, _ComponentSize
-      _Tname'_count::               .db 0
-      _Tname'_delta::               .db 0
-      _Tname'_component_size::      .db _ComponentSize
-      _Tname'_pend::                .dw _Tname'_array 
-      _Tname'_selected::            .db 0
-      _Tname'_array::
-            .ds _N * _ComponentSize
-.endm
-
-;;===============================================================================
 ;; DATA ARRAY STRUCTURE CREATION
 ;;===============================================================================
-BeginStruct combat
-Field combat, name , 30
-Field combat, rounds , 1
-Field combat, cards, (COMBAT_MAX_ROUNDS*COMBAT_CARDS_PER_ROUND) 
-EndStruct combat
+BeginStruct fight
+Field fight, name , 30
+Field fight, rounds , 1
+Field fight, current_round , 1
+Field fight, cards, (COMBAT_MAX_ROUNDS*COMBAT_CARDS_PER_ROUND) 
+EndStruct fight
