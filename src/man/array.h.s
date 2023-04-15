@@ -37,14 +37,15 @@
 ;;===============================================================================
 
 
-.macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
-      _Tname'_count::               .db 0
-      _Tname'_delta::               .db 0
-      _Tname'_component_size::      .db _ComponentSize
-      _Tname'_pend::                .dw _Tname'_array 
-      _Tname'_selected::            .db 0
+.macro DefineComponentArrayStructure_Size _Tname, _MaxElements, _ComponentSize
+      _Tname'_count::                     .db 0
+      _Tname'_delta::                     .db 0
+      _Tname'_component_size::            .db _ComponentSize
+      _Tname'_component_max_number::      .db _MaxElements
+      _Tname'_pend::                      .dw _Tname'_array 
+      _Tname'_selected::                  .db 0
       _Tname'_array::
-            .ds _N * _ComponentSize
+            .ds _MaxElements * _ComponentSize
 .endm
 
 ;;===============================================================================

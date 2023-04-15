@@ -29,7 +29,8 @@
 ;;  right after _CODE area contents.
 ;;
 .area _DATA
-
+routine: .dw #0000
+comp_size: .db #0
 
 
 ;;
@@ -65,17 +66,24 @@ man_array_init::
 ;;
 ;; man_array_create_element
 ;;
-;;  Create a card from the model pointed by HL
+;;  Create an element from the model pointed by HL
 ;;  Input:  ix: pointer to the array 
 ;;          hl: pointer to the entity to add to the array
 ;;  Output: hl: points to the new created entity
 ;;  Modified: AF, BC, DE, HL
 ;;
 man_array_create_element::
+    ;; Is there free space?
+    ld a, a_count(ix)
+    ld b, a
+    ld a, a_component_max_number(ix)
+    cp b
+    ret z
+    
     ld b, #0                        ;; bc = component size
     ld a, a_component_size(ix)      ;;
     ld c, a                         ;;    
-    ld (_create_size), a            ;; self modifying code to move the size of the entity to bc
+    ld (_create_size), a            ;; sm code to move the size of the entity to bc
     xor a                           ;; ld a, #0
     ld (_create_size+1), a          ;;
     
@@ -96,7 +104,8 @@ _create_size = .+1
     ld   a_pend+1(ix), h            ;;
 
     pop hl                          ;; restore the new element address in hl
-ret
+
+    ret
 
 
 
@@ -333,5 +342,54 @@ return_point:
     djnz loop_each
 
     ret
-routine: .dw #0000
-comp_size: .db #0
+
+;;-----------------------------------------------------------------
+;;
+;; man_array_forall_matching
+;;
+;;  exceutes a routine filtering by component
+;;  Input:  hl: routine
+;; 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+;; ---------------------------------------------
+;; Applies a function filtering specific criteria
+;; B -> Mask of bytes (e_cmps)
+;; ---------------------------------------------
+man_array_forall_matching::
+    ld (function_for_all), hl
+    call man_entity_first_entity ;; IX points to the first entity
+    ld ix, #
+
+    ld a,e_cmps(ix) ;;si la primera entidad es invalida, salimos de la funcion
+    and #0xFF
+    jr z, final_matching
+
+    loop_forall_matching:
+        push bc ;;guardo mascara de bytes
+        ld a, e_cmps(ix)
+        and b
+        cp b
+        jr nz, afterjp_matching
+
+        
+        ld hl, #afterjp_matching
+        push hl
+
+        ld hl, (function_for_all)
+        jp (hl)
+
+        afterjp_matching:
+
+
+        call man_next_entity
+        
+        ld a,e_cmps(ix)
+        and #0xFF
+        pop bc
+    jr nz, loop_forall_matching
+
+    final_matching:
+        call man_entity_first_entity
+ret
