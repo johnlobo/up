@@ -15,6 +15,9 @@
 ;;-------------------------------------------------------------------------------
 
 .module game_manager
+
+.include "man/game.h.s"
+.include "man/array.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -27,6 +30,13 @@
 ;;  right after _CODE area contents.
 ;;
 .area _DATA
+
+entities::
+DefineArray e, MAX_ENTITIES, sizeof_e     
+.db 0   ;;ponemos este aqui como trampita para que siempre haya un tipo invalido al final
+
+entityTpl::
+DefineEntity e_cmps_default, 100, 100, 8, 40, 0, 0, _s_player_0, #0000, #0000
 
 ;;
 ;; Start of _CODE area
@@ -43,6 +53,16 @@
 ;;  Modified: AF, BC, DE, HL
 ;;
 man_game_init::
+
+    ld ix, #entities
+    call man_array_init
+    call man_array_create_element
+
+    ld hl, #entityTpl
+    ld b, #0
+    ld c, a_component_size(ix)
+    ldir
+
     ret
 
 ;;-----------------------------------------------------------------

@@ -1,37 +1,38 @@
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 1.
-Hexadecimal [24-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
 
 Symbol Table
 
-    .__.$$$.=  002710 L   |     .__.ABS.=  000000 G   |     .__.CPU.=  000000 L
-    .__.H$L.=  000000 L   |     BUFFER_S=  00000A     |     FONT_HEI=  000009 
-    FONT_WID=  000002     |     SCORE_NU=  000004     |     S_SMALL_=  000005 
-    S_SMALL_=  000002     |     ZERO_KEY=  0000FF     |     _cpct_ke   ****** GX
-    _g_palet   ****** GX  |     _s_font_   ****** GX  |     _s_small   ****** GX
-    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
-    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
-    _s_small   ****** GX  |     _s_small   ****** GX  |     _s_small   ****** GX
-    a_array =  000006     |     a_compon=  000002     |     a_count =  000000 
-    a_delta =  000001     |     a_offset=  000007     |     a_pend  =  000003 
-    a_select=  000005     |     cpct_dis   ****** GX  |     cpct_dra   ****** GX
-    cpct_dra   ****** GX  |     cpct_dra   ****** GX  |     cpct_get   ****** GX
-    cpct_get   ****** GX  |     cpct_get   ****** GX  |     cpct_get   ****** GX
-    cpct_isA   ****** GX  |     cpct_isK   ****** GX  |     cpct_mem   ****** GX
-    cpct_mem   ****** GX  |     cpct_sca   ****** GX  |     cpct_sca   ****** GX
-    cpct_set   ****** GX  |     cpct_set   ****** GX  |     cpct_set   ****** GX
-    cpct_set   ****** GX  |     cpct_set   ****** GX  |     cpct_set   ****** GX
-    cpct_set   ****** GX  |     cpct_wai   ****** GX  |     cpct_wai   ****** GX
-    cpct_wai   ****** GX  |     e_cmp_an=  000010     |     e_cmp_co=  000020 
-    e_cmp_de=  000023     |     e_cmp_ia=  000008     |     e_cmp_in=  000004 
-    e_cmp_mo=  000002     |     e_cmp_re=  000001     |     e_type_i=  000000 
-    man_arra   ****** GX  |     man_arra   ****** GX  |     man_arra   ****** GX
-    man_arra   ****** GX  |     man_arra   ****** GX  |     man_arra   ****** GX
-    man_arra   ****** GX  |     sizeof_a=  000007 
+    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
+    .__.H$L.=  0000 L   |     BUFFER_S=  000A     |     FONT_HEI=  0009 
+    FONT_WID=  0002     |     SCORE_NU=  0004     |     S_SMALL_=  0005 
+    S_SMALL_=  0002     |     ZERO_KEY=  00FF     |     _cpct_ke   **** GX
+    _g_palet   **** GX  |     _s_font_   **** GX  |     _s_playe   **** GX
+    _s_playe   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     a_array =  0007 
+    a_compon=  0003     |     a_compon=  0002     |     a_count =  0000 
+    a_delta =  0001     |     a_offset=  0008     |     a_pend  =  0004 
+    a_select=  0006     |     cpct_dis   **** GX  |     cpct_dra   **** GX
+    cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_get   **** GX
+    cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
+    cpct_isA   **** GX  |     cpct_isK   **** GX  |     cpct_mem   **** GX
+    cpct_mem   **** GX  |     cpct_sca   **** GX  |     cpct_sca   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
+    cpct_set   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
+    cpct_wai   **** GX  |     e_cmps  =  0000     |     e_cmps_a=  0010 
+    e_cmps_c=  0020     |     e_cmps_d=  0023     |     e_cmps_i=  0008 
+    e_cmps_i=  0004     |     e_cmps_m=  0002     |     e_cmps_r=  0001 
+    e_type_i=  0000     |     man_arra   **** GX  |     man_arra   **** GX
+    man_arra   **** GX  |     man_arra   **** GX  |     man_arra   **** GX
+    man_arra   **** GX  |     man_arra   **** GX  |     sizeof_a=  0008 
 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80), page 2.
-Hexadecimal [24-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size      0   flags    0
+   0 _CODE      size    0   flags    0
 

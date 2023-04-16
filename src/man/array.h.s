@@ -37,7 +37,7 @@
 ;;===============================================================================
 
 
-.macro DefineComponentArrayStructure_Size _Tname, _MaxElements, _ComponentSize
+.macro DefineArray _Tname, _MaxElements, _ComponentSize
       _Tname'_count::                     .db 0
       _Tname'_delta::                     .db 0
       _Tname'_component_size::            .db _ComponentSize
@@ -55,6 +55,7 @@ BeginStruct a
 Field a, count , 1
 Field a, delta , 1
 Field a, component_size , 1
+Field a, component_max_number , 1
 Field a, pend , 2
 Field a, selected , 1
 Field a, array , 1

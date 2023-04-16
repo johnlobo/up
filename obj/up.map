@@ -20,173 +20,182 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__ABS0                         
      00000000  s__CABS                         
      00000000  s__DABS                         
-     000000C7  l__DATA                         
      00000100  l__ABS0                         
+     00000121  l__DATA                         
      00000200  s__CODE                         
-     00001931  l__CODE                         
-     00001B31  s__DATA                         
-     00001BF8  s__GSFINAL                      
-     00001BF8  s__GSINIT                       
-     00001BF8  s__HOME                         
-     00001BF8  s__INITIALIZED                  
-     00001BF8  s__INITIALIZER                  
+     00001BF8  l__CODE                         
+     00001DF8  s__DATA                         
+     00001F19  s__GSFINAL                      
+     00001F19  s__GSINIT                       
+     00001F19  s__HOME                         
+     00001F19  s__INITIALIZED                  
+     00001F19  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000200    00001931 =        6449. bytes (REL,CON)
+_CODE                               00000200    00001BF8 =        7160. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000200  _s_small_numbers_00                small_numbers
-     0000020A  _s_small_numbers_01                small_numbers
-     00000214  _s_small_numbers_02                small_numbers
-     0000021E  _s_small_numbers_03                small_numbers
-     00000228  _s_small_numbers_04                small_numbers
-     00000232  _s_small_numbers_05                small_numbers
-     0000023C  _s_small_numbers_06                small_numbers
-     00000246  _s_small_numbers_07                small_numbers
-     00000250  _s_small_numbers_08                small_numbers
-     0000025A  _s_small_numbers_09                small_numbers
-     00000264  _s_font_0                          font_chars_0
-     000005B2  _g_palette0                        g_palette0
-     000005C2  main_init                          cpct_keyboard
-     000005D9  _main                              cpct_keyboard
-     000005EA  man_array_init                     array_manager
-     00000604  man_array_create_element           array_manager
-     0000062F  man_array_remove_element           array_manager
-     00000680  man_array_get_element              array_manager
-     00000693  man_array_get_random_element       array_manager
-     000006BF  man_array_move_all_elements        array_manager
-     000006E7  man_array_execute_each             array_manager
-     00000718  man_fight_init                     fight_manager
-     00000719  man_fight_update                   fight_manager
-     0000071A  man_game_init                      game_manager
-     0000071B  man_game_update                    game_manager
-     0000071C  sys_input_clean_buffer             input_system
-     00000722  sys_input_wait4anykey              input_system
-     0000072F  sys_input_getKeyPressed            input_system
-     00000755  sys_input_waitKeyPressed           input_system
-     00000769  sys_input_init                     input_system
-     0000078A  sys_input_main_menu_update         input_system
-     00000792  sys_messages_load_window_data      messages_system
-     000007E7  sys_messages_draw_window           messages_system
-     0000081D  sys_messages_restore_message_bac   messages_system
-     00000830  sys_messages_show                  messages_system
-     000008BB  sys_messages_draw_box              messages_system
-     000014CE  sys_render_clear_buffer            render_system
-     000014D9  sys_render_clear_back_buffer       render_system
-     000014E3  sys_render_clear_front_buffer      render_system
-     000014ED  sys_render_switch_buffers          render_system
-     00001503  sys_render_init                    render_system
-     00001582  sys_system_disable_firmware        system_system
-     00001594  sys_text_reset_aux_txt             text_manager
-     0000159F  sys_text_str_length                text_manager
-     000015AB  sys_text_str_copy                  text_manager
-     000015BA  sys_text_str_cmp                   text_manager
-     000015D4  sys_text_draw_char                 text_manager
-     00001664  sys_text_draw_string               text_manager
-     000016B3  sys_text_num2str8                  text_manager
-     000016CA  sys_text_draw_small_char_number    text_manager
+     00000200  _s_player_0                        player
+     00000340  _s_player_1                        player
+     00000480  _s_small_numbers_00                small_numbers
+     0000048A  _s_small_numbers_01                small_numbers
+     00000494  _s_small_numbers_02                small_numbers
+     0000049E  _s_small_numbers_03                small_numbers
+     000004A8  _s_small_numbers_04                small_numbers
+     000004B2  _s_small_numbers_05                small_numbers
+     000004BC  _s_small_numbers_06                small_numbers
+     000004C6  _s_small_numbers_07                small_numbers
+     000004D0  _s_small_numbers_08                small_numbers
+     000004DA  _s_small_numbers_09                small_numbers
+     000004E4  _s_font_0                          font_chars_0
+     00000832  _g_palette0                        g_palette0
+     00000842  main_init                          cpct_keyboard
+     00000859  _main                              cpct_keyboard
+     0000086A  man_fight_init                     fight_manager
+     0000086B  man_fight_update                   fight_manager
+     0000086C  man_array_init                     array_manager
+     00000886  man_array_create_element           array_manager
+     000008BA  man_array_remove_element           array_manager
+     00000907  man_array_get_element              array_manager
+     00000916  man_array_get_random_element       array_manager
+     0000092F  man_array_move_all_elements        array_manager
+     00000957  man_array_execute_each             array_manager
+     00000985  man_array_execute_each_matching    array_manager
+     000009C0  man_array_first_element            array_manager
+     000009CA  man_game_init                      game_manager
+     000009DF  man_game_update                    game_manager
+     00000A47  sys_system_disable_firmware        system_system
+     00000A59  sys_render_clear_buffer            render_system
+     00000A64  sys_render_clear_back_buffer       render_system
+     00000A6E  sys_render_clear_front_buffer      render_system
+     00000A78  sys_render_switch_buffers          render_system
+     00000A8E  sys_render_init                    render_system
+     00000AA6  sys_util_h_times_e                 sys_util
+     00000ACA  sys_util_hl_div_c                  sys_util
+     00000AD7  sys_util_BCD_GetEnd                sys_util
+     00000AE2  sys_util_BCD_Add                   sys_util
+     00000AEC  sys_util_BCD_Compare               sys_util
+     00000AFB  sys_util_get_random_number         sys_util
+     00000B11  sys_util_delay                     sys_util
+     00000B19  sys_messages_load_window_data      messages_system
+     00000B6E  sys_messages_draw_window           messages_system
+     00000BA4  sys_messages_restore_message_bac   messages_system
+     00000BB7  sys_messages_show                  messages_system
+     00000C42  sys_messages_draw_box              messages_system
+     00001855  sys_text_reset_aux_txt             text_manager
+     00001860  sys_text_str_length                text_manager
+     0000186C  sys_text_str_copy                  text_manager
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000200    00001931 =        6449. bytes (REL,CON)
+_CODE                               00000200    00001BF8 =        7160. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000016E1  sys_text_draw_small_number         text_manager
-     0000170E  sys_util_h_times_e                 sys_util
-     00001732  sys_util_hl_div_c                  sys_util
-     0000173F  sys_util_BCD_GetEnd                sys_util
-     0000174A  sys_util_BCD_Add                   sys_util
-     00001754  sys_util_BCD_Compare               sys_util
-     00001763  sys_util_get_random_number         sys_util
-     00001779  sys_util_delay                     sys_util
-     00001781  _cpct_setInterruptHandler          cpct_firmware
-     00001781  cpct_setInterruptHandler_asm       cpct_firmware
-     00001792  cpct_safeInterruptHandlerHook      cpct_firmware
-     000017A8  cpct_getScreenToSprite_asm         cpct_sprites
-     000017CA  cpct_setPalette_asm                cpct_video
-     000017DD  _cpct_isKeyPressed                 cpct_keyboard
-     000017DD  cpct_isKeyPressed_asm              cpct_keyboard
-     000017E9  cpct_setPALColour_asm              cpct_video
-     000017F3  cpct_drawSprite_asm                cpct_sprites
-     00001893  _cpct_keyboardStatusBuffer         cpct_keyboard
-     0000189D  cpct_waitHalts_asm                 cpct_memutils
-     000018A1  _cpct_setSeed_mxor                 cpct_random
-     000018A1  cpct_setSeed_mxor_asm              cpct_random
-     000018A9  cpct_setSeed_xsp40_u8_asm          cpct_random
-     000018B4  _cpct_setVideoMemoryPage           cpct_video
-     000018B4  cpct_setVideoMemoryPage_asm        cpct_video
-     000018BD  cpct_memset_f64_asm                cpct_memutils
-     00001903  _cpct_getRandom_xsp40_u8           cpct_random
-     00001903  cpct_getRandom_xsp40_u8_asm        cpct_random
-     00001908  _cpct_seed1_xsp40_u8               cpct_random
-     0000190B  _cpct_seed2_xsp40_u8               cpct_random
-     00001925  _cpct_seed3_xsp40_u8               cpct_random
-     00001928  _cpct_isAnyKeyPressed              cpct_keyboard
-     00001928  cpct_isAnyKeyPressed_asm           cpct_keyboard
-     00001935  _cpct_scanKeyboard_if              cpct_keyboard
-     00001935  cpct_scanKeyboard_if_asm           cpct_keyboard
-     0000199D  cpct_setVideoMode_asm              cpct_video
-     000019AA  _cpct_waitVSYNC                    cpct_video
-     000019AA  cpct_waitVSYNC_asm                 cpct_video
-     000019B2  cpct_memset_asm                    cpct_memutils
-     000019BA  _cpct_disableFirmware              cpct_firmware
-     000019BA  _cpct_removeInterruptHandler       cpct_firmware
-     000019BA  cpct_disableFirmware_asm           cpct_firmware
-     000019BA  cpct_removeInterruptHandler_asm    cpct_firmware
-     000019CA  cpct_drawSolidBox_asm              cpct_sprites
-     00001A6D  _cpct_getRandom_mxor_u8            cpct_random
-     00001A6D  cpct_getRandom_mxor_u8_asm         cpct_random
-     00001A6E  cpct_randomIdx_mxor_u8             cpct_random
-     00001A92  cpct_drawSpriteBlended_asm         cpct_sprites
-     00001A98  _cpct_dsb_blendFunction            cpct_sprites
-     00001AB9  _cpct_mode_rom_status              cpct_firmware
-     00001ABA  cpct_getScreenPtr_asm              cpct_video
-     00001ACC  _cpct_scanKeyboard                 cpct_keyboard
+     0000187B  sys_text_str_cmp                   text_manager
+     00001895  sys_text_draw_char                 text_manager
+     00001925  sys_text_draw_string               text_manager
+     00001974  sys_text_num2str8                  text_manager
+     0000198B  sys_text_draw_small_char_number    text_manager
+     000019A2  sys_text_draw_small_number         text_manager
+     000019CF  sys_input_clean_buffer             input_system
+     000019D5  sys_input_wait4anykey              input_system
+     000019E2  sys_input_getKeyPressed            input_system
+     00001A08  sys_input_waitKeyPressed           input_system
+     00001A1C  sys_input_init                     input_system
+     00001A3D  sys_input_main_menu_update         input_system
+     00001A45  _cpct_setInterruptHandler          cpct_firmware
+     00001A45  cpct_setInterruptHandler_asm       cpct_firmware
+     00001A56  cpct_safeInterruptHandlerHook      cpct_firmware
+     00001A6D  cpct_getScreenToSprite_asm         cpct_sprites
+     00001A8F  cpct_setPalette_asm                cpct_video
+     00001AA2  _cpct_isKeyPressed                 cpct_keyboard
+     00001AA2  cpct_isKeyPressed_asm              cpct_keyboard
+     00001AAE  cpct_setPALColour_asm              cpct_video
+     00001AB8  cpct_drawSprite_asm                cpct_sprites
+     00001B58  _cpct_keyboardStatusBuffer         cpct_keyboard
+     00001B62  cpct_waitHalts_asm                 cpct_memutils
+     00001B66  _cpct_setSeed_mxor                 cpct_random
+     00001B66  cpct_setSeed_mxor_asm              cpct_random
+     00001B6E  cpct_setSeed_xsp40_u8_asm          cpct_random
+     00001B79  _cpct_setVideoMemoryPage           cpct_video
+     00001B79  cpct_setVideoMemoryPage_asm        cpct_video
+     00001B82  cpct_memset_f64_asm                cpct_memutils
+     00001BC8  _cpct_getRandom_xsp40_u8           cpct_random
+     00001BC8  cpct_getRandom_xsp40_u8_asm        cpct_random
+     00001BCD  _cpct_seed1_xsp40_u8               cpct_random
+     00001BD0  _cpct_seed2_xsp40_u8               cpct_random
+     00001BEA  _cpct_seed3_xsp40_u8               cpct_random
+     00001BED  _cpct_isAnyKeyPressed              cpct_keyboard
+     00001BED  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     00001BFA  _cpct_scanKeyboard_if              cpct_keyboard
+     00001BFA  cpct_scanKeyboard_if_asm           cpct_keyboard
+     00001C62  cpct_setVideoMode_asm              cpct_video
+     00001C6F  _cpct_waitVSYNC                    cpct_video
+     00001C6F  cpct_waitVSYNC_asm                 cpct_video
+     00001C77  cpct_memset_asm                    cpct_memutils
+     00001C7F  _cpct_disableFirmware              cpct_firmware
+     00001C7F  _cpct_removeInterruptHandler       cpct_firmware
+     00001C7F  cpct_disableFirmware_asm           cpct_firmware
+     00001C7F  cpct_removeInterruptHandler_asm    cpct_firmware
+     00001C8F  cpct_drawSolidBox_asm              cpct_sprites
+     00001D32  _cpct_getRandom_mxor_u8            cpct_random
+     00001D32  cpct_getRandom_mxor_u8_asm         cpct_random
+     00001D33  cpct_randomIdx_mxor_u8             cpct_random
+     00001D57  cpct_drawSpriteBlended_asm         cpct_sprites
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000200    00001931 =        6449. bytes (REL,CON)
+_CODE                               00000200    00001BF8 =        7160. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001ACC  cpct_scanKeyboard_asm              cpct_keyboard
-     00001AFD  _cpct_waitVSYNCStart               cpct_video
-     00001AFD  cpct_waitVSYNCStart_asm            cpct_video
-     00001B0A  _cpct_mxor32_seed                  cpct_random
-     00001B0E  _cpct_nextRandom_mxor_u32          cpct_random
-     00001B0E  cpct_nextRandom_mxor_u32_asm       cpct_random
-
+     00001D5D  _cpct_dsb_blendFunction            cpct_sprites
+     00001D7E  _cpct_mode_rom_status              cpct_firmware
+     00001D7F  cpct_getScreenPtr_asm              cpct_video
+     00001D93  _cpct_scanKeyboard                 cpct_keyboard
+     00001D93  cpct_scanKeyboard_asm              cpct_keyboard
+     00001DC4  _cpct_waitVSYNCStart               cpct_video
+     00001DC4  cpct_waitVSYNCStart_asm            cpct_video
+     00001DD1  _cpct_mxor32_seed                  cpct_random
+     00001DD5  _cpct_nextRandom_mxor_u32          cpct_random
+     00001DD5  cpct_nextRandom_mxor_u32_asm       cpct_random
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               00001B31    000000C7 =         199. bytes (REL,CON)
+_DATA                               00001DF8    00000121 =         289. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00001B46  life_potion_card                   
-     00001B5D  gold_potion_card                   
-     00001B74  shield_potion_card                 
-     00001B8B  first_lvl                          fight_manager
-     00001BBA  sys_input_main_menu_actions        input_system
-     00001BBC  _window_data                       messages_system
-     00001BD5  sys_render_front_buffer            render_system
-     00001BD6  sys_render_back_buffer             render_system
-     00001BD7  sys_render_touched_zones           render_system
-     00001BD8  nInterrupt                         system_system
-     00001BD9  aux_txt                            text_manager
-     00001BED  string_buffer                      sys_util
+     00001E0D  first_lvl                          fight_manager
+     00001E44  e_count                            game_manager
+     00001E44  entities                           game_manager
+     00001E45  e_delta                            game_manager
+     00001E46  e_component_size                   game_manager
+     00001E47  e_component_max_number             game_manager
+     00001E48  e_pend                             game_manager
+     00001E4A  e_selected                         game_manager
+     00001E4B  e_array                            game_manager
+     00001ECE  entityTpl                          game_manager
+     00001EDB  nInterrupt                         system_system
+     00001EDE  sys_render_front_buffer            render_system
+     00001EDF  sys_render_back_buffer             render_system
+     00001EE0  sys_render_touched_zones           render_system
+     00001EE1  string_buffer                      sys_util
+     00001EEC  _window_data                       messages_system
+     00001F03  aux_txt                            text_manager
+     00001F17  sys_input_main_menu_actions        input_system
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
@@ -202,90 +211,90 @@ _ABS0                               00000000    00000100 =         256. bytes (A
 
 Files Linked                              [ module(s) ]
 
+obj/assets/sprites/player.rel             [ player ]
 obj/assets/sprites/small_numbers.rel      [ small_numbers ]
 obj/assets/sprites/font_chars_0.rel       [ font_chars_0 ]
 obj/assets/sprites/g_palette0.rel         [ g_palette0 ]
 obj/common.h.rel                          [  ]
+obj/macros.h.rel                          [  ]
 obj/main.rel                              [ cpct_keyboard ]
-obj/man/array.h.rel                       [ array_manager ]
-obj/man/array.rel                         [ array_manager ]
-obj/man/cards.h.rel                       [  ]
-obj/man/cards.rel                         [  ]
-obj/man/fight.h.rel                       [ fight_manager ]
 obj/man/fight.rel                         [ fight_manager ]
+obj/man/array.h.rel                       [ array_manager ]
 obj/man/game.h.rel                        [ game_manager ]
+obj/man/fight.h.rel                       [ fight_manager ]
+obj/man/array.rel                         [ array_manager ]
 obj/man/game.rel                          [ game_manager ]
-obj/sys/input.h.rel                       [  ]
-obj/sys/input.rel                         [ input_system ]
-obj/sys/messages.h.rel                    [ messages_system ]
-obj/sys/messages.rel                      [ messages_system ]
-obj/sys/render.h.rel                      [ render_system ]
-obj/sys/render.rel                        [ render_system ]
-obj/sys/system.h.rel                      [ system_system ]
 obj/sys/system.rel                        [ system_system ]
+obj/sys/render.rel                        [ render_system ]
 obj/sys/text.h.rel                        [  ]
-obj/sys/text.rel                          [ text_manager ]
-obj/sys/util.h.rel                        [  ]
+obj/sys/system.h.rel                      [ system_system ]
+obj/sys/messages.h.rel                    [ messages_system ]
 obj/sys/util.rel                          [ sys_util ]
+obj/sys/messages.rel                      [ messages_system ]
+obj/sys/text.rel                          [ text_manager ]
+obj/sys/input.h.rel                       [  ]
+obj/sys/render.h.rel                      [ render_system ]
+obj/sys/util.h.rel                        [  ]
+obj/sys/input.rel                         [ input_system ]
 
 
 Libraries Linked                          [ object file ]
 
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setInterruptHandler.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getScreenToSprite_asmbindin ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPalette_asmbindings.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isKeyPressed.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPALColour_asmbindings.re ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSprite_asmbindings.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ keyboard.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitHalts_asmbindings.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setSeed_mxor.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setSeed_xsp40_u8_asmbinding ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMemoryPage.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_memset_f64_asmbinding.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getRandom_xsp40_u8.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isAnyKeyPressed.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_scanKeyboard_if.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMode_asmbindings.re ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitVSYNC.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_memset_asmbinding.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_removeInterruptHandler.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSolidBox_asmbindings.re ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getRandom_mxor_u8.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSpriteBlended_asmbindin ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpc_mode_rom_status.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getScreenPtr_asmbindings.re ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_scanKeyboard.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitVSYNCStart.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_mxor32_seed.rel ]
-/Users/david/Projects/retro/cpctelera/cpctelera/cpctelera.lib
+/home/cabox/workspace/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_nextRandom_mxor_u32.rel ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.

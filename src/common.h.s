@@ -14,6 +14,8 @@
 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;-------------------------------------------------------------------------------
 
+.include "macros.h.s"
+
 .globl _g_palette0
 .globl _s_font_0
 .globl _s_small_numbers_00
@@ -26,6 +28,8 @@
 .globl _s_small_numbers_07
 .globl _s_small_numbers_08
 .globl _s_small_numbers_09
+.globl _s_player_0
+.globl _s_player_1
 
 ;;===============================================================================
 ;; CPCTELERA FUNCTIONS
@@ -64,13 +68,15 @@
 e_type_invalid              = 0x00
 
 ;;tipos de componentes
-e_cmp_render = 0x01     ;;entidad renderizable
-e_cmp_movable = 0x02    ;;entidad que se puede mover
-e_cmp_input = 0x04      ;;entidad controlable por input  
-e_cmp_ia = 0x08         ;;entidad controlable con ia
-e_cmp_animated = 0x10   ;;entidad animada
-e_cmp_collider = 0x20   ;;entidad que puede colisionar
-e_cmp_default = e_cmp_render | e_cmp_movable | e_cmp_collider  ;;componente por defecto
+;;tipos de componentes
+e_cmps          = 0
+e_cmps_render   = 0x01   ;;entidad renderizable
+e_cmps_movable  = 0x02   ;;entidad que se puede mover
+e_cmps_input    = 0x04   ;;entidad controlable por input  
+e_cmps_ia       = 0x08   ;;entidad controlable con ia
+e_cmps_animated = 0x10   ;;entidad animada
+e_cmps_collider = 0x20   ;;entidad que puede colisionar
+e_cmps_default = e_cmps_render | e_cmps_movable | e_cmps_collider  ;;componente por defecto
 
 
 ;; Keyboard constants
@@ -86,35 +92,4 @@ S_SMALL_NUMBERS_HEIGHT = 5
 ;; Font constants
 FONT_WIDTH = 2
 FONT_HEIGHT = 9
-
-
-;;===============================================================================
-;; DEFINED MACROS
-;;===============================================================================
-.mdelete BeginStruct
-.macro BeginStruct struct
-    struct'_offset = 0
-.endm
-
-.mdelete Field
-.macro Field struct, field, size
-    struct'_'field = struct'_offset
-    struct'_offset = struct'_offset + size
-.endm
-
-.mdelete EndStruct
-.macro EndStruct struct
-    sizeof_'struct = struct'_offset
-.endm
-
-;;===============================================================================
-;; Macro
-;;
-;; Macro modified from cpctelera cpctm_screenPtr_asm
-;;===============================================================================
-
-.mdelete m_center_screen_ptr 
-.macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
-   ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
-.endm
 

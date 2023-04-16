@@ -438,8 +438,8 @@ ret
 
 
 
-man_entity_first_entity:: ;; Changes the entity controller to ix register
-    ld hl, #array_entities
+:: ;; Changes the entity controller to ix register
+    lman_entity_first_entityd hl, #array_entities
     ld (current_entity), hl
     ld ix, (current_entity)
 ret
