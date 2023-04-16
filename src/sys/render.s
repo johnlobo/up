@@ -222,8 +222,8 @@ sys_render_update_one_entity::
     ld e_p_address+1(ix), a
 
     ld_de_frontbuffer               ;; loads in DE the frontbuffer address
-    ld c, e_x(ix)
-    ld b, e_y(ix)
+    ld c, e_x(ix)                 ;; get the higher part of the x position
+    ld b, e_y(ix)                 ;; get the higher part of the y position
     call cpct_getScreenPtr_asm      ;; Calculate video memory location and return it in HL
     
     ;; move new address to current address

@@ -31,4 +31,5 @@
 .globl sys_input_getKeyPressed
 
 .globl sys_input_main_menu_update
+.globl sys_input_player_update
 

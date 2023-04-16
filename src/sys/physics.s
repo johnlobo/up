@@ -59,24 +59,44 @@ sys_physics_init::
 ;;  Initilizes render system
 ;;  Input: ix : pointer to the entity
 ;;  Output: 
-;;  Modified: AF, BC, DE, HL
+;;  Modified: AF, BC, HL
 ;;
 sys_physics_update_one_entity::
     ;; update x coord with vx
-    ld a, e_vx(ix)
-    or a                        ;; check if vx == 0
+    ld a, e_vx(ix)              ;; check if the speed in x is 0
+    ld c, e_vx+1(ix)            ;;
+    or c                        ;; check if vx == 0
     jr z, spuoe_yCoord          ;; move to y coord if vx === 0
-    add a, e_x(ix)
-    ld e_x(ix), a
+
+    ld b, e_vx(ix)              ;; lower part of the vx speed c, so bc = vx
+    ld h, e_x(ix)               ;;
+    ld l, e_x+1(ix)             ;; get the x coord in hl
+    ld a, h                     ;; save h value in a
+    adc hl, bc                  ;; add x+vx
+    ld e_x(ix), h               ;; update entity with new position
+    ld e_x+1(ix), l             ;;
+    
+    cp h                        ;; if h has changed (high value)moved = true
+    jr z, spuoe_yCoord          ;;
     ld e_moved(ix), #1          ;; flag the entity as moved
 
 spuoe_yCoord:
     ;; update y coord with vy
-    ld a, e_vy(ix)
-    or a                        ;; check if vx == 0
+    ld a, e_vy(ix)            ;; check if the speed in y is 0
+    ld c, e_vy+1(ix)              ;;
+    or c                        ;; check if vx == 0
     jr z, spuoe_Exit            ;; move to ret coord if vx === 0
-    add a, e_y(ix)
-    ld e_y(ix), a
+    
+    ld b, e_vy(ix)              ;; lower part of the vy speed c, so bc = vy
+    ld h, e_y(ix)               ;;
+    ld l, e_y+1(ix)             ;; get the y coord in hl
+    ld a, h                     ;; save h value in a
+    adc hl, bc                  ;; add y+vy
+    ld e_y(ix), h               ;; update entity with new position
+    ld e_y+1(ix), l             ;;
+
+    cp h                        ;; if h has changed (high value)moved = true
+    jr z, spuoe_Exit            ;;
     ld e_moved(ix), #1          ;; flag the entity as moved
 
 spuoe_Exit:

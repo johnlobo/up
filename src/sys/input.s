@@ -18,6 +18,7 @@
 
 .module input_system
 
+.include "man/array.h.s"
 .include "cpctelera.h.s"
 .include "../common.h.s"
 
@@ -34,6 +35,21 @@
 sys_input_main_menu_actions::
     ;;.dw Key_O,      sys_input_selected_left
     ;;.dw Key_P,      sys_input_selected_right
+    ;;.dw Key_D,      sys_input_show_deck
+    ;;.dw Key_Space,  sys_input_action
+    ;;.dw Key_Q,      sys_input_add_card
+    ;;.dw Key_A,      sys_input_remove_card
+    ;;.dw Key_Esc,    _score_cancel_entry
+    ;;.dw Joy0_Left,  _score_move_left
+    ;;.dw Joy0_Right, _score_move_right
+    ;;.dw Joy0_Up,    _score_move_up
+    ;;.dw Joy0_Down,  _score_move_down
+    ;;.dw Joy0_Fire1, _score_fire
+    .dw 0
+
+sys_input_player_actions::
+    .dw Key_O,      sys_input_player_left
+    .dw Key_P,      sys_input_player_right
     ;;.dw Key_D,      sys_input_show_deck
     ;;.dw Key_Space,  sys_input_action
     ;;.dw Key_Q,      sys_input_add_card
@@ -222,6 +238,53 @@ sys_input_main_menu_update::
     ld iy, #sys_input_main_menu_actions
     call sys_input_generic_update
     ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_input_player_left
+;;
+;;   reduces hor the speed of the player 
+;;
+;;  Input: 
+;;  Output:
+;;  Modified: iy, bc
+sys_input_player_left:
+    dec e_vx(ix)
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_input_player_left
+;;
+;;   reduces hor the speed of the player 
+;;
+;;  Input: 
+;;  Output:
+;;  Modified: iy, bc
+sys_input_player_right:
+    inc e_vx(ix)
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_input_player_update
+;;
+;;   Updates player input
+;;
+;;  Input: 
+;;  Output:
+;;  Modified: iy, bc
+sys_input_player_update::
+    push ix                             ;; save ix information
+    call man_array_first_element        ;; move ix to the first entity which will be player operated
+    push hl                             ;;
+    pop ix                              ;;
+
+    ld iy, #sys_input_player_actions
+    call sys_input_generic_update
+    pop ix                              ;; rerieve saved information in ix
+    ret
+
 
 
 

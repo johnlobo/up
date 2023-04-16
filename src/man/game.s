@@ -20,6 +20,7 @@
 .include "man/array.h.s"
 .include "sys/render.h.s"
 .include "sys/physics.h.s"
+.include "sys/input.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -69,8 +70,9 @@ man_game_init::
     push ix                             ;; Save ix 
     push hl                             ;; move pointer to the new entity to ix
     pop ix                              ;;
-    ld e_x(ix), #120                    ;; move second entity to 120
-    ld e_vx(ix), #1                     ;; vx = 1
+    ld e_x(ix), #20                    ;; move second entity to 120
+    ld e_y(ix), #140                    ;; move second entity to 120
+    ld e_vx+1(ix), #8                    ;; vx = 0.25
     pop ix                              ;; retrieve ix
     
     ret
@@ -85,6 +87,7 @@ man_game_init::
 ;;  Modified: AF, BC, DE, HL
 ;;
 man_game_update::
+    call sys_input_player_update
     call sys_physics_update
     call sys_render_update
     ;; delay 

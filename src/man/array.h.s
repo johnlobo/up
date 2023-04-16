@@ -32,6 +32,7 @@
 .globl man_array_move_all_elements
 .globl man_array_execute_each
 .globl man_array_execute_each_matching
+.globl man_array_first_element
 
 ;;===============================================================================
 ;; COMPONENT DEFINITION MACRO

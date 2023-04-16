@@ -108,12 +108,12 @@ FONT_HEIGHT = 9
 ;;===============================================================================
 BeginStruct e
 Field e, cpms       , 1
-Field e, x          , 1
-Field e, y          , 1
+Field e, x          , 2
+Field e, y          , 2
 Field e, w          , 1
 Field e, h          , 1
-Field e, vx         , 1
-Field e, vy         , 1
+Field e, vx         , 2
+Field e, vy         , 2
 Field e, sprite     , 2
 Field e, address    , 2
 Field e, p_address  , 2
