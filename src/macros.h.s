@@ -103,7 +103,7 @@
 ;; ENTITY DEFINITION MACRO
 ;;===============================================================================
 .mdelete DefineEntity
-.macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address
+.macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address, _moved
     .db _cpms
     .db _x
     .db _y
@@ -114,5 +114,6 @@
     .dw _sprite
     .dw _address
     .dw _p_address
+    .db _moved
 .endm
 

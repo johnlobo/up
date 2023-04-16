@@ -75,12 +75,12 @@ e_type_invalid              = 0x00
 e_cmps          = 0
 e_cmps_alive    = 0x01   ;;entidad renderizable
 e_cmps_render   = 0x02   ;;entidad renderizable
-e_cmps_movable  = 0x04   ;;entidad que se puede mover
+e_cmps_physics  = 0x04   ;;entidad que se puede mover
 e_cmps_input    = 0x08   ;;entidad controlable por input  
 e_cmps_ia       = 0x10   ;;entidad controlable con ia
 e_cmps_animated = 0x20   ;;entidad animada
 e_cmps_collider = 0x40   ;;entidad que puede colisionar
-e_cmps_default = e_cmps_alive | e_cmps_render | e_cmps_movable | e_cmps_collider  ;;componente por defecto
+e_cmps_default = e_cmps_alive | e_cmps_render | e_cmps_physics | e_cmps_collider  ;;componente por defecto
 
 
 ;; Keyboard constants
@@ -117,4 +117,5 @@ Field e, vy         , 1
 Field e, sprite     , 2
 Field e, address    , 2
 Field e, p_address  , 2
+Field e, moved      , 1
 EndStruct e

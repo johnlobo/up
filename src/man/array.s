@@ -342,51 +342,51 @@ return_point:
 ;;  Modified: AF, BC, DE, HL
 ;;
 man_array_execute_each_matching::
-    push ix                 ;; save ix 
-    ld (comp_type), a       ;; save component to match for later
+    push ix                             ;; save ix 
+    ld (comp_type), a                   ;; save component to match for later
 
-    ld a, a_count(ix)       ;; retrieve number of elements in the array
-    or a                    ;; If no elements in arrary return
-    ret z                   ;;
+    ld a, a_count(ix)                   ;; retrieve number of elements in the array
+    or a                                ;; If no elements in arrary return
+    ret z                               ;;
 
-    ld b, a                 ;; move the number of elements to b for indexing djnz
+    ld b, a                             ;; move the number of elements to b for indexing djnz
 
-    ld (routine), hl        ;; store routine in memory
+    ld (routine), hl                    ;; store routine in memory
 
-    ld a, a_component_size(ix)  ;; store component_size in memory
-    ld (comp_size), a       ;;    
+    ld a, a_component_size(ix)          ;; store component_size in memory
+    ld (comp_size), a                   ;;    
     
-    call man_array_first_element ;; load start of array in hl
+    call man_array_first_element        ;; load start of array in hl
     
-    push hl                 ;;
-    pop ix                  ;;  load ix with the first element
+    push hl                             ;;
+    pop ix                              ;;  load ix with the first element
 
 matching_loop_each:
-    push bc                 ;; save index in stack
+    push bc                             ;; save index in stack
 
-    ld a, (comp_type)       ;; Retrieve the component type to match
-    ld b, a                 ;;
-    ld a, e_cmps(ix)             ;; retrieve the type of the current component
-    cp b                    ;; Compare if they match
-    jr nz, matching_return_point      ;; Jump to continue in case they don't match
+    ld a, (comp_type)                   ;; Retrieve the component type to match
+    ld b, a                             ;;
+    ld a, e_cmps(ix)                    ;; retrieve the type of the current component
+    and b                               ;; Compare if they match
+    jr z, matching_return_point         ;; Jump to continue in case they don't match
 
-    ld hl, #matching_return_point    ;;
-    push hl                 ;; set the return point in the stack
+    ld hl, #matching_return_point       ;;
+    push hl                             ;; set the return point in the stack
 
-    ld hl, (routine)        ;; Move routine to hl
-    jp (hl)                 ;; jump to the routine
+    ld hl, (routine)                    ;; Move routine to hl
+    jp (hl)                             ;; jump to the routine
 
 matching_return_point:
-    ld d, #0                ;; retrieve component_size
-    ld a, (comp_size)       ;;
-    ld e, a                 ;;
+    ld d, #0                            ;; retrieve component_size
+    ld a, (comp_size)                   ;;
+    ld e, a                             ;;
 
-    add ix, de              ;; move ix to the next element
+    add ix, de                          ;; move ix to the next element
 
-    pop bc                  ;; restore index
+    pop bc                              ;; restore index
     djnz matching_loop_each
 
-    pop ix                  ;; restore ix
+    pop ix                              ;; restore ix
 
     ret    
 

@@ -189,12 +189,46 @@ sys_render_init::
 ;;  Output: 
 ;;  Modified: AF, BC, DE, HL
 ;;
-sys_render_one_entity::
-    ld_de_frontbuffer    
-    
+sys_render_erase_one_entity::
+    ld e, e_address(ix)
+    ld d, e_address+1(ix)
+    ld c, e_w(ix)
+    ld b, e_h(ix) 
+    ld a, #0
+    call cpct_drawSolidBox_asm
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_render_one_entity
+;;
+;;  Initilizes render system
+;;  Input: ix : pointer to the entity
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+sys_render_update_one_entity::
+    ;; check if the entity has been moved
+    ld a, e_moved(ix)
+    or a
+    ret z
+
+    call sys_render_erase_one_entity
+
+    ;; move current address to previous address
+    ld a, e_address(ix)
+    ld e_p_address(ix), a
+    ld a, e_address+1(ix)
+    ld e_p_address+1(ix), a
+
+    ld_de_frontbuffer               ;; loads in DE the frontbuffer address
     ld c, e_x(ix)
     ld b, e_y(ix)
     call cpct_getScreenPtr_asm      ;; Calculate video memory location and return it in HL
+    
+    ;; move new address to current address
+    ld e_address(ix), l
+    ld e_address+1(ix), h
 
     ex de, hl
 
@@ -203,6 +237,8 @@ sys_render_one_entity::
     ld c, e_w(ix)
     ld b, e_h(ix)
     call cpct_drawSprite_asm
+
+    ld e_moved(ix), #0              ;; reset moved flag
 
     ret
 
@@ -215,11 +251,13 @@ sys_render_one_entity::
 ;;  Output: 
 ;;  Modified: AF, BC, DE, HL
 ;;
+
+cmps_render = ( e_cmps_alive | e_cmps_render)
 sys_render_update::
 
-    ld hl, #sys_render_one_entity
+    ld hl, #sys_render_update_one_entity
     ld ix, #entities
-    ld a, (e_cmps_alive | e_cmps_render)
+    ld a, #cmps_render
     call man_array_execute_each_matching
 
     ret
