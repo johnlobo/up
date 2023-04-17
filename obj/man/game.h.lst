@@ -75,7 +75,89 @@ Hexadecimal [16-Bits]
                              44 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
                              45    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
                              46 .endm
+                             47 
+                             48 ;;===============================================================================
+                             49 ;; MACRO
+                             50 ;;===============================================================================
+                             51 .mdelete ld_de_backbuffer
+                             52 .macro ld_de_backbuffer
+                             53    ld   a, (sys_render_back_buffer)          ;; DE = Pointer to start of the screen
+                             54    ld   d, a
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+
+
+                             55    ld   e, #00
+                             56 .endm
+                             57 
+                             58 .mdelete ld_de_frontbuffer
+                             59 .macro ld_de_frontbuffer
+                             60    ld   a, (sys_render_front_buffer)         ;; DE = Pointer to start of the screen
+                             61    ld   d, a
+                             62    ld   e, #00
+                             63 .endm
+                             64 
+                             65 .mdelete m_screenPtr_backbuffer
+                             66 .macro m_screenPtr_backbuffer X, Y
+                             67    push hl
+                             68    ld de, #(80 * (Y / 8) + 2048 * (Y & 7) + X)
+                             69    ld a, (sys_render_back_buffer)
+                             70    ld h, a
+                             71    ld l, #0         
+                             72    add hl, de
+                             73    ex de, hl
+                             74    pop hl
+                             75 .endm
+                             76 
+                             77 .mdelete m_screenPtr_frontbuffer
+                             78 .macro m_screenPtr_frontbuffer X, Y
+                             79    push hl
+                             80    ld de, #(80 * (Y / 8) + 2048 * (Y & 7) + X)
+                             81    ld a, (sys_render_front_buffer)
+                             82    ld h, a
+                             83    ld l, #0         
+                             84    add hl, de
+                             85    ex de, hl
+                             86    pop hl
+                             87 .endm
+                             88 
+                             89 
+                             90 .mdelete m_draw_blank_small_number
+                             91 .macro m_draw_blank_small_number
+                             92    push de
+                             93    push hl
+                             94    ld c, #5
+                             95    ld b, #5
+                             96    ld a, #0                         ;; Patern of solid box
+                             97    call cpct_drawSolidBox_asm
+                             98    pop hl
+                             99    pop de
+                            100 .endm
+                            101 
+                            102 ;;===============================================================================
+                            103 ;; ENTITY DEFINITION MACRO
+                            104 ;;===============================================================================
+                            105 .mdelete DefineEntity
+                            106 .macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address
+                            107     .db _cpms
+                            108     .db _x
+                            109     .db _y
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
+Hexadecimal [16-Bits]
+
+
+
+                            110     .db _w
+                            111     .db _h
+                            112     .db _vx
+                            113     .db _vy
+                            114     .dw _sprite
+                            115     .dw _address
+                            116     .dw _p_address
+                            117 .endm
+                            118 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
 Hexadecimal [16-Bits]
 
 
@@ -92,63 +174,3 @@ Hexadecimal [16-Bits]
                              31 ;;===============================================================================
                              32 .globl man_game_init
                              33 .globl man_game_update
-                             34 
-                             35 
-                             36 ;;===============================================================================
-                             37 ;; CARD DEFINITION MACRO
-                             38 ;;===============================================================================
-                             39 .macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address
-                             40     .db _cpms
-                             41     .db _x
-                             42     .db _y
-                             43     .db _w
-                             44     .db _h
-                             45     .db _vx
-                             46     .db _vy
-                             47     .dw _sprite
-                             48     .dw _address
-                             49     .dw _p_address
-                             50 .endm
-                             51 
-                             52 ;;===============================================================================
-                             53 ;; ENTITIY SCTRUCTURE CREATION
-                             54 ;;===============================================================================
-   0000                      55 BeginStruct e
-                     0000     1     e_offset = 0
-   0000                      56 Field e, cpms       , 1
-                     0000     1     e_cpms = e_offset
-                     0001     2     e_offset = e_offset + 1
-   0000                      57 Field e, x          , 1
-                     0001     1     e_x = e_offset
-                     0002     2     e_offset = e_offset + 1
-   0000                      58 Field e, y          , 1
-                     0002     1     e_y = e_offset
-                     0003     2     e_offset = e_offset + 1
-   0000                      59 Field e, w          , 1
-                     0003     1     e_w = e_offset
-                     0004     2     e_offset = e_offset + 1
-   0000                      60 Field e, h          , 1
-                     0004     1     e_h = e_offset
-                     0005     2     e_offset = e_offset + 1
-   0000                      61 Field e, vx         , 1
-                     0005     1     e_vx = e_offset
-                     0006     2     e_offset = e_offset + 1
-   0000                      62 Field e, vy         , 1
-                     0006     1     e_vy = e_offset
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
-Hexadecimal [16-Bits]
-
-
-
-                     0007     2     e_offset = e_offset + 1
-   0000                      63 Field e, sprite     , 2
-                     0007     1     e_sprite = e_offset
-                     0009     2     e_offset = e_offset + 2
-   0000                      64 Field e, address    , 2
-                     0009     1     e_address = e_offset
-                     000B     2     e_offset = e_offset + 2
-   0000                      65 Field e, p_address  , 2
-                     000B     1     e_p_address = e_offset
-                     000D     2     e_offset = e_offset + 2
-   0000                      66 EndStruct e
-                     000D     1     sizeof_e = e_offset

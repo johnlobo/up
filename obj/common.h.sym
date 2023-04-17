@@ -19,10 +19,15 @@ Symbol Table
     cpct_sca   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
-    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_cmps  =  0000 
-    e_cmps_a=  0010     |     e_cmps_c=  0020     |     e_cmps_d=  0023 
-    e_cmps_i=  0008     |     e_cmps_i=  0004     |     e_cmps_m=  0002 
-    e_cmps_r=  0001     |     e_type_i=  0000 
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_addres=  0009 
+    e_cmps  =  0000     |     e_cmps_a=  0001     |     e_cmps_a=  0020 
+    e_cmps_c=  0040     |     e_cmps_d=  0047     |     e_cmps_i=  0010 
+    e_cmps_i=  0008     |     e_cmps_m=  0004     |     e_cmps_r=  0002 
+    e_cpms  =  0000     |     e_h     =  0004     |     e_offset=  000D 
+    e_p_addr=  000B     |     e_sprite=  0007     |     e_type_i=  0000 
+    e_vx    =  0005     |     e_vy    =  0006     |     e_w     =  0003 
+    e_x     =  0001     |     e_y     =  0002     |     entities   **** GX
+    sizeof_e=  000D 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]

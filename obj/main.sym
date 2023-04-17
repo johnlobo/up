@@ -77,18 +77,19 @@ Symbol Table
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_wai   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
-    e_addres=  0009     |     e_cmps  =  0000     |     e_cmps_a=  0010 
-    e_cmps_c=  0020     |     e_cmps_d=  0023     |     e_cmps_i=  0008 
-    e_cmps_i=  0004     |     e_cmps_m=  0002     |     e_cmps_r=  0001 
-    e_cpms  =  0000     |     e_h     =  0004     |     e_offset=  000D 
-    e_p_addr=  000B     |     e_sprite=  0007     |     e_type_i=  0000 
-    e_vx    =  0005     |     e_vy    =  0006     |     e_w     =  0003 
-    e_x     =  0001     |     e_y     =  0002     |   0 loop       0023 R
-  0 main_ini   0000 GR  |     man_game   **** GX  |     man_game   **** GX
-    nInterru   **** GX  |     opc_DI  =  00F3     |     opc_EI  =  00FB 
-    opc_JR  =  0018     |     opc_LD_D=  0016     |     sizeof_e=  000D 
-  0 start      0020 R   |     sys_mess   **** GX  |     sys_mess   **** GX
+    e_addres=  0009     |     e_cmps  =  0000     |     e_cmps_a=  0001 
+    e_cmps_a=  0020     |     e_cmps_c=  0040     |     e_cmps_d=  0047 
+    e_cmps_i=  0010     |     e_cmps_i=  0008     |     e_cmps_m=  0004 
+    e_cmps_r=  0002     |     e_cpms  =  0000     |     e_h     =  0004 
+    e_offset=  000D     |     e_p_addr=  000B     |     e_sprite=  0007 
+    e_type_i=  0000     |     e_vx    =  0005     |     e_vy    =  0006 
+    e_w     =  0003     |     e_x     =  0001     |     e_y     =  0002 
+    entities   **** GX  |   0 loop       0023 R   |   0 main_ini   0000 GR
+    man_game   **** GX  |     man_game   **** GX  |     nInterru   **** GX
+    opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
+    opc_LD_D=  0016     |     sizeof_e=  000D     |   0 start      0020 R
     sys_mess   **** GX  |     sys_mess   **** GX  |     sys_mess   **** GX
+    sys_mess   **** GX  |     sys_mess   **** GX  |     sys_rend   **** GX
     sys_rend   **** GX  |     sys_rend   **** GX  |     sys_rend   **** GX
     sys_rend   **** GX  |     sys_syst   **** GX  |     transpar   **** GX
 

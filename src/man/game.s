@@ -18,6 +18,7 @@
 
 .include "man/game.h.s"
 .include "man/array.h.s"
+.include "sys/render.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -75,4 +76,5 @@ man_game_init::
 ;;  Modified: AF, BC, DE, HL
 ;;
 man_game_update::
+    call sys_render_update
     ret

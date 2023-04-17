@@ -4503,95 +4503,229 @@ Hexadecimal [16-Bits]
                              44 .macro m_center_screen_ptr REG16, VMEM, Y, WIDTH
                              45    ld REG16, #VMEM + 80 * (Y / 8) + 2048 * (Y & 7) + ((80 - WIDTH)/2)   ;; [3] REG16 = screenPtr
                              46 .endm
+                             47 
+                             48 ;;===============================================================================
+                             49 ;; MACRO
+                             50 ;;===============================================================================
+                             51 .mdelete ld_de_backbuffer
+                             52 .macro ld_de_backbuffer
+                             53    ld   a, (sys_render_back_buffer)          ;; DE = Pointer to start of the screen
+                             54    ld   d, a
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 86.
 Hexadecimal [16-Bits]
 
 
 
-                             18 
-                             19 .globl _g_palette0
-                             20 .globl _s_font_0
-                             21 .globl _s_small_numbers_00
-                             22 .globl _s_small_numbers_01
-                             23 .globl _s_small_numbers_02
-                             24 .globl _s_small_numbers_03
-                             25 .globl _s_small_numbers_04
-                             26 .globl _s_small_numbers_05
-                             27 .globl _s_small_numbers_06
-                             28 .globl _s_small_numbers_07
-                             29 .globl _s_small_numbers_08
-                             30 .globl _s_small_numbers_09
-                             31 .globl _s_player_0
-                             32 .globl _s_player_1
-                             33 
-                             34 ;;===============================================================================
-                             35 ;; CPCTELERA FUNCTIONS
-                             36 ;;===============================================================================
-                             37 .globl cpct_disableFirmware_asm
-                             38 .globl cpct_getScreenPtr_asm
-                             39 .globl cpct_drawSprite_asm
-                             40 .globl cpct_setVideoMode_asm
-                             41 .globl cpct_setPalette_asm
-                             42 .globl cpct_setPALColour_asm
-                             43 .globl cpct_memset_asm
-                             44 .globl cpct_getScreenToSprite_asm
-                             45 .globl cpct_scanKeyboard_asm
-                             46 .globl cpct_scanKeyboard_if_asm
-                             47 .globl cpct_isKeyPressed_asm
-                             48 .globl cpct_waitHalts_asm
-                             49 .globl cpct_drawSolidBox_asm
-                             50 .globl cpct_getRandom_xsp40_u8_asm
-                             51 .globl cpct_setSeed_xsp40_u8_asm
-                             52 .globl cpct_isAnyKeyPressed_asm
-                             53 .globl cpct_setInterruptHandler_asm
-                             54 .globl cpct_waitVSYNC_asm
-                             55 .globl cpct_drawSpriteBlended_asm
-                             56 .globl _cpct_keyboardStatusBuffer
-                             57 .globl cpct_memset_f64_asm
-                             58 .globl cpct_getRandom_mxor_u8_asm
-                             59 .globl cpct_waitVSYNCStart_asm
-                             60 .globl cpct_setSeed_mxor_asm
-                             61 .globl cpct_setVideoMemoryPage_asm
-                             62 
-                             63 ;;===============================================================================
-                             64 ;; DEFINED CONSTANTS
-                             65 ;;===============================================================================
-                             66 
-                             67 ;;tipos de entidades
-                     0000    68 e_type_invalid              = 0x00
-                             69 
-                             70 ;;tipos de componentes
-                             71 ;;tipos de componentes
-                     0000    72 e_cmps          = 0
+                             55    ld   e, #00
+                             56 .endm
+                             57 
+                             58 .mdelete ld_de_frontbuffer
+                             59 .macro ld_de_frontbuffer
+                             60    ld   a, (sys_render_front_buffer)         ;; DE = Pointer to start of the screen
+                             61    ld   d, a
+                             62    ld   e, #00
+                             63 .endm
+                             64 
+                             65 .mdelete m_screenPtr_backbuffer
+                             66 .macro m_screenPtr_backbuffer X, Y
+                             67    push hl
+                             68    ld de, #(80 * (Y / 8) + 2048 * (Y & 7) + X)
+                             69    ld a, (sys_render_back_buffer)
+                             70    ld h, a
+                             71    ld l, #0         
+                             72    add hl, de
+                             73    ex de, hl
+                             74    pop hl
+                             75 .endm
+                             76 
+                             77 .mdelete m_screenPtr_frontbuffer
+                             78 .macro m_screenPtr_frontbuffer X, Y
+                             79    push hl
+                             80    ld de, #(80 * (Y / 8) + 2048 * (Y & 7) + X)
+                             81    ld a, (sys_render_front_buffer)
+                             82    ld h, a
+                             83    ld l, #0         
+                             84    add hl, de
+                             85    ex de, hl
+                             86    pop hl
+                             87 .endm
+                             88 
+                             89 
+                             90 .mdelete m_draw_blank_small_number
+                             91 .macro m_draw_blank_small_number
+                             92    push de
+                             93    push hl
+                             94    ld c, #5
+                             95    ld b, #5
+                             96    ld a, #0                         ;; Patern of solid box
+                             97    call cpct_drawSolidBox_asm
+                             98    pop hl
+                             99    pop de
+                            100 .endm
+                            101 
+                            102 ;;===============================================================================
+                            103 ;; ENTITY DEFINITION MACRO
+                            104 ;;===============================================================================
+                            105 .mdelete DefineEntity
+                            106 .macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address
+                            107     .db _cpms
+                            108     .db _x
+                            109     .db _y
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 87.
 Hexadecimal [16-Bits]
 
 
 
-                     0001    73 e_cmps_render   = 0x01   ;;entidad renderizable
-                     0002    74 e_cmps_movable  = 0x02   ;;entidad que se puede mover
-                     0004    75 e_cmps_input    = 0x04   ;;entidad controlable por input  
-                     0008    76 e_cmps_ia       = 0x08   ;;entidad controlable con ia
-                     0010    77 e_cmps_animated = 0x10   ;;entidad animada
-                     0020    78 e_cmps_collider = 0x20   ;;entidad que puede colisionar
-                     0023    79 e_cmps_default = e_cmps_render | e_cmps_movable | e_cmps_collider  ;;componente por defecto
-                             80 
-                             81 
-                             82 ;; Keyboard constants
-                     000A    83 BUFFER_SIZE = 10
-                     00FF    84 ZERO_KEYS_ACTIVATED = #0xFF
-                             85 
-                             86 ;; Score constants
-                     0004    87 SCORE_NUM_BYTES = 4
-                             88 
-                             89 ;; SMALL NUMBERS CONSTANTS
-                     0002    90 S_SMALL_NUMBERS_WIDTH = 2
-                     0005    91 S_SMALL_NUMBERS_HEIGHT = 5
-                             92 ;; Font constants
-                     0002    93 FONT_WIDTH = 2
-                     0009    94 FONT_HEIGHT = 9
-                             95 
+                            110     .db _w
+                            111     .db _h
+                            112     .db _vx
+                            113     .db _vy
+                            114     .dw _sprite
+                            115     .dw _address
+                            116     .dw _p_address
+                            117 .endm
+                            118 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 88.
+Hexadecimal [16-Bits]
+
+
+
+                             18 
+                             19 ;;===============================================================================
+                             20 ;; SPRITES
+                             21 ;;===============================================================================
+                             22 .globl _g_palette0
+                             23 .globl _s_font_0
+                             24 .globl _s_small_numbers_00
+                             25 .globl _s_small_numbers_01
+                             26 .globl _s_small_numbers_02
+                             27 .globl _s_small_numbers_03
+                             28 .globl _s_small_numbers_04
+                             29 .globl _s_small_numbers_05
+                             30 .globl _s_small_numbers_06
+                             31 .globl _s_small_numbers_07
+                             32 .globl _s_small_numbers_08
+                             33 .globl _s_small_numbers_09
+                             34 .globl _s_player_0
+                             35 .globl _s_player_1
+                             36 
+                             37 ;;===============================================================================
+                             38 ;; CPCTELERA FUNCTIONS
+                             39 ;;===============================================================================
+                             40 .globl cpct_disableFirmware_asm
+                             41 .globl cpct_getScreenPtr_asm
+                             42 .globl cpct_drawSprite_asm
+                             43 .globl cpct_setVideoMode_asm
+                             44 .globl cpct_setPalette_asm
+                             45 .globl cpct_setPALColour_asm
+                             46 .globl cpct_memset_asm
+                             47 .globl cpct_getScreenToSprite_asm
+                             48 .globl cpct_scanKeyboard_asm
+                             49 .globl cpct_scanKeyboard_if_asm
+                             50 .globl cpct_isKeyPressed_asm
+                             51 .globl cpct_waitHalts_asm
+                             52 .globl cpct_drawSolidBox_asm
+                             53 .globl cpct_getRandom_xsp40_u8_asm
+                             54 .globl cpct_setSeed_xsp40_u8_asm
+                             55 .globl cpct_isAnyKeyPressed_asm
+                             56 .globl cpct_setInterruptHandler_asm
+                             57 .globl cpct_waitVSYNC_asm
+                             58 .globl cpct_drawSpriteBlended_asm
+                             59 .globl _cpct_keyboardStatusBuffer
+                             60 .globl cpct_memset_f64_asm
+                             61 .globl cpct_getRandom_mxor_u8_asm
+                             62 .globl cpct_waitVSYNCStart_asm
+                             63 .globl cpct_setSeed_mxor_asm
+                             64 .globl cpct_setVideoMemoryPage_asm
+                             65 
+                             66 ;;===============================================================================
+                             67 ;; DEFINED CONSTANTS
+                             68 ;;===============================================================================
+                             69 
+                             70 ;;tipos de entidades
+                     0000    71 e_type_invalid              = 0x00
+                             72 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 89.
+Hexadecimal [16-Bits]
+
+
+
+                             73 ;;tipos de componentes
+                             74 ;;tipos de componentes
+                     0000    75 e_cmps          = 0
+                     0001    76 e_cmps_alive    = 0x01   ;;entidad renderizable
+                     0002    77 e_cmps_render   = 0x02   ;;entidad renderizable
+                     0004    78 e_cmps_movable  = 0x04   ;;entidad que se puede mover
+                     0008    79 e_cmps_input    = 0x08   ;;entidad controlable por input  
+                     0010    80 e_cmps_ia       = 0x10   ;;entidad controlable con ia
+                     0020    81 e_cmps_animated = 0x20   ;;entidad animada
+                     0040    82 e_cmps_collider = 0x40   ;;entidad que puede colisionar
+                     0047    83 e_cmps_default = e_cmps_alive | e_cmps_render | e_cmps_movable | e_cmps_collider  ;;componente por defecto
+                             84 
+                             85 
+                             86 ;; Keyboard constants
+                     000A    87 BUFFER_SIZE = 10
+                     00FF    88 ZERO_KEYS_ACTIVATED = #0xFF
+                             89 
+                             90 ;; Score constants
+                     0004    91 SCORE_NUM_BYTES = 4
+                             92 
+                             93 ;; SMALL NUMBERS CONSTANTS
+                     0002    94 S_SMALL_NUMBERS_WIDTH = 2
+                     0005    95 S_SMALL_NUMBERS_HEIGHT = 5
+                             96 ;; Font constants
+                     0002    97 FONT_WIDTH = 2
+                     0009    98 FONT_HEIGHT = 9
+                             99 
+                            100 ;;===============================================================================
+                            101 ;; GLOBAL VARIABLES
+                            102 ;;===============================================================================
+                            103 .globl entities
+                            104 
+                            105 
+                            106 ;;===============================================================================
+                            107 ;; ENTITIY SCTRUCTURE CREATION
+                            108 ;;===============================================================================
+   1F48                     109 BeginStruct e
+                     0000     1     e_offset = 0
+   0000                     110 Field e, cpms       , 1
+                     0000     1     e_cpms = e_offset
+                     0001     2     e_offset = e_offset + 1
+   0000                     111 Field e, x          , 1
+                     0001     1     e_x = e_offset
+                     0002     2     e_offset = e_offset + 1
+   0000                     112 Field e, y          , 1
+                     0002     1     e_y = e_offset
+                     0003     2     e_offset = e_offset + 1
+   0000                     113 Field e, w          , 1
+                     0003     1     e_w = e_offset
+                     0004     2     e_offset = e_offset + 1
+   0000                     114 Field e, h          , 1
+                     0004     1     e_h = e_offset
+                     0005     2     e_offset = e_offset + 1
+   0000                     115 Field e, vx         , 1
+                     0005     1     e_vx = e_offset
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 90.
+Hexadecimal [16-Bits]
+
+
+
+                     0006     2     e_offset = e_offset + 1
+   0000                     116 Field e, vy         , 1
+                     0006     1     e_vy = e_offset
+                     0007     2     e_offset = e_offset + 1
+   0000                     117 Field e, sprite     , 2
+                     0007     1     e_sprite = e_offset
+                     0009     2     e_offset = e_offset + 2
+   0000                     118 Field e, address    , 2
+                     0009     1     e_address = e_offset
+                     000B     2     e_offset = e_offset + 2
+   0000                     119 Field e, p_address  , 2
+                     000B     1     e_p_address = e_offset
+                     000D     2     e_offset = e_offset + 2
+   0000                     120 EndStruct e
+                     000D     1     sizeof_e = e_offset
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 91.
 Hexadecimal [16-Bits]
 
 
@@ -4607,7 +4741,7 @@ Hexadecimal [16-Bits]
                              31 
                              32 
                              33 
-   1F17                      34 sys_input_main_menu_actions::
+   0000                      34 sys_input_main_menu_actions::
                              35     ;;.dw Key_O,      sys_input_selected_left
                              36     ;;.dw Key_P,      sys_input_selected_right
                              37     ;;.dw Key_D,      sys_input_show_deck
@@ -4620,7 +4754,7 @@ Hexadecimal [16-Bits]
                              44     ;;.dw Joy0_Up,    _score_move_up
                              45     ;;.dw Joy0_Down,  _score_move_down
                              46     ;;.dw Joy0_Fire1, _score_fire
-   1F17 00 00                47     .dw 0
+   1F48 00 00                47     .dw 0
                              48 
                              49 ;;
                              50 ;; Start of _CODE area
@@ -4637,10 +4771,10 @@ Hexadecimal [16-Bits]
                              61 ;;  Output:
                              62 ;;  Modified: 
                              63 ;;
-   19CF                      64 sys_input_clean_buffer::
-   19CF CD ED 1B      [17]   65     call cpct_isAnyKeyPressed_asm
-   19D2 20 FB         [12]   66     jr nz, sys_input_clean_buffer
-   19D4 C9            [10]   67     ret
+   1A00                      64 sys_input_clean_buffer::
+   1A00 CD 1E 1C      [17]   65     call cpct_isAnyKeyPressed_asm
+   1A03 20 FB         [12]   66     jr nz, sys_input_clean_buffer
+   1A05 C9            [10]   67     ret
                              68 
                              69 ;;-----------------------------------------------------------------
                              70 ;;
@@ -4651,21 +4785,21 @@ Hexadecimal [16-Bits]
                              75 ;;  Output: hl: number of loops
                              76 ;;  Modified: 
                              77 ;;
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 89.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 92.
 Hexadecimal [16-Bits]
 
 
 
-   19D5                      78 sys_input_wait4anykey::
-   19D5 21 00 00      [10]   79     ld hl, #0
-   19D8                      80 _siw_loop:
-   19D8 E5            [11]   81     push hl
-   19D9 CD ED 1B      [17]   82     call cpct_isAnyKeyPressed_asm
-   19DC B7            [ 4]   83     or a
-   19DD E1            [10]   84     pop hl
-   19DE 23            [ 6]   85     inc hl
-   19DF 28 F7         [12]   86     jr z, _siw_loop
-   19E1 C9            [10]   87     ret
+   1A06                      78 sys_input_wait4anykey::
+   1A06 21 00 00      [10]   79     ld hl, #0
+   1A09                      80 _siw_loop:
+   1A09 E5            [11]   81     push hl
+   1A0A CD 1E 1C      [17]   82     call cpct_isAnyKeyPressed_asm
+   1A0D B7            [ 4]   83     or a
+   1A0E E1            [10]   84     pop hl
+   1A0F 23            [ 6]   85     inc hl
+   1A10 28 F7         [12]   86     jr z, _siw_loop
+   1A12 C9            [10]   87     ret
                              88 
                              89 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                              90 ;; DESCRIPTION
@@ -4683,42 +4817,42 @@ Hexadecimal [16-Bits]
                             102 ;;
                             103 ;; Routine taken from Promotion from Bite Studios
                             104 ;;
-   19E2                     105 sys_input_getKeyPressed::
-   19E2 21 58 1B      [10]  106     ld hl, #_cpct_keyboardStatusBuffer
-   19E5 AF            [ 4]  107     xor a                           ;; A = 0
+   1A13                     105 sys_input_getKeyPressed::
+   1A13 21 89 1B      [10]  106     ld hl, #_cpct_keyboardStatusBuffer
+   1A16 AF            [ 4]  107     xor a                           ;; A = 0
                             108 
-   19E6                     109 _kp_loop:
-   19E6 FE 0A         [ 7]  110     cp #BUFFER_SIZE
-   19E8 28 14         [12]  111     jr z, _kp_endLoop               ;; Check counter value. End if its 0
-   19EA 32 FA 19      [13]  112     ld (_size_counter), a
+   1A17                     109 _kp_loop:
+   1A17 FE 0A         [ 7]  110     cp #BUFFER_SIZE
+   1A19 28 14         [12]  111     jr z, _kp_endLoop               ;; Check counter value. End if its 0
+   1A1B 32 2B 1A      [13]  112     ld (_size_counter), a
                             113 
-   19ED 7E            [ 7]  114     ld a, (hl)                      ;; Load byte from the buffer
-   19EE EE FF         [ 7]  115     xor #ZERO_KEYS_ACTIVATED        ;; Inverts bytes
-   19F0 28 06         [12]  116     jr z, _no_key_detected
-   19F2 67            [ 4]  117         ld h, a                     ;; H is the mask
-   19F3 3A FA 19      [13]  118         ld a, (_size_counter)
-   19F6 6F            [ 4]  119         ld l, a                     ;; L is the offset
+   1A1E 7E            [ 7]  114     ld a, (hl)                      ;; Load byte from the buffer
+   1A1F EE FF         [ 7]  115     xor #ZERO_KEYS_ACTIVATED        ;; Inverts bytes
+   1A21 28 06         [12]  116     jr z, _no_key_detected
+   1A23 67            [ 4]  117         ld h, a                     ;; H is the mask
+   1A24 3A 2B 1A      [13]  118         ld a, (_size_counter)
+   1A27 6F            [ 4]  119         ld l, a                     ;; L is the offset
                             120         ; ld (_current_key_pressed), hl
-   19F7 C9            [10]  121         ret
-   19F8                     122 _no_key_detected:
-   19F8 23            [ 6]  123     inc hl
+   1A28 C9            [10]  121         ret
+   1A29                     122 _no_key_detected:
+   1A29 23            [ 6]  123     inc hl
                      002B   124 _size_counter = .+1
-   19F9 3E 00         [ 7]  125     ld a, #0x00                     ;; AUTOMODIFIABLE, A = counter
-   19FB 3C            [ 4]  126     inc a
-   19FC 18 E8         [12]  127     jr _kp_loop
-   19FE                     128 _kp_endLoop:
-   19FE 21 00 00      [10]  129     ld hl, #0x00                    ;; Return 0 if no key is pressed
-   1A01 3E 00         [ 7]  130     ld a, #0
-   1A03 32 07 1A      [13]  131     ld (_key_released), a
-   1A06 C9            [10]  132     ret
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 90.
+   1A2A 3E 00         [ 7]  125     ld a, #0x00                     ;; AUTOMODIFIABLE, A = counter
+   1A2C 3C            [ 4]  126     inc a
+   1A2D 18 E8         [12]  127     jr _kp_loop
+   1A2F                     128 _kp_endLoop:
+   1A2F 21 00 00      [10]  129     ld hl, #0x00                    ;; Return 0 if no key is pressed
+   1A32 3E 00         [ 7]  130     ld a, #0
+   1A34 32 38 1A      [13]  131     ld (_key_released), a
+   1A37 C9            [10]  132     ret
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 93.
 Hexadecimal [16-Bits]
 
 
 
                             133 
-   1A07                     134 _key_released:
-   1A07 00                  135     .db #0
+   1A38                     134 _key_released:
+   1A38 00                  135     .db #0
                             136 
                             137 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                             138 ;; DESCRIPTION
@@ -4736,18 +4870,18 @@ Hexadecimal [16-Bits]
                             150 ;;
                             151 ;; Routine taken from Promotion from Bite Studios
                             152 ;;
-   1A08                     153 sys_input_waitKeyPressed::
-   1A08 CD E2 19      [17]  154     call sys_input_getKeyPressed
-   1A0B 3A 07 1A      [13]  155     ld a, (_key_released)
-   1A0E B7            [ 4]  156     or a
-   1A0F 20 F7         [12]  157     jr nz, sys_input_waitKeyPressed
-   1A11 AF            [ 4]  158     xor a
-   1A12 B4            [ 4]  159     or h
-   1A13 B5            [ 4]  160     or l
-   1A14 28 F2         [12]  161     jr z, sys_input_waitKeyPressed
-   1A16 3E 01         [ 7]  162     ld a, #1
-   1A18 32 07 1A      [13]  163     ld (_key_released), a
-   1A1B C9            [10]  164     ret
+   1A39                     153 sys_input_waitKeyPressed::
+   1A39 CD 13 1A      [17]  154     call sys_input_getKeyPressed
+   1A3C 3A 38 1A      [13]  155     ld a, (_key_released)
+   1A3F B7            [ 4]  156     or a
+   1A40 20 F7         [12]  157     jr nz, sys_input_waitKeyPressed
+   1A42 AF            [ 4]  158     xor a
+   1A43 B4            [ 4]  159     or h
+   1A44 B5            [ 4]  160     or l
+   1A45 28 F2         [12]  161     jr z, sys_input_waitKeyPressed
+   1A47 3E 01         [ 7]  162     ld a, #1
+   1A49 32 38 1A      [13]  163     ld (_key_released), a
+   1A4C C9            [10]  164     ret
                             165 
                             166 
                             167 ;;-----------------------------------------------------------------
@@ -4759,8 +4893,8 @@ Hexadecimal [16-Bits]
                             173 ;;  Output:
                             174 ;;  Modified: 
                             175 ;;
-   1A1C                     176 sys_input_init::
-   1A1C C9            [10]  177     ret 
+   1A4D                     176 sys_input_init::
+   1A4D C9            [10]  177     ret 
                             178 
                             179 ;;-----------------------------------------------------------------
                             180 ;;
@@ -4771,33 +4905,33 @@ Hexadecimal [16-Bits]
                             185 ;;          ix: pointer to the strcut to be used in the actions
                             186 ;;  Output:
                             187 ;;  Modified: iy, bc
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 91.
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 94.
 Hexadecimal [16-Bits]
 
 
 
                             188 ;;
-   1A1D                     189 sys_input_generic_update:
-   1A1D 18 05         [12]  190     jr first_key
-   1A1F                     191 keys_loop:
-   1A1F 01 04 00      [10]  192     ld bc, #4
-   1A22 FD 09         [15]  193     add iy, bc
-   1A24                     194 first_key:
-   1A24 FD 6E 00      [19]  195     ld l, 0(iy)                     ;; Lower part of the key pointer
-   1A27 FD 66 01      [19]  196     ld h, 1(iy)                     ;; Lower part of the key pointer
+   1A4E                     189 sys_input_generic_update:
+   1A4E 18 05         [12]  190     jr first_key
+   1A50                     191 keys_loop:
+   1A50 01 04 00      [10]  192     ld bc, #4
+   1A53 FD 09         [15]  193     add iy, bc
+   1A55                     194 first_key:
+   1A55 FD 6E 00      [19]  195     ld l, 0(iy)                     ;; Lower part of the key pointer
+   1A58 FD 66 01      [19]  196     ld h, 1(iy)                     ;; Lower part of the key pointer
                             197     ;; Check if key is null
-   1A2A 7D            [ 4]  198     ld a, l
-   1A2B B4            [ 4]  199     or h
-   1A2C C8            [11]  200     ret z                           ;; Return if key is null
+   1A5B 7D            [ 4]  198     ld a, l
+   1A5C B4            [ 4]  199     or h
+   1A5D C8            [11]  200     ret z                           ;; Return if key is null
                             201     ;; Check if key is pressed
-   1A2D CD A2 1A      [17]  202     call cpct_isKeyPressed_asm      ;;
-   1A30 28 ED         [12]  203     jr z, keys_loop
+   1A5E CD D3 1A      [17]  202     call cpct_isKeyPressed_asm      ;;
+   1A61 28 ED         [12]  203     jr z, keys_loop
                             204     ;; Key pressed execute action
-   1A32 21 1F 1A      [10]  205     ld hl, #keys_loop               ;;
-   1A35 E5            [11]  206     push hl                         ;; return addres from executed function
-   1A36 FD 6E 02      [19]  207     ld l, 2(iy)                     ;;
-   1A39 FD 66 03      [19]  208     ld h, 3(iy)                     ;; retrieve function address    
-   1A3C E9            [ 4]  209     jp (hl)                         ;; jump to function
+   1A63 21 50 1A      [10]  205     ld hl, #keys_loop               ;;
+   1A66 E5            [11]  206     push hl                         ;; return addres from executed function
+   1A67 FD 6E 02      [19]  207     ld l, 2(iy)                     ;;
+   1A6A FD 66 03      [19]  208     ld h, 3(iy)                     ;; retrieve function address    
+   1A6D E9            [ 4]  209     jp (hl)                         ;; jump to function
                             210 
                             211 
                             212 ;;-----------------------------------------------------------------
@@ -4809,10 +4943,10 @@ Hexadecimal [16-Bits]
                             218 ;;  Output:
                             219 ;;  Modified: iy, bc
                             220 ;;
-   1A3D                     221 sys_input_main_menu_update::
-   1A3D FD 21 17 1F   [14]  222     ld iy, #sys_input_main_menu_actions
-   1A41 CD 1D 1A      [17]  223     call sys_input_generic_update
-   1A44 C9            [10]  224     ret
+   1A6E                     221 sys_input_main_menu_update::
+   1A6E FD 21 48 1F   [14]  222     ld iy, #sys_input_main_menu_actions
+   1A72 CD 4E 1A      [17]  223     call sys_input_generic_update
+   1A75 C9            [10]  224     ret
                             225 
                             226 
                             227 

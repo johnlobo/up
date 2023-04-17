@@ -16,6 +16,7 @@
 .module render_system
 
 .include "sys/render.h.s"
+.include "man/array.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -178,3 +179,48 @@ sys_render_init::
     ;;cpctm_clearScreen_asm 0                 ;; Clear screen
 
     ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_render_one_entity
+;;
+;;  Initilizes render system
+;;  Input: ix : pointer to the entity
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+sys_render_one_entity::
+    ld_de_frontbuffer    
+    
+    ld c, e_x(ix)
+    ld b, e_y(ix)
+    call cpct_getScreenPtr_asm      ;; Calculate video memory location and return it in HL
+
+    ex de, hl
+
+    ld l, e_sprite(ix)
+    ld h, e_sprite+1(ix)
+    ld c, e_w(ix)
+    ld b, e_h(ix)
+    call cpct_drawSprite_asm
+
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_render_update
+;;
+;;  Initilizes render system
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+sys_render_update::
+
+    ld hl, #sys_render_one_entity
+    ld ix, #entities
+    ld a, (e_cmps_alive | e_cmps_render)
+    call man_array_execute_each_matching
+
+    ret
+    

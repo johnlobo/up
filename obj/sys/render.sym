@@ -66,23 +66,34 @@ Symbol Table
     _s_playe   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
     _s_small   **** GX  |     _s_small   **** GX  |     _s_small   **** GX
-    _s_small   **** GX  |     _s_small   **** GX  |     cpct_dis   **** GX
-    cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_dra   **** GX
+    _s_small   **** GX  |     _s_small   **** GX  |     a_array =  0007 
+    a_compon=  0003     |     a_compon=  0002     |     a_count =  0000 
+    a_delta =  0001     |     a_offset=  0008     |     a_pend  =  0004 
+    a_select=  0006     |     cpct_dis   **** GX  |     cpct_dra   **** GX
+    cpct_dra   **** GX  |     cpct_dra   **** GX  |     cpct_get   **** GX
     cpct_get   **** GX  |     cpct_get   **** GX  |     cpct_get   **** GX
-    cpct_get   **** GX  |     cpct_isA   **** GX  |     cpct_isK   **** GX
-    cpct_mem   **** GX  |     cpct_mem   **** GX  |     cpct_pag=  0000 
-    cpct_pag=  0010     |     cpct_pag=  0020     |     cpct_pag=  0030 
-    cpct_sca   **** GX  |     cpct_sca   **** GX  |     cpct_set   **** GX
+    cpct_isA   **** GX  |     cpct_isK   **** GX  |     cpct_mem   **** GX
+    cpct_mem   **** GX  |     cpct_pag=  0000     |     cpct_pag=  0010 
+    cpct_pag=  0020     |     cpct_pag=  0030     |     cpct_sca   **** GX
+    cpct_sca   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
     cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_set   **** GX
-    cpct_wai   **** GX  |     cpct_wai   **** GX  |     cpct_wai   **** GX
-    e_cmps  =  0000     |     e_cmps_a=  0010     |     e_cmps_c=  0020 
-    e_cmps_d=  0023     |     e_cmps_i=  0008     |     e_cmps_i=  0004 
-    e_cmps_m=  0002     |     e_cmps_r=  0001     |     e_type_i=  0000 
-    opc_DI  =  00F3     |     opc_EI  =  00FB     |     opc_JR  =  0018 
-    opc_LD_D=  0016     |   1 sys_rend   0003 GR  |   0 sys_rend   000B GR
-  0 sys_rend   0000 GR  |   0 sys_rend   0015 GR  |   1 sys_rend   0002 GR
-  0 sys_rend   0035 GR  |   0 sys_rend   001F GR  |   1 sys_rend   0004 GR
+    cpct_set   **** GX  |     cpct_set   **** GX  |     cpct_wai   **** GX
+    cpct_wai   **** GX  |     cpct_wai   **** GX  |     e_addres=  0009 
+    e_cmps  =  0000     |     e_cmps_a=  0001     |     e_cmps_a=  0020 
+    e_cmps_c=  0040     |     e_cmps_d=  0047     |     e_cmps_i=  0010 
+    e_cmps_i=  0008     |     e_cmps_m=  0004     |     e_cmps_r=  0002 
+    e_cpms  =  0000     |     e_h     =  0004     |     e_offset=  000D 
+    e_p_addr=  000B     |     e_sprite=  0007     |     e_type_i=  0000 
+    e_vx    =  0005     |     e_vy    =  0006     |     e_w     =  0003 
+    e_x     =  0001     |     e_y     =  0002     |     entities   **** GX
+    man_arra   **** GX  |     man_arra   **** GX  |     man_arra   **** GX
+    man_arra   **** GX  |     man_arra   **** GX  |     man_arra   **** GX
+    man_arra   **** GX  |     man_arra   **** GX  |     opc_DI  =  00F3 
+    opc_EI  =  00FB     |     opc_JR  =  0018     |     opc_LD_D=  0016 
+    sizeof_a=  0008     |     sizeof_e=  000D     |   1 sys_rend   0003 GR
+  0 sys_rend   000B GR  |   0 sys_rend   0000 GR  |   0 sys_rend   0015 GR
+  1 sys_rend   0002 GR  |   0 sys_rend   0035 GR  |   0 sys_rend   004D GR
+  0 sys_rend   001F GR  |   1 sys_rend   0004 GR  |   0 sys_rend   006D GR
   3 transpar   0100 GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
@@ -90,7 +101,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE      size   4D   flags    0
+   0 _CODE      size   7B   flags    0
    1 _DATA      size    5   flags    0
    2 _ABS       size    0   flags    8
    3 _ABS0      size  100   flags    8

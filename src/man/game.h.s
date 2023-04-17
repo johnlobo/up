@@ -31,36 +31,3 @@ MAX_ENTITIES = 10
 ;;===============================================================================
 .globl man_game_init
 .globl man_game_update
-
-
-;;===============================================================================
-;; CARD DEFINITION MACRO
-;;===============================================================================
-.macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address
-    .db _cpms
-    .db _x
-    .db _y
-    .db _w
-    .db _h
-    .db _vx
-    .db _vy
-    .dw _sprite
-    .dw _address
-    .dw _p_address
-.endm
-
-;;===============================================================================
-;; ENTITIY SCTRUCTURE CREATION
-;;===============================================================================
-BeginStruct e
-Field e, cpms       , 1
-Field e, x          , 1
-Field e, y          , 1
-Field e, w          , 1
-Field e, h          , 1
-Field e, vx         , 1
-Field e, vy         , 1
-Field e, sprite     , 2
-Field e, address    , 2
-Field e, p_address  , 2
-EndStruct e

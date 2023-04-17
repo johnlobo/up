@@ -16,6 +16,9 @@
 
 .include "macros.h.s"
 
+;;===============================================================================
+;; SPRITES
+;;===============================================================================
 .globl _g_palette0
 .globl _s_font_0
 .globl _s_small_numbers_00
@@ -70,13 +73,14 @@ e_type_invalid              = 0x00
 ;;tipos de componentes
 ;;tipos de componentes
 e_cmps          = 0
-e_cmps_render   = 0x01   ;;entidad renderizable
-e_cmps_movable  = 0x02   ;;entidad que se puede mover
-e_cmps_input    = 0x04   ;;entidad controlable por input  
-e_cmps_ia       = 0x08   ;;entidad controlable con ia
-e_cmps_animated = 0x10   ;;entidad animada
-e_cmps_collider = 0x20   ;;entidad que puede colisionar
-e_cmps_default = e_cmps_render | e_cmps_movable | e_cmps_collider  ;;componente por defecto
+e_cmps_alive    = 0x01   ;;entidad renderizable
+e_cmps_render   = 0x02   ;;entidad renderizable
+e_cmps_movable  = 0x04   ;;entidad que se puede mover
+e_cmps_input    = 0x08   ;;entidad controlable por input  
+e_cmps_ia       = 0x10   ;;entidad controlable con ia
+e_cmps_animated = 0x20   ;;entidad animada
+e_cmps_collider = 0x40   ;;entidad que puede colisionar
+e_cmps_default = e_cmps_alive | e_cmps_render | e_cmps_movable | e_cmps_collider  ;;componente por defecto
 
 
 ;; Keyboard constants
@@ -93,3 +97,24 @@ S_SMALL_NUMBERS_HEIGHT = 5
 FONT_WIDTH = 2
 FONT_HEIGHT = 9
 
+;;===============================================================================
+;; GLOBAL VARIABLES
+;;===============================================================================
+.globl entities
+
+
+;;===============================================================================
+;; ENTITIY SCTRUCTURE CREATION
+;;===============================================================================
+BeginStruct e
+Field e, cpms       , 1
+Field e, x          , 1
+Field e, y          , 1
+Field e, w          , 1
+Field e, h          , 1
+Field e, vx         , 1
+Field e, vy         , 1
+Field e, sprite     , 2
+Field e, address    , 2
+Field e, p_address  , 2
+EndStruct e

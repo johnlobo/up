@@ -31,6 +31,7 @@
 .globl man_array_get_random_element
 .globl man_array_move_all_elements
 .globl man_array_execute_each
+.globl man_array_execute_each_matching
 
 ;;===============================================================================
 ;; COMPONENT DEFINITION MACRO
