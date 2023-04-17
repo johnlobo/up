@@ -69,12 +69,18 @@ sys_physics_update_one_entity::
     jr z, spuoe_yCoord          ;; move to y coord if vx === 0
 
     ld b, e_vx(ix)              ;; lower part of the vx speed c, so bc = vx
-    ld h, e_x(ix)               ;;
-    ld l, e_x+1(ix)             ;; get the x coord in hl
+    ld h, e_x(ix)               ;; get the x coord in hl
+    ld l, e_x+1(ix)             ;; 
     ld a, h                     ;; save h value in a
     adc hl, bc                  ;; add x+vx
     ld e_x(ix), h               ;; update entity with new position
     ld e_x+1(ix), l             ;;
+    ;; Friction
+    ld h, b
+    ld l, c
+    ld bc, #0x0008              ;; Friciton coefcient
+    
+
     
     cp h                        ;; if h has changed (high value)moved = true
     jr z, spuoe_yCoord          ;;
@@ -88,8 +94,8 @@ spuoe_yCoord:
     jr z, spuoe_Exit            ;; move to ret coord if vx === 0
     
     ld b, e_vy(ix)              ;; lower part of the vy speed c, so bc = vy
-    ld h, e_y(ix)               ;;
-    ld l, e_y+1(ix)             ;; get the y coord in hl
+    ld h, e_y(ix)               ;; get the y coord in hl
+    ld l, e_y+1(ix)             ;; 
     ld a, h                     ;; save h value in a
     adc hl, bc                  ;; add y+vy
     ld e_y(ix), h               ;; update entity with new position

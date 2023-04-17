@@ -90,7 +90,7 @@ man_game_update::
     call sys_input_player_update
     call sys_physics_update
     call sys_render_update
-    ;; delay 
-    ;;ld b, #10
-    ;;call cpct_waitHalts_asm
+    ;;delay 
+    ld b, #10
+    call cpct_waitHalts_asm
     ret

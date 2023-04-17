@@ -32,4 +32,6 @@
 
 .globl sys_input_main_menu_update
 .globl sys_input_player_update
+.globl sys_input_player_left
+.globl sys_input_player_right
 

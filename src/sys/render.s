@@ -192,6 +192,11 @@ sys_render_init::
 sys_render_erase_one_entity::
     ld e, e_address(ix)
     ld d, e_address+1(ix)
+    ;; Check if address is #0000
+    ld a, d
+    or e
+    ret z
+
     ld c, e_w(ix)
     ld b, e_h(ix) 
     ld a, #0

@@ -202,7 +202,7 @@ sys_input_init::
 ;;  Output:
 ;;  Modified: iy, bc
 ;;
-sys_input_generic_update:
+sys_input_generic_update::
     jr first_key
 keys_loop:
     ld bc, #4
@@ -248,21 +248,31 @@ sys_input_main_menu_update::
 ;;  Input: 
 ;;  Output:
 ;;  Modified: iy, bc
-sys_input_player_left:
-    dec e_vx(ix)
+sys_input_player_left::
+    ld h, e_vx(ix)
+    ld l, e_vx+1(ix)
+    ld bc, #64
+    sbc hl, bc
+    ld e_vx(ix), h
+    ld e_vx+1(ix), l
     ret
 
 ;;-----------------------------------------------------------------
 ;;
-;; sys_input_player_left
+;; sys_input_player_right
 ;;
 ;;   reduces hor the speed of the player 
 ;;
 ;;  Input: 
 ;;  Output:
 ;;  Modified: iy, bc
-sys_input_player_right:
-    inc e_vx(ix)
+sys_input_player_right::
+    ld h, e_vx(ix)
+    ld l, e_vx+1(ix)
+    ld bc, #64
+    adc hl, bc
+    ld e_vx(ix), h
+    ld e_vx+1(ix), l
     ret
 
 ;;-----------------------------------------------------------------
