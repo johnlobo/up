@@ -16,6 +16,7 @@
 .module render_system
 
 .include "sys/render.h.s"
+.include "sys/text.h.s"
 .include "man/array.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
@@ -265,5 +266,36 @@ sys_render_update::
     ld a, #cmps_render
     call man_array_execute_each_matching
 
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_rensys_render_debug_entityder_update
+;;
+;;  Initilizes render system
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+sys_render_debug_entity::
+    push ix
+    call man_array_first_element
+    push hl
+    pop ix
+    cpctm_screenPtr_asm de, 0xc000, 2, 2
+    m_draw_blank_small_number       ;; erases previous number
+    ld h, #0
+    ld l, e_vx(ix)
+    ld b, #15                       ;; small number color = 15 
+    call sys_text_draw_small_number ;; draws number
+
+    cpctm_screenPtr_asm de, 0xc000, 2, 8
+    m_draw_blank_small_number       ;; erases previous number
+    ld h, #0
+    ld l, e_vx+1(ix)
+    ld b, #15                       ;; small number color = 15 
+    call sys_text_draw_small_number ;; draws number
+
+    pop ix
     ret
     

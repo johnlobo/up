@@ -39,7 +39,7 @@ DefineArray e, MAX_ENTITIES, sizeof_e
 .db 0   ;;ponemos este aqui como trampita para que siempre haya un tipo invalido al final
 
 entityTpl::
-DefineEntity e_cmps_default, 100, 100, 8, 40, 0, 0, _s_player_0, #0000, #0000, 1
+DefineEntity e_cmps_default, 100, 80, 8, 40, 0, 0, _s_player_0, #0000, #0000, 1, 1
 
 ;;
 ;; Start of _CODE area
@@ -70,9 +70,10 @@ man_game_init::
     push ix                             ;; Save ix 
     push hl                             ;; move pointer to the new entity to ix
     pop ix                              ;;
-    ld e_x(ix), #20                    ;; move second entity to 120
+    ld e_x(ix), #20                     ;; move second entity to 120
     ld e_y(ix), #140                    ;; move second entity to 120
-    ld e_vx+1(ix), #8                    ;; vx = 0.25
+    ld e_vx+1(ix), #16                   ;; vx = 1
+    ld e_on_platform(ix), #0            ;; flying
     pop ix                              ;; retrieve ix
     
     ret
@@ -90,7 +91,8 @@ man_game_update::
     call sys_input_player_update
     call sys_physics_update
     call sys_render_update
-    ;;delay 
-    ld b, #10
-    call cpct_waitHalts_asm
+    ;;call sys_render_debug_entity
+    ;;;;delay 
+    ;;ld b, #20
+    ;;call cpct_waitHalts_asm
     ret

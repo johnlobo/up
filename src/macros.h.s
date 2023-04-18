@@ -91,7 +91,7 @@
 .macro m_draw_blank_small_number
    push de
    push hl
-   ld c, #5
+   ld c, #6
    ld b, #5
    ld a, #0                         ;; Patern of solid box
    call cpct_drawSolidBox_asm
@@ -103,7 +103,7 @@
 ;; ENTITY DEFINITION MACRO
 ;;===============================================================================
 .mdelete DefineEntity
-.macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address, _moved
+.macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address, _moved, _on_platform
     .db _cpms
     .dw _x
     .dw _y
@@ -115,5 +115,23 @@
     .dw _address
     .dw _p_address
     .db _moved
+    .db _on_platform
 .endm
 
+;;===============================================================================
+;; ENTITIY SCTRUCTURE CREATION
+;;===============================================================================
+BeginStruct e
+Field e, cpms           , 1
+Field e, x              , 2
+Field e, y              , 2
+Field e, w              , 1
+Field e, h              , 1
+Field e, vx             , 2
+Field e, vy             , 2
+Field e, sprite         , 2
+Field e, address        , 2
+Field e, p_address      , 2
+Field e, moved          , 1
+Field e, on_platform    , 1
+EndStruct e

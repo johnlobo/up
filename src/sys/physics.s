@@ -54,6 +54,38 @@ sys_physics_init::
 
 ;;-----------------------------------------------------------------
 ;;
+;; sys_physics_apply_friction_vx
+;;
+;;  Initilizes render system
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+sys_physics_apply_friction_vx::
+    ld bc, #COF                 ;; Coeficient of friction
+    ld h, e_vx(ix)
+    ld l, e_vx+1(ix)
+    bit 7, h                    ;; test if vx is positive or negative
+    jr nz, _vx_negative         ;; if bit 7 is set, z is not set and vx is positive
+                                ;; so the COF should be substracted
+    or a                        ;; reset c
+    sbc hl,bc                   ;; substract bc from hl
+    jp p, _vx_restore           ;;
+    ld h, #0                    ;; if vx has gone negative vx = 0
+    ld l, h                     ;;
+    jr _vx_restore
+_vx_negative:
+    adc hl, bc                  ;; add COF to vx
+    jp m, _vx_restore           ;;
+    ld h, #0                    ;; if vx has gone positive vx = 0
+    ld l, h                     ;;
+_vx_restore:
+    ld e_vx(ix), h              ;; restore updated vx
+    ld e_vx+1(ix), l            ;; restore updated vx
+    ret
+
+;;-----------------------------------------------------------------
+;;
 ;; sys_physics_update_one_entity
 ;;
 ;;  Initilizes render system
@@ -75,16 +107,15 @@ sys_physics_update_one_entity::
     adc hl, bc                  ;; add x+vx
     ld e_x(ix), h               ;; update entity with new position
     ld e_x+1(ix), l             ;;
-    ;; Friction
-    ld h, b
-    ld l, c
-    ld bc, #0x0008              ;; Friciton coefcient
-    
-
     
     cp h                        ;; if h has changed (high value)moved = true
     jr z, spuoe_yCoord          ;;
     ld e_moved(ix), #1          ;; flag the entity as moved
+    ;; Friction
+    ld a, e_on_platform(ix)             ;; if not on_platform->friction=0
+    or a                                ;;
+    jr z, spuoe_yCoord                  ;;
+    call sys_physics_apply_friction_vx  ;; otherwise apply friction on the x coord
 
 spuoe_yCoord:
     ;; update y coord with vy
