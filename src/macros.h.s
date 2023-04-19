@@ -103,7 +103,7 @@
 ;; ENTITY DEFINITION MACRO
 ;;===============================================================================
 .mdelete DefineEntity
-.macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address, _moved, _on_platform
+.macro DefineEntity _cpms, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address, _on_platform, _orientation
     .db _cpms
     .dw _x
     .dw _y
@@ -114,8 +114,10 @@
     .dw _sprite
     .dw _address
     .dw _p_address
-    .db _moved
+    .db #1           ;; moved 1 default
     .db _on_platform
+    .db _orientation ;; 0: right, 1:left
+    .db #0           ;; dashing
 .endm
 
 ;;===============================================================================
@@ -134,4 +136,6 @@ Field e, address        , 2
 Field e, p_address      , 2
 Field e, moved          , 1
 Field e, on_platform    , 1
+Field e, orientation    , 1
+Field e, dashing        , 1
 EndStruct e

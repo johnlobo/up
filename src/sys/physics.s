@@ -54,6 +54,24 @@ sys_physics_init::
 
 ;;-----------------------------------------------------------------
 ;;
+;; sys_physics_apply_gravity
+;;
+;;  Initilizes render system
+;;  Input: 
+;;  Output: 
+;;  Modified: AF, BC, DE, HL
+;;
+sys_physics_apply_gravity::
+    ld bc, #GRAVITY
+    ld h, e_vy(ix)
+    ld l, e_vy+1(ix)
+    adc hl, bc
+    ld e_vy(ix), h              ;; restore updated vy
+    ld e_vy+1(ix), l            ;; 
+    ret 
+
+;;-----------------------------------------------------------------
+;;
 ;; sys_physics_apply_friction_vx
 ;;
 ;;  Initilizes render system
@@ -94,6 +112,16 @@ _vx_restore:
 ;;  Modified: AF, BC, HL
 ;;
 sys_physics_update_one_entity::
+    ld a, e_dashing(ix)         ;; if I'm dashing I cannot change vx
+    or a
+    jr z, spuoe_xCoord
+    dec e_dashing(ix)           ;; else decrease dashing
+    jr nz, spuoe_yCoord         ;; if dash reach 0
+    ld e_dashing(ix),#0         ;; dashing = 0
+    ld e_vx(ix), #0x00          ;; vx = 0x0032
+    ld e_vx+1(ix), #0x32        ;;
+
+spuoe_xCoord:
     ;; update x coord with vx
     ld a, e_vx(ix)              ;; check if the speed in x is 0
     ld c, e_vx+1(ix)            ;;
@@ -107,16 +135,11 @@ sys_physics_update_one_entity::
     adc hl, bc                  ;; add x+vx
     ld e_x(ix), h               ;; update entity with new position
     ld e_x+1(ix), l             ;;
-    
+    ;; check if screen coord has changed to update moved.
     cp h                        ;; if h has changed (high value)moved = true
     jr z, spuoe_yCoord          ;;
     ld e_moved(ix), #1          ;; flag the entity as moved
-    ;; Friction
-    ld a, e_on_platform(ix)             ;; if not on_platform->friction=0
-    or a                                ;;
-    jr z, spuoe_yCoord                  ;;
-    call sys_physics_apply_friction_vx  ;; otherwise apply friction on the x coord
-
+    
 spuoe_yCoord:
     ;; update y coord with vy
     ld a, e_vy(ix)            ;; check if the speed in y is 0
@@ -127,16 +150,38 @@ spuoe_yCoord:
     ld b, e_vy(ix)              ;; lower part of the vy speed c, so bc = vy
     ld h, e_y(ix)               ;; get the y coord in hl
     ld l, e_y+1(ix)             ;; 
-    ld a, h                     ;; save h value in a
+    ld a, h                         ;; save h value in a
     adc hl, bc                  ;; add y+vy
+    ;; check if screen coord has changed to update moved.
+    cp h                        ;; if h has changed (high value)moved = true
+    jr z, spoue_hit_ground      ;; screen coord has not changed->check the ground
+    ld e_moved(ix), #1          ;; flag the entity as moved
+
+spoue_hit_ground:
+    ;; Check if we have hitted the ground ground in 80
+    ld (spoue_under_floor+1), hl
+    or a                        ;;clear carry flag
+    ld bc, #0x5000              ;; 80.00
+    sbc hl,bc
+    jr c,spoue_under_floor               ;if hl >= 160, carry flag will be cleared
+    ld hl, #0x5000              ;;80.00
+    ld e_vy(ix), #0             ;; reset vy 
+    ld e_vy+1(ix), #0             ;; reset vy 
+    ld e_on_platform(ix), #1
+    jr spoue_floor_checking_exit
+spoue_under_floor:
+    ld hl, #0000 
+spoue_floor_checking_exit:
     ld e_y(ix), h               ;; update entity with new position
     ld e_y+1(ix), l             ;;
 
-    cp h                        ;; if h has changed (high value)moved = true
-    jr z, spuoe_Exit            ;;
-    ld e_moved(ix), #1          ;; flag the entity as moved
-
 spuoe_Exit:
+    ;; Friction & Gravity
+    call sys_physics_apply_friction_vx  ;; otherwise apply friction no gravity
+    ld a, e_on_platform(ix)             ;; if not on_platform--> apply gravity
+    or a                                ;;
+    ret nz                              ;; else return
+    call sys_physics_apply_gravity      ;; apply gravity
     ret
 
 ;;-----------------------------------------------------------------

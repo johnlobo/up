@@ -282,6 +282,7 @@ sys_render_debug_entity::
     call man_array_first_element
     push hl
     pop ix
+    ;; vx
     cpctm_screenPtr_asm de, 0xc000, 2, 2
     m_draw_blank_small_number       ;; erases previous number
     ld h, #0
@@ -289,10 +290,24 @@ sys_render_debug_entity::
     ld b, #15                       ;; small number color = 15 
     call sys_text_draw_small_number ;; draws number
 
-    cpctm_screenPtr_asm de, 0xc000, 2, 8
+    cpctm_screenPtr_asm de, 0xc000, 8, 2
     m_draw_blank_small_number       ;; erases previous number
     ld h, #0
     ld l, e_vx+1(ix)
+    ld b, #15                       ;; small number color = 15 
+    call sys_text_draw_small_number ;; draws number
+    ;; vy
+    cpctm_screenPtr_asm de, 0xc000, 2, 8
+    m_draw_blank_small_number       ;; erases previous number
+    ld h, #0
+    ld l, e_vy(ix)
+    ld b, #15                       ;; small number color = 15 
+    call sys_text_draw_small_number ;; draws number
+
+    cpctm_screenPtr_asm de, 0xc000, 8, 8
+    m_draw_blank_small_number       ;; erases previous number
+    ld h, #0
+    ld l, e_vy+1(ix)
     ld b, #15                       ;; small number color = 15 
     call sys_text_draw_small_number ;; draws number
 

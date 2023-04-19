@@ -33,6 +33,10 @@
 .globl _s_small_numbers_09
 .globl _s_player_0
 .globl _s_player_1
+.globl _s_player_w_r_0
+.globl _s_player_w_r_1
+.globl _s_player_w_r_2
+.globl _s_player_w_r_3
 
 ;;===============================================================================
 ;; CPCTELERA FUNCTIONS
@@ -66,6 +70,14 @@
 ;;===============================================================================
 ;; DEFINED CONSTANTS
 ;;===============================================================================
+
+COF                     = #0x0016           ;; Coefficient of Friction
+GRAVITY                 = #0x0024           ;; Gravity
+DASH_IMPULSE            = 0x0200
+DASH_TIMER              = 10
+STEP_HORIZONTAL_SPEED   = 0x0018
+MAX_HORIZONTAL_SPEED_POS    = 0x0100
+MAX_HORIZONTAL_SPEED_NEG    = 0xff00
 
 ;;tipos de entidades
 e_type_invalid              = 0x00

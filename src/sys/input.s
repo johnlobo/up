@@ -50,9 +50,8 @@ sys_input_main_menu_actions::
 sys_input_player_actions::
     .dw Key_O,      sys_input_player_left
     .dw Key_P,      sys_input_player_right
-    ;;.dw Key_D,      sys_input_show_deck
-    ;;.dw Key_Space,  sys_input_action
-    ;;.dw Key_Q,      sys_input_add_card
+    .dw Key_Space,  sys_input_player_jump
+    .dw Key_Q,      sys_input_player_dash
     ;;.dw Key_A,      sys_input_remove_card
     ;;.dw Key_Esc,    _score_cancel_entry
     ;;.dw Joy0_Left,  _score_move_left
@@ -251,10 +250,23 @@ sys_input_main_menu_update::
 sys_input_player_left::
     ld h, e_vx(ix)
     ld l, e_vx+1(ix)
-    ld bc, #64
-    sbc hl, bc
+    ld bc, #STEP_HORIZONTAL_SPEED           
+    or a
+    sbc hl, bc                          ;; add STEP SPEED to current SPEED
+    ld bc, #MAX_HORIZONTAL_SPEED_NEG        ;; check if MAX HORIZONTAL SPEED has been reached
+    or a                                ;;
+    ld (sipl_max_not_reached+1), hl     ;; save new vx value for later use
+    sbc hl, bc                          ;;
+    jr c, sipr_max_reached             ;;
+sipl_max_not_reached:
+    ld hl, #00000
     ld e_vx(ix), h
     ld e_vx+1(ix), l
+    jr sipl_exit
+sipl_max_reached:                       ;; if max speed reached, vx set to max speed
+    ld e_vx(ix), b
+    ld e_vx+1(ix), c
+sipl_exit:
     ret
 
 ;;-----------------------------------------------------------------
@@ -266,14 +278,74 @@ sys_input_player_left::
 ;;  Input: 
 ;;  Output:
 ;;  Modified: iy, bc
-sys_input_player_right::
+sys_input_player_right::    
     ld h, e_vx(ix)
     ld l, e_vx+1(ix)
-    ld bc, #64
-    adc hl, bc
+    ld bc, #STEP_HORIZONTAL_SPEED           
+    adc hl, bc                          ;; add STEP SPEED to current SPEED
+    ld bc, #MAX_HORIZONTAL_SPEED_POS    ;; check if MAX HORIZONTAL SPEED has been reached
+    or a                                ;;
+    ld (sipr_max_not_reached+1), hl     ;; save new vx value for later use
+    sbc hl, bc                          ;;
+    jr nc, sipr_max_reached              ;;
+sipr_max_not_reached:
+    ld hl, #00000
     ld e_vx(ix), h
     ld e_vx+1(ix), l
+    jr sipr_exit
+sipr_max_reached:                       ;; if max speed reached, vx set to max speed
+    ld e_vx(ix), b
+    ld e_vx+1(ix), c
+sipr_exit:
     ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_input_player_right
+;;
+;;   reduces hor the speed of the player 
+;;
+;;  Input: 
+;;  Output:
+;;  Modified: iy, bc
+sys_input_player_jump::
+    ld a, e_on_platform(ix)     ;; if not on platform don't jump
+    or a                        ;;
+    ret z                       ;;
+
+    ld h, e_vy(ix)              ;; Jump subtracts 2 to vy
+    ld l, e_vy+1(ix)            ;;
+    ld bc, #0x0300              ;;
+    or a                        ;;
+    sbc hl, bc                  ;;
+    ld e_vy(ix), h              ;;
+    ld e_vy+1(ix), l            ;;
+    ld e_on_platform(ix), #0    ;; after jumping we are not on platform
+    ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_input_player_right
+;;
+;;   reduces hor the speed of the player 
+;;
+;;  Input: 
+;;  Output:
+;;  Modified: iy, bc
+sys_input_player_dash::
+    ld a, e_dashing(ix)     ;; if already dashing return
+    or a                    ;;
+    ret nz                  ;; 
+
+    ld h, e_vx(ix)          ;; else set up vx
+    ld l, e_vx+1(ix)        ;;
+    ld bc, #DASH_IMPULSE    ;;
+    adc hl, bc              ;;
+    ld e_vx(ix), h          ;;
+    ld e_vx+1(ix), l        ;;
+    ld e_dashing(ix), #DASH_TIMER
+    ret
+
 
 ;;-----------------------------------------------------------------
 ;;

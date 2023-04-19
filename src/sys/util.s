@@ -82,7 +82,7 @@ sys_util_h_times_e::
   ret
 
 ;;-----------------------------------------------------------------;; 
-;;  sys_util_h_times_e
+;;  sys_util_hl_div_c
 ;;
 ;;Inputs:
 ;;     HL is the numerator
@@ -105,6 +105,28 @@ sys_util_hl_div_c::
            sub c
          djnz .-7
        ret
+
+;;-----------------------------------------------------------------
+;;
+;; sys_util_absHL
+;;
+;;  
+;;  Input:  hl: number
+;;  Output: hl: absolut value of number
+;;  Destroyed: af
+;;
+;;  Cemetech code (https://learn.cemetech.net/index.php?title=Z80:Math_Routines#absHL)
+;;
+sys_util_absHL::
+  bit #7,h
+  ret z
+  xor a
+  sub l
+  ld l,a
+  sbc a,a
+  sub h
+  ld h,a
+  ret
 
 ;;-----------------------------------------------------------------
 ;;
