@@ -95,6 +95,13 @@ e_cmps_collider = 0x40   ;;entidad que puede colisionar
 e_cmps_default = e_cmps_alive | e_cmps_render | e_cmps_physics | e_cmps_collider  ;;componente por defecto
 
 
+;; Entity Component IDs
+DefEnum e_cmpID
+Enum e_cmpID AI
+Enum e_cmpID Physics
+Enum e_cmpID Animation
+Enum e_cmpID Num_Components
+
 ;; Keyboard constants
 BUFFER_SIZE = 10
 ZERO_KEYS_ACTIVATED = #0xFF
