@@ -17,15 +17,28 @@
 ;;-------------------------------------------------------------------------------
 .module component_manager
 
-.include "man/component.h.s"
+.include "man/components.h.s"
 .include "cpctelera.h.s"
 .include "common.h.s"
 .include "sys/util.h.s"
 
-DefineComponentPointersTable entities, e_cmpID_Num_Components, MAX_ENTITIES
-_components_size = . * entities_components
+
+;;
+;; Start of _DATA area 
+;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
+;;  any one of them for any purpose. Usually, compiler puts _DATA area contents
+;;  right after _CODE area contents.
+;;
+.area _DATA
+
+DefineComponentPointerTable entities, e_cmpID_Num_Components, MAX_ENTITIES
+_components_size = . - _entities_components
 
 
+;;
+;; Start of _CODE area
+;; 
+.area _CODE
 ;;-----------------------------------------------------------------
 ;;
 ;; man_components_init
@@ -100,3 +113,106 @@ man_components_getArrayHL::
     inc hl
     inc hl
     ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  COMPONENT_MANAGER::add
+;;      Adda a pointer to the entity in the corresponding array of components.
+;;  INPUT:
+;;      IX: Pointer to entity.
+;;  MODIFY:
+;;       A, HL
+;;  RETURNS:
+;;
+;;  MoonBreak_arqstrad code (cpcretrodev 2020)
+;;
+components_manager_add::
+    ;;  Gets the pointer to the component's array.
+	call components_manager_getComponentPtrHL
+
+    ;;  DE = Pointer to the first free position of the array of pointers.
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    dec hl
+
+    ;;  Copy the pointer of the entity that handles that component to the
+    ;;  array of pointers.
+    ld__a_ixl
+    ld (de), a
+    inc de
+    ld__a_ixh
+    ld (de), a
+    inc de
+
+    ;;  (HL) = Next free position of the pointer array.
+    ld (hl), e
+    inc hl
+    ld (hl), d
+
+	ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  COMPONENT_MANAGER::removePtr
+;;      Remove the pointer from the destroyed entity replacing it with the
+;;      last pointer of the array.
+;;  INPUT:
+;;		IX: Entity pointer.
+;;		A:  Component ID.
+;;  MODIFY:
+;;      HL, DE, BC, A
+;;  RETURNS:
+;;	   
+;;
+;;  MoonBreak_arqstrad code (cpcretrodev 2020)
+;;
+components_manager_removePtr::
+    ;;  HL = First pointer of the relevant component array.
+	call components_manager_getComponentPtrHL
+    push hl
+    ;;  DE = Address insert new pointer.
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    inc hl      ;;  HL = Address to the first pointer of the array.
+
+	__loop:
+	ld a, (hl)
+	inc hl
+    cp__ixl
+    jr nz, __loop
+
+	ld a, (hl)
+	inc hl
+    cp__ixh
+    jr nz, __loop
+
+__delete_pointer:
+    ;;  The last pointer is copied in the direction of the pointer to be deleted.
+    ;;  HL = Pointer direction to remove.
+    ;;  DE = Last array pointer.
+    dec de
+    ld a, (de)
+    dec hl
+    ld (hl), a
+
+    dec de
+    ld a, (de)
+    dec hl
+    ld (hl), a
+
+__last_array_pointer:
+    ;;  HL = Address containing the pointer to the next free address in the array.
+    pop hl
+
+    ;;  (HL) = New free position.
+    ld (hl), e
+    inc hl
+    ld (hl), d
+
+    ;;  The content of the las pointer of the array becomes null because it has been
+    ;;  copied to the position of the deleted pointer.
+    xor a
+    ld (de), a
+    inc de
+    ld (de), a
+	ret

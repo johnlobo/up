@@ -120,22 +120,77 @@
     .db #0           ;; dashing
 .endm
 
-;;===============================================================================
-;; ENTITIY SCTRUCTURE CREATION
-;;===============================================================================
-BeginStruct e
-Field e, cpms           , 1
-Field e, x              , 2
-Field e, y              , 2
-Field e, w              , 1
-Field e, h              , 1
-Field e, vx             , 2
-Field e, vy             , 2
-Field e, sprite         , 2
-Field e, address        , 2
-Field e, p_address      , 2
-Field e, moved          , 1
-Field e, on_platform    , 1
-Field e, orientation    , 1
-Field e, dashing        , 1
-EndStruct e
+;;==============================================================================================================================
+;;==============================================================================================================================
+;;  MACRO FOR ENUM DEFINITIONS
+;;==============================================================================================================================
+;;==============================================================================================================================
+.mdelete DefEnum
+.macro DefEnum _name
+    _name'_offset = 0
+.endm
+
+;;  Define enumeration element for an enumeration name.
+.mdelete Enum
+.macro Enum _enumname, _element
+    _enumname'_'_element = _enumname'_offset
+    _enumname'_offset = _enumname'_offset + 1
+.endm
+
+;;==============================================================================================================================
+;;==============================================================================================================================
+;;  DEFINE LINKED LIST STRUCTURE
+;;==============================================================================================================================
+;;==============================================================================================================================
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Defines the structure of the entity array.
+.mdelete DefineComponentArrayStructure_Size
+.macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
+    _Tname'_num:         .db 0
+    _Tname'_list:        .dw 0x0000
+    _Tname'_free_list:   .dw _Tname'_array
+    _Tname'_array::
+        .ds _N * _ComponentSize
+.endm
+
+;;==============================================================================================================================
+;;==============================================================================================================================
+;;  DEFINE ARRAYS OF COMPONENTS
+;;==============================================================================================================================
+;;==============================================================================================================================
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Defines the pointers of the componente array pointer access table.
+.mdelete DefineComponentPointerAccessTable
+.macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+    _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+.endm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Zero-pad an array of size n.
+.mdelete DefineComponentArray
+.macro DefineComponentArray _N
+    .rept _N
+        .dw 0x0000
+    .endm
+.endm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Defines the structure for the component handler.
+.mdelete DefineComponentPointerTable
+.macro DefineComponentPointerTable _Tname, _N_Cmps, _N
+    _c = 0
+    ;;  Array containing pointers to component pointer arrays.
+    _Tname'_access_table::
+    .rept _N_Cmps
+        DefineComponentPointerAccessTable _Tname, \_c, _N, _N_Cmps
+        _c = _c + 1
+    .endm
+    ;;  Zero-fill the component array with two additional words for the
+    ;;  next free position and a null pointer fot he end of the array.
+    _Tname'_components::
+   .rept _N_Cmps
+        DefineComponentArray _N
+        .dw 0x0000
+        .dw 0x0000
+    .endm
+.endm

@@ -82,8 +82,9 @@ MAX_HORIZONTAL_SPEED_NEG    = 0xff00
 ;;tipos de entidades
 e_type_invalid              = 0x00
 
+;;===============================================================================
 ;;tipos de componentes
-;;tipos de componentes
+;;===============================================================================
 e_cmps          = 0
 e_cmps_alive    = 0x01   ;;entidad renderizable
 e_cmps_render   = 0x02   ;;entidad renderizable
@@ -94,13 +95,34 @@ e_cmps_animated = 0x20   ;;entidad animada
 e_cmps_collider = 0x40   ;;entidad que puede colisionar
 e_cmps_default = e_cmps_alive | e_cmps_render | e_cmps_physics | e_cmps_collider  ;;componente por defecto
 
-
+;;===============================================================================
 ;; Entity Component IDs
+;;===============================================================================
 DefEnum e_cmpID
 Enum e_cmpID AI
 Enum e_cmpID Physics
 Enum e_cmpID Animation
 Enum e_cmpID Num_Components
+
+;;===============================================================================
+;; ENTITIY SCTRUCTURE CREATION
+;;===============================================================================
+BeginStruct e
+Field e, cpms           , 1
+Field e, x              , 2
+Field e, y              , 2
+Field e, w              , 1
+Field e, h              , 1
+Field e, vx             , 2
+Field e, vy             , 2
+Field e, sprite         , 2
+Field e, address        , 2
+Field e, p_address      , 2
+Field e, moved          , 1
+Field e, on_platform    , 1
+Field e, orientation    , 1
+Field e, dashing        , 1
+EndStruct e
 
 ;; Keyboard constants
 BUFFER_SIZE = 10
