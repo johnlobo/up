@@ -66,6 +66,10 @@
 .globl cpct_waitVSYNCStart_asm
 .globl cpct_setSeed_mxor_asm
 .globl cpct_setVideoMemoryPage_asm
+.globl cpct_etm_setDrawTilemap4x8_ag_asm
+.globl cpct_etm_drawTilemap4x8_ag_asm
+.globl cpct_etm_drawTileBox2x4_asm
+
 
 ;;===============================================================================
 ;; DEFINED CONSTANTS
