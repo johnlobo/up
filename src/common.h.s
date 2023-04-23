@@ -79,21 +79,24 @@ STEP_HORIZONTAL_SPEED   = 0x0018
 MAX_HORIZONTAL_SPEED_POS    = 0x0100
 MAX_HORIZONTAL_SPEED_NEG    = 0xff00
 
+MAX_ENTITIES = 10
+
 ;;tipos de entidades
 e_type_invalid              = 0x00
 
 ;;===============================================================================
 ;;tipos de componentes
 ;;===============================================================================
-e_cmps          = 0
-e_cmps_alive    = 0x01   ;;entidad renderizable
-e_cmps_render   = 0x02   ;;entidad renderizable
-e_cmps_physics  = 0x04   ;;entidad que se puede mover
-e_cmps_input    = 0x08   ;;entidad controlable por input  
-e_cmps_ia       = 0x10   ;;entidad controlable con ia
-e_cmps_animated = 0x20   ;;entidad animada
-e_cmps_collider = 0x40   ;;entidad que puede colisionar
-e_cmps_default = e_cmps_alive | e_cmps_render | e_cmps_physics | e_cmps_collider  ;;componente por defecto
+e_cmp          = 0
+e_cmp_alive    = 0x01   ;;entidad renderizable
+e_cmp_render   = 0x02   ;;entidad renderizable
+e_cmp_physics  = 0x04   ;;entidad que se puede mover
+e_cmp_input    = 0x08   ;;entidad controlable por input  
+e_cmp_ai       = 0x10   ;;entidad controlable con ia
+e_cmp_animated = 0x20   ;;entidad animada
+e_cmp_collider = 0x40   ;;entidad que puede colisionar
+e_cmp_collisionable = 0x80   ;;entidad que puede ser colisionada
+e_cmp_default = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;componente por defecto
 
 ;;===============================================================================
 ;; Entity Component IDs
@@ -102,13 +105,14 @@ DefEnum e_cmpID
 Enum e_cmpID AI
 Enum e_cmpID Physics
 Enum e_cmpID Animation
+Enum e_cmpID Collisionable
 Enum e_cmpID Num_Components
 
 ;;===============================================================================
 ;; ENTITIY SCTRUCTURE CREATION
 ;;===============================================================================
 BeginStruct e
-Field e, cpms           , 1
+Field e, cmps           , 1
 Field e, x              , 2
 Field e, y              , 2
 Field e, w              , 1

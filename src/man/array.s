@@ -366,7 +366,7 @@ matching_loop_each:
 
     ld a, (comp_type)                   ;; Retrieve the component type to match
     ld b, a                             ;;
-    ld a, e_cmps(ix)                    ;; retrieve the type of the current component
+    ld a, e_cmp(ix)                    ;; retrieve the type of the current component
     and b                               ;; Compare if they match
     jr z, matching_return_point         ;; Jump to continue in case they don't match
 

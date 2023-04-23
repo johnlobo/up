@@ -142,6 +142,14 @@
 ;;  DEFINE LINKED LIST STRUCTURE
 ;;==============================================================================================================================
 ;;==============================================================================================================================
+
+;;  Defines the structure for a basic memory manager.
+.mdelete DefineBasicStructureArray_Size
+.macro DefineBasicStructureArray_Size _Tname, _N, _ComponentSize
+    _Tname'_array::
+        .ds _N * _ComponentSize
+.endm
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Defines the structure of the entity array.
 .mdelete DefineComponentArrayStructure_Size
@@ -153,26 +161,6 @@
         .ds _N * _ComponentSize
 .endm
 
-;;==============================================================================================================================
-;;==============================================================================================================================
-;;  DEFINE ARRAYS OF COMPONENTS
-;;==============================================================================================================================
-;;==============================================================================================================================
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  Defines the pointers of the componente array pointer access table.
-.mdelete DefineComponentPointerAccessTable
-.macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
-    _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
-.endm
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  Zero-pad an array of size n.
-.mdelete DefineComponentArray
-.macro DefineComponentArray _N
-    .rept _N
-        .dw 0x0000
-    .endm
-.endm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Defines the structure for the component handler.
@@ -194,3 +182,23 @@
         .dw 0x0000
     .endm
 .endm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Defines the pointers of the componente array pointer access table.
+.mdelete DefineComponentPointerAccessTable
+.macro DefineComponentPointerAccessTable _Tname, _suf, _N, _N_Cmps
+    _Tname'_components'_suf'_ptr_pend::    .dw . + 2*_N_Cmps+ + _suf*2*_N + 2*_suf
+.endm
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Zero-pad an array of size n.
+.mdelete DefineComponentArray
+.macro DefineComponentArray _N
+    .rept _N
+        .dw 0x0000
+    .endm
+.endm
+
+;;_entities_components = 0x0000
+;;_components_size = 0x0000
+;;_entities_access_table = 0x0000

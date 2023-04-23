@@ -1,7 +1,4 @@
 ;;-----------------------------LICENSE NOTICE------------------------------------
-;;  This file is part of CPCtelera: An Amstrad CPC Game Engine 
-;;  Copyright (C) 2018 ronaldo / Fremos / Cheesetea / ByteRealms (@FranGallegoBR)
-;;
 ;;  This program is free software: you can redistribute it and/or modify
 ;;  it under the terms of the GNU Lesser General Public License as published by
 ;;  the Free Software Foundation, either version 3 of the License, or
@@ -15,30 +12,20 @@
 ;;  You should have received a copy of the GNU Lesser General Public License
 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;-------------------------------------------------------------------------------
-.module component_manager
+
 
 .include "man/components.h.s"
-.include "cpctelera.h.s"
-.include "common.h.s"
 .include "sys/util.h.s"
+.include "common.h.s"
+.include "cpctelera.h.s"
+
+.module component_manager
 
 
-;;
-;; Start of _DATA area 
-;;  SDCC requires at least _DATA and _CODE areas to be declared, but you may use
-;;  any one of them for any purpose. Usually, compiler puts _DATA area contents
-;;  right after _CODE area contents.
-;;
-.area _DATA
-
-DefineComponentPointerTable entities, e_cmpID_Num_Components, MAX_ENTITIES
+DefineComponentPointerTable _entities, e_cmpID_Num_Components, MAX_ENTITIES
 _components_size = . - _entities_components
 
 
-;;
-;; Start of _CODE area
-;; 
-.area _CODE
 ;;-----------------------------------------------------------------
 ;;
 ;; man_components_init
@@ -52,8 +39,8 @@ _components_size = . - _entities_components
 man_components_init::
     ;; Set all values of the pointer array to nullpointer
     ;; filling in the array with zeroes
-    ld hl, # entities_components        ;; hl points to the start of the components array
-    ld de, # entities_components + 1    ;; de points to hl + 1
+    ld hl, # _entities_components        ;; hl points to the start of the components array
+    ld de, # _entities_components + 1    ;; de points to hl + 1
     ld (hl), #0                         ;; set the first byte of the array to 0
     ld bc, #_components_size-1          ;; set bc to the bytes to be filled
     ldir
@@ -88,7 +75,7 @@ ret
 ;;  lronaldo code (https://www.youtube.com/watch?v=OEETYTu-viw&t=1774s)
 ;;
 man_components_getComponentPtrHL::
-    ld hl, # entities_access_table      ;; hl points to the Entity components table
+    ld hl, # _entities_access_table      ;; hl points to the Entity components table
     add a                               ;; a = 2a
     add_hl_a                            ;; hl = 2a
     ;; Get pointer to the component structure
@@ -125,9 +112,9 @@ man_components_getArrayHL::
 ;;
 ;;  MoonBreak_arqstrad code (cpcretrodev 2020)
 ;;
-components_manager_add::
+man_components_add::
     ;;  Gets the pointer to the component's array.
-	call components_manager_getComponentPtrHL
+	call man_components_getComponentPtrHL
 
     ;;  DE = Pointer to the first free position of the array of pointers.
     ld e, (hl)
@@ -165,9 +152,9 @@ components_manager_add::
 ;;
 ;;  MoonBreak_arqstrad code (cpcretrodev 2020)
 ;;
-components_manager_removePtr::
+man_components_removePtr::
     ;;  HL = First pointer of the relevant component array.
-	call components_manager_getComponentPtrHL
+	call man_components_getComponentPtrHL
     push hl
     ;;  DE = Address insert new pointer.
     ld e, (hl)

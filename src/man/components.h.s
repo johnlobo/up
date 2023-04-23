@@ -1,7 +1,4 @@
 ;;-----------------------------LICENSE NOTICE------------------------------------
-;;  This file is part of CPCtelera: An Amstrad CPC Game Engine 
-;;  Copyright (C) 2018 ronaldo / Fremos / Cheesetea / ByteRealms (@FranGallegoBR)
-;;
 ;;  This program is free software: you can redistribute it and/or modify
 ;;  it under the terms of the GNU Lesser General Public License as published by
 ;;  the Free Software Foundation, either version 3 of the License, or
@@ -15,3 +12,13 @@
 ;;  You should have received a copy of the GNU Lesser General Public License
 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;-------------------------------------------------------------------------------
+
+
+;;------------------------------------------------------------------------------
+;; Global routines
+;;------------------------------------------------------------------------------
+.globl man_components_init
+.globl man_components_getComponentPtrHL
+.globl man_components_getArrayHL
+.globl man_components_add
+.globl man_components_removePtr
