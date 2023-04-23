@@ -81,8 +81,20 @@ MAX_HORIZONTAL_SPEED_NEG    = 0xff00
 
 MAX_ENTITIES = 10
 
-;;tipos de entidades
-e_type_invalid              = 0x00
+
+nullptr = 0x0000
+
+;;==============================================================================================================================
+;;==============================================================================================================================
+;;  ENTITY TYPE MASKS AND BITS
+;;==============================================================================================================================
+;;==============================================================================================================================
+e_type_invalid          = 0xff
+e_type_dead             = 0x08
+e_type_shot             = 0x04
+e_type_enemy            = 0x02
+e_type_player           = 0x01
+e_type_default          = 0x00
 
 ;;===============================================================================
 ;;tipos de componentes
@@ -112,20 +124,26 @@ Enum e_cmpID Num_Components
 ;; ENTITIY SCTRUCTURE CREATION
 ;;===============================================================================
 BeginStruct e
-Field e, cmps           , 1
-Field e, x              , 2
-Field e, y              , 2
-Field e, w              , 1
-Field e, h              , 1
-Field e, vx             , 2
-Field e, vy             , 2
-Field e, sprite         , 2
-Field e, address        , 2
-Field e, p_address      , 2
-Field e, moved          , 1
-Field e, on_platform    , 1
-Field e, orientation    , 1
-Field e, dashing        , 1
+Field e, cmps               , 1
+Field e, ptr                , 2
+Field e, type               , 1
+Field e, x                  , 2
+Field e, y                  , 2
+Field e, w                  , 1
+Field e, h                  , 1
+Field e, end_x              , 1
+Field e, end_y              , 1
+Field e, vx                 , 2
+Field e, vy                 , 2
+Field e, sprite             , 2
+Field e, address            , 2
+Field e, p_address          , 2
+Field e, moved              , 1
+Field e, on_platform        , 1
+Field e, orientation        , 1
+Field e, dashing            , 1
+Field e, animation_ptr      , 2
+Field e, animation_status   , 1
 EndStruct e
 
 ;; Keyboard constants

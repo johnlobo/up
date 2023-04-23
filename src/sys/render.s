@@ -258,7 +258,7 @@ sys_render_update_one_entity::
 ;;  Modified: AF, BC, DE, HL
 ;;
 
-cmps_render = ( e_cmps_alive | e_cmps_render)
+cmps_render = ( e_cmp_alive | e_cmp_render)
 sys_render_update::
 
     ld hl, #sys_render_update_one_entity

@@ -78,8 +78,8 @@ man_entity_destroy::
 
 	ld hl, (_entity_free_list)					;;	\	The free list will now start at the end pointer of
 	ld (_entity_free_list), ix					;;	|	the deleted entity and contain a pointers to its old
-	ld e_ptr_l(ix), l							;;	|	position.
-	ld e_ptr_h(ix), h							;;	/
+	ld e_ptr(ix), l				    			;;	|	position.
+	ld e_ptr+1(ix), h							;;	/
 
 	ld hl, #_entity_num
 	dec (hl)
@@ -156,8 +156,7 @@ man_entity_new::
 ;;       A, HL, DE, BC
 ;;
 man_entity_init::
-	call components_manager_init
-	call weapon_manager_init
+	call man_components_init
 	
 	xor a
 	ld (_entity_num), a
@@ -174,7 +173,7 @@ man_entity_init::
 	ld 	d, h								;; 	|	elements to zero.
 	ld	e, l								;; 	|
 	inc de									;; 	|
-	ld bc, #max_entities * sizeof_e - 1		;; 	|
+	ld bc, #MAX_ENTITIES * sizeof_e - 1		;; 	|
 	ldir									;; 	/
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -196,7 +195,7 @@ man_entity_init::
 ;;       A, HL, DE
 ;;
 man_entity_init_linked_list::
-	ld a, #max_entities - 1		;;	\	The entity counter is only necessary until the penultimate, 
+	ld a, #MAX_ENTITIES - 1		;;	\	The entity counter is only necessary until the penultimate, 
 	ld (_ent_counter), a		;;	/	since the las one haas to have a null value.
 
 	ld bc, #sizeof_e
@@ -240,8 +239,8 @@ man_entity_set4destruction::
 	and #e_type_player
 	jr z, _not_player
 	;; Set state to game over
-	ld a, #4
-	call game_manager_set_state
+	;;ld a, #4
+	;;call game_manager_set_state
 	ret
 _not_player:
 	ld a, #e_type_dead
@@ -262,8 +261,8 @@ man_entity_update::
 
 _loop:
 
-	ld c, e_ptr_l(ix)					;;	\	Save in BC the pointer to the next entity.
-    ld b, e_ptr_h(ix)					;;	/
+	ld c, e_ptr(ix) 					;;	\	Save in BC the pointer to the next entity.
+    ld b, e_ptr+1(ix)					;;	/
 	
 	ld__a_ixl							;;	\	Ends when finding a null point, the end of the list.
 	or__ixh								;;	|
@@ -323,7 +322,7 @@ man_entity_create::
 
 	_AI:
 	ld a, #e_cmpID_AI
-	call components_manager_add
+	call man_components_add
 
 	_noAI:
 	ld a, e_cmps(ix)
@@ -332,7 +331,7 @@ man_entity_create::
 
 	_Collisionable:
 	ld a, #e_cmpID_Collisionable
-	call components_manager_add
+	call man_components_add
 
 	_noCollisionable:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -375,9 +374,9 @@ man_entity_deleteEverythingExceptPlayer::
 	__loop:
 	;;	If the pointer to the next element in the list is null the entity is the player
 	;; 	and the loop is terminated.
-	ld a, e_ptr_l(ix)
+	ld a, e_ptr(ix)
 	ld c, a
-	ld b, e_ptr_h(ix)
+	ld b, e_ptr+1(ix)
 	or c
 	ret z
 

@@ -39,7 +39,7 @@ DefineArray e, MAX_ENTITIES, sizeof_e
 .db 0   ;;ponemos este aqui como trampita para que siempre haya un tipo invalido al final
 
 entityTpl::
-DefineEntity e_cmps_default, 100, 80, 8, 40, 0, 0, _s_player_0, #0000, #0000, 1, 0
+DefineEntity e_cmp_default, #0000, e_type_player, 100, 80, 8, 40, 0, 0, _s_player_0, #0000, #0000, 1, 0, #0000, 0
 
 ;;
 ;; Start of _CODE area

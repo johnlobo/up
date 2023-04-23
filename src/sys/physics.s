@@ -194,7 +194,7 @@ spuoe_Exit:
 ;;  Modified: AF, BC, DE, HL
 ;;
 
-cmps_physics = ( e_cmps_alive | e_cmps_physics)
+cmps_physics = ( e_cmp_alive | e_cmp_physics)
 sys_physics_update::
     ld hl, #sys_physics_update_one_entity
     ld ix, #entities
