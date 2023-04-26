@@ -35,7 +35,9 @@
 #$(eval $(call TMX2DATA, SET_BITSPERITEM , 8         ))   { 1, 2, 4, 6, 8 }
 #$(eval $(call TMX2DATA, SET_EXTRAPAR    ,           ))	
 # Conversion 
-$(eval $(call TMX2DATA, SET_OUTPUTS, hs bin))
+$(eval $(call TMX2DATA, SET_ASMVARPREFIX, yes       ))
+$(eval $(call TMX2DATA, SET_USEMACROS   , no        ))
+$(eval $(call TMX2DATA, SET_OUTPUTS, h bin))
 ########################################################################
 ########################################################################
 ####################		LEVEL	1		############################

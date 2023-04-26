@@ -113,6 +113,8 @@
     .db _h
     .db _x+_w
     .db _y+_h
+    .db #0
+    .db #0
     .dw _vx
     .dw _vy
     .dw _sprite

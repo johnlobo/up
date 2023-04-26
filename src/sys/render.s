@@ -167,7 +167,7 @@ sys_render_init::
     ld c,#0                                 ;; Set video mode
     call cpct_setVideoMode_asm              ;;
     
-    ld hl, #_g_palette0                     ;; Set palette
+    ld hl, #_g_palette                      ;; Set palette
     ld de, #16                              ;;
     call cpct_setPalette_asm                ;;
 

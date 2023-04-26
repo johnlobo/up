@@ -58,6 +58,10 @@ $(eval $(call IMG2SP, CONVERT         , assets/sprites/small_numbers.png , 4, 5,
 $(eval $(call IMG2SP, CONVERT         , assets/sprites/player.png , 16, 40, s_player, ,))
 $(eval $(call IMG2SP, CONVERT         , assets/sprites/player-walking-right.png , 16, 40, s_player_w_r, ,))
 
+###
+$(eval $(call IMG2SP, SET_OUTPUT, bin))
+###
+
 # TILESETS
 $(eval $(call IMG2SP, SET_IMG_FORMAT, zgtiles))
 $(eval $(call IMG2SP, SET_FOLDER, src/assets/maps/level_1))

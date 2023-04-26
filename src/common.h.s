@@ -19,7 +19,7 @@
 ;;===============================================================================
 ;; SPRITES
 ;;===============================================================================
-.globl _g_palette0
+.globl _g_palette
 .globl _s_font_0
 .globl _s_small_numbers_00
 .globl _s_small_numbers_01
@@ -137,6 +137,8 @@ Field e, w                  , 1
 Field e, h                  , 1
 Field e, end_x              , 1
 Field e, end_y              , 1
+Field e, last_x             , 1
+Field e, last_y             , 1
 Field e, vx                 , 2
 Field e, vy                 , 2
 Field e, sprite             , 2

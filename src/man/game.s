@@ -41,6 +41,8 @@ DefineArray e, MAX_ENTITIES, sizeof_e
 entityTpl::
 DefineEntity e_cmp_default, #0000, e_type_player, 100, 80, 8, 40, 0, 0, _s_player_0, #0000, #0000, 1, 0, #0000, 0
 
+
+game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: Map loading, 3: Pause menu, 4: Game over, 5: Victory
 ;;
 ;; Start of _CODE area
 ;; 
@@ -95,4 +97,22 @@ man_game_update::
     ;;delay 
     ;;ld b, #10
     ;;call cpct_waitHalts_asm
+    ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Gets the current state of the game loop
+;;  MODIFIES:
+;;      - A: Returns state
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+man_game_get_state::
+    ld a, (game_state)
+    ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Sets the current state of the game loop
+;;  MODIFIES:
+;;      - A: Returns state
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+man_game_set_state::
+    ld (game_state), a
     ret
