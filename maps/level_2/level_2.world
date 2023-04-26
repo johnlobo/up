@@ -1,0 +1,90 @@
+{
+    "maps": [
+        {
+            "fileName": "../level_2/map_01.tmx",
+            "height": 176,
+            "width": 160,
+            "x": -160,
+            "y": 8
+        },
+        {
+            "fileName": "../level_2/map_02.tmx",
+            "height": 176,
+            "width": 160,
+            "x": -320,
+            "y": 8
+        },
+        {
+            "fileName": "../level_2/map_03.tmx",
+            "height": 176,
+            "width": 152,
+            "x": -320,
+            "y": -168
+        },
+        {
+            "fileName": "../level_2/map_04.tmx",
+            "height": 176,
+            "width": 160,
+            "x": -160,
+            "y": -168
+        },
+        {
+            "fileName": "../level_2/map_00.tmx",
+            "height": 176,
+            "width": 160,
+            "x": 0,
+            "y": 8
+        },
+        {
+            "fileName": "../level_2/map_05.tmx",
+            "height": 176,
+            "width": 160,
+            "x": -320,
+            "y": 184
+        },
+        {
+            "fileName": "../level_2/map_06.tmx",
+            "height": 176,
+            "width": 160,
+            "x": -160,
+            "y": 184
+        },
+        {
+            "fileName": "../level_2/map_07.tmx",
+            "height": 176,
+            "width": 160,
+            "x": 0,
+            "y": 184
+        },
+        {
+            "fileName": "../level_2/map_08.tmx",
+            "height": 176,
+            "width": 160,
+            "x": 160,
+            "y": 8
+        },
+        {
+            "fileName": "../level_2/map_09.tmx",
+            "height": 176,
+            "width": 160,
+            "x": 160,
+            "y": 184
+        },
+        {
+            "fileName": "../level_2/map_10.tmx",
+            "height": 176,
+            "width": 160,
+            "x": 0,
+            "y": -168
+        },
+        {
+            "fileName": "../level_2/map_11.tmx",
+            "height": 176,
+            "width": 160,
+            "x": 160,
+            "y": -168
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}

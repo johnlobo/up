@@ -1,6 +1,6 @@
 // Data created with Img2CPC - (c) Retroworks - 2007-2017
-#ifndef _ASSETS_PLAYER_WALKING_RIGHT_H_
-#define _ASSETS_PLAYER_WALKING_RIGHT_H_
+#ifndef _ASSETS_SPRITES_PLAYER_WALKING_RIGHT_H_
+#define _ASSETS_SPRITES_PLAYER_WALKING_RIGHT_H_
 
 #include <types.h>
 #define S_PLAYER_W_R_0_W 8

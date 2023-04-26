@@ -38,7 +38,67 @@
 #$(eval $(call ADD2PACK,mygraphics,gfx/background.bin))
 #$(eval $(call PACKZX7B,mygraphics,src/))
 
-
+# Screens compression
+#$(eval $(call ADD2PACK,s_menu_z,src/assets/screens/s_menu.bin))
+#$(eval $(call PACKZX7B,s_menu_z,src/assets/screens/))
+#$(eval $(call ADD2PACK,s_credits_z,src/assets/screens/s_credits.bin))
+#$(eval $(call PACKZX7B,s_credits_z,src/assets/screens/))
+#$(eval $(call ADD2PACK,s_controls_z,src/assets/screens/s_controls.bin))
+#$(eval $(call PACKZX7B,s_controls_z,src/assets/screens/))
+# Maps compression
+########################################################################
+########################################################################
+####################		LEVEL	1		############################
+########################################################################
+########################################################################
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_00.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_01.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_02.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_03.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_04.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_05.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_06.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_07.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_08.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_09.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_10.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_11.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_12.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/map_13.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_1/tileset_1.bin))
+########################################################################
+########################################################################
+####################		LEVEL	2		############################
+########################################################################
+########################################################################
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_00.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_01.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_02.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_03.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_04.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_05.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_06.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_07.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_08.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_09.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_10.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/map_11.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_2/tileset_2.bin))
+########################################################################
+########################################################################
+####################		LEVEL	3		############################
+########################################################################
+########################################################################
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_00.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_01.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_02.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_03.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_04.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_05.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_06.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/map_07.bin))
+$(eval $(call ADD2PACK,world_z,src/assets/maps/level_3/tileset_3.bin))
+$(eval $(call PACKZX7B,world_z,src/assets/maps/))
 
 
 ############################################################################

@@ -33,11 +33,61 @@
 #$(eval $(call TMX2DATA, SET_OUTPUTS     , h c       ))   { bin hs h s c }
 #$(eval $(call TMX2DATA, SET_BASE        , dec       ))   { dec hex bin }
 #$(eval $(call TMX2DATA, SET_BITSPERITEM , 8         ))   { 1, 2, 4, 6, 8 }
-#$(eval $(call TMX2DATA, SET_FOLDER      , src/      )) 
 #$(eval $(call TMX2DATA, SET_EXTRAPAR    ,           ))	
 # Conversion 
-#$(eval $(call TMX2DATA, CONVERT, tmxfile, array )) 
-
+$(eval $(call TMX2DATA, SET_OUTPUTS, hs bin))
+########################################################################
+########################################################################
+####################		LEVEL	1		############################
+########################################################################
+########################################################################
+$(eval $(call TMX2DATA, SET_FOLDER, src/assets/maps/level_1/))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_00.tmx, g_world_1_map_00))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_01.tmx, g_world_1_map_01))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_02.tmx, g_world_1_map_02))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_03.tmx, g_world_1_map_03))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_04.tmx, g_world_1_map_04))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_05.tmx, g_world_1_map_05))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_06.tmx, g_world_1_map_06))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_07.tmx, g_world_1_map_07))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_08.tmx, g_world_1_map_08))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_09.tmx, g_world_1_map_09))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_10.tmx, g_world_1_map_10))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_11.tmx, g_world_1_map_11))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_12.tmx, g_world_1_map_12))
+$(eval $(call TMX2DATA, CONVERT, maps/level_1/map_13.tmx, g_world_1_map_13))
+########################################################################
+########################################################################
+####################		LEVEL	2		############################
+########################################################################
+########################################################################
+$(eval $(call TMX2DATA, SET_FOLDER, src/assets/maps/level_2/))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_00.tmx, g_world_2_map_00))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_01.tmx, g_world_2_map_01))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_02.tmx, g_world_2_map_02))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_03.tmx, g_world_2_map_03))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_04.tmx, g_world_2_map_04))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_05.tmx, g_world_2_map_05))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_06.tmx, g_world_2_map_06))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_07.tmx, g_world_2_map_07))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_08.tmx, g_world_2_map_08))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_09.tmx, g_world_2_map_09))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_10.tmx, g_world_2_map_10))
+$(eval $(call TMX2DATA, CONVERT, maps/level_2/map_11.tmx, g_world_2_map_11))
+########################################################################
+########################################################################
+####################		LEVEL	3		############################
+########################################################################
+########################################################################
+$(eval $(call TMX2DATA, SET_FOLDER, src/assets/maps/level_3/))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_00.tmx, g_world_3_map_00))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_01.tmx, g_world_3_map_01))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_02.tmx, g_world_3_map_02))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_03.tmx, g_world_3_map_03))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_04.tmx, g_world_3_map_04))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_05.tmx, g_world_3_map_05))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_06.tmx, g_world_3_map_06))
+$(eval $(call TMX2DATA, CONVERT, maps/level_3/map_07.tmx, g_world_3_map_07))
 
 ##
 ## OLD MACROS (For compatibility)

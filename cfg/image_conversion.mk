@@ -41,18 +41,31 @@
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
 
-PALETTE0=0 8 13 3 6 15 24 16 9 12 20 14 2 4 1 26
+PALETTE=0 8 13 3 6 15 24 16 9 12 20 14 2 4 1 26
 
+# PALETTE
+$(eval $(call IMG2SP, SET_PALETTE_FW, $(PALETTE)))
+$(eval $(call IMG2SP, SET_FOLDER, src/assets/palette))
+$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette))
+
+#SPRITES
 $(eval $(call IMG2SP, SET_MODE        , 0                  ))
 $(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites               ))
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            ))	
 $(eval $(call IMG2SP, SET_OUTPUT      , c                  )) 
-$(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE0)         ))
-$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE0), g_palette0 ))
-$(eval $(call IMG2SP, CONVERT         , assets/font_chars_0.png , 4, 423, s_font_0, ,))
-$(eval $(call IMG2SP, CONVERT         , assets/small_numbers.png , 4, 5, s_small_numbers, ,))
-$(eval $(call IMG2SP, CONVERT         , assets/player.png , 16, 40, s_player, ,))
-$(eval $(call IMG2SP, CONVERT         , assets/player-walking-right.png , 16, 40, s_player_w_r, ,))
+$(eval $(call IMG2SP, CONVERT         , assets/sprites/font_chars_0.png , 4, 423, s_font_0, ,))
+$(eval $(call IMG2SP, CONVERT         , assets/sprites/small_numbers.png , 4, 5, s_small_numbers, ,))
+$(eval $(call IMG2SP, CONVERT         , assets/sprites/player.png , 16, 40, s_player, ,))
+$(eval $(call IMG2SP, CONVERT         , assets/sprites/player-walking-right.png , 16, 40, s_player_w_r, ,))
+
+# TILESETS
+$(eval $(call IMG2SP, SET_IMG_FORMAT, zgtiles))
+$(eval $(call IMG2SP, SET_FOLDER, src/assets/maps/level_1))
+$(eval $(call IMG2SP, CONVERT, assets/tilesets/tileset_1.png , 8, 8, g_tileset_1))
+$(eval $(call IMG2SP, SET_FOLDER, src/assets/maps/level_2))
+$(eval $(call IMG2SP, CONVERT, assets/tilesets/tileset_2.png , 8, 8, g_tileset_2))
+$(eval $(call IMG2SP, SET_FOLDER, src/assets/maps/level_3))
+$(eval $(call IMG2SP, CONVERT, assets/tilesets/tileset_3.png , 8, 8, g_tileset_3))
 
 
 
