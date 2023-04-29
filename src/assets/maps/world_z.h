@@ -1,24 +1,24 @@
 // File 'src/assets/maps/world_z.h' generated using cpct_pack
 // Compresor used:   zx7b
 // Files compressed: [ 'src/assets/maps/level_1/map_00.bin' 'src/assets/maps/level_1/map_01.bin' 'src/assets/maps/level_1/map_02.bin' 'src/assets/maps/level_1/map_03.bin' 'src/assets/maps/level_1/map_04.bin' 'src/assets/maps/level_1/map_05.bin' 'src/assets/maps/level_1/map_06.bin' 'src/assets/maps/level_1/map_07.bin' 'src/assets/maps/level_1/map_08.bin' 'src/assets/maps/level_1/map_09.bin' 'src/assets/maps/level_1/map_10.bin' 'src/assets/maps/level_1/map_11.bin' 'src/assets/maps/level_1/map_12.bin' 'src/assets/maps/level_1/map_13.bin' 'src/assets/maps/level_1/tileset_1.bin' 'src/assets/maps/level_2/map_00.bin' 'src/assets/maps/level_2/map_01.bin' 'src/assets/maps/level_2/map_02.bin' 'src/assets/maps/level_2/map_03.bin' 'src/assets/maps/level_2/map_04.bin' 'src/assets/maps/level_2/map_05.bin' 'src/assets/maps/level_2/map_06.bin' 'src/assets/maps/level_2/map_07.bin' 'src/assets/maps/level_2/map_08.bin' 'src/assets/maps/level_2/map_09.bin' 'src/assets/maps/level_2/map_10.bin' 'src/assets/maps/level_2/map_11.bin' 'src/assets/maps/level_2/tileset_2.bin' 'src/assets/maps/level_3/map_00.bin' 'src/assets/maps/level_3/map_01.bin' 'src/assets/maps/level_3/map_02.bin' 'src/assets/maps/level_3/map_03.bin' 'src/assets/maps/level_3/map_04.bin' 'src/assets/maps/level_3/map_05.bin' 'src/assets/maps/level_3/map_06.bin' 'src/assets/maps/level_3/map_07.bin' 'src/assets/maps/level_3/tileset_3.bin' ]
-// Uncompressed:     21296 bytes
-// Compressed:       9861 bytes
+// Uncompressed:        21296 bytes
+// Compressed:           9861 bytes
 // Space saved:      11435 bytes
 //
 
-#ifndef world_z_9861_H
-#define world_z_9861_H
+#ifndef world_z_    9861_H
+#define world_z_    9861_H
 
 
 // Declaration of the compressed array
-extern const unsigned char world_z[9861];
+extern const unsigned char world_z[    9861];
 
 // Address of the latest byte of the compressed array (for unpacking purposes)
-#define world_z_end      (world_z + 9861 - 1)
+#define world_z_end      (world_z +     9861 - 1)
 
 // Compressed and uncompressed sizes
-#define world_z_size_z   9861
-#define world_z_size     21296
+#define world_z_size_z       9861
+#define world_z_size        21296
 
 
 // Define constants for starting offsets of files in the uncompressed array

@@ -118,8 +118,9 @@ e_cmp_default = e_cmp_alive | e_cmp_render | e_cmp_physics | e_cmp_collider  ;;c
 ;; Entity Component IDs
 ;;===============================================================================
 DefEnum e_cmpID
-Enum e_cmpID AI
+Enum e_cmpID Render
 Enum e_cmpID Physics
+Enum e_cmpID AI
 Enum e_cmpID Animation
 Enum e_cmpID Collisionable
 Enum e_cmpID Num_Components

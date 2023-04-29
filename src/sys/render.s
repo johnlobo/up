@@ -18,6 +18,7 @@
 .include "sys/render.h.s"
 .include "sys/text.h.s"
 .include "man/array.h.s"
+.include "man/components.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -178,6 +179,11 @@ sys_render_init::
     call sys_render_clear_front_buffer
 
     ;;cpctm_clearScreen_asm 0                 ;; Clear screen
+    
+    ;; set pointer array address 
+    ld a, #e_cmpID_Render
+    call man_components_getArrayHL
+    ld  (_ent_array_ptr), hl
 
     ret
 
@@ -258,15 +264,44 @@ sys_render_update_one_entity::
 ;;  Modified: AF, BC, DE, HL
 ;;
 
-cmps_render = ( e_cmp_alive | e_cmp_render)
+;;cmps_render = ( e_cmp_alive | e_cmp_render)
+;;sys_render_update::
+;;
+;;    ld hl, #sys_render_update_one_entity
+;;    ld ix, #entities
+;;    ld a, #cmps_render
+;;    call man_array_execute_each_matching
+;;
+;;    ret
+
 sys_render_update::
 
-    ld hl, #sys_render_update_one_entity
-    ld ix, #entities
-    ld a, #cmps_render
-    call man_array_execute_each_matching
+_ent_array_ptr = . + 1
+    ld  hl, #0x0000
 
-    ret
+_loop:
+    ;;  Select the pointer to the entity with AI and prepare the next position for the next iteration.
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    inc hl
+
+    ;;  The entities are finished traversing when find a pointer to null.
+    ld a, e
+    or d
+    ret z
+
+    push hl
+
+    ld__ixl_e
+    ld__ixh_d
+
+    call sys_render_update_one_entity
+
+	pop hl
+
+    jr _loop
+
 
 ;;-----------------------------------------------------------------
 ;;

@@ -105,7 +105,7 @@
 .mdelete DefineEntity
 .macro DefineEntity _cpms, _ptr, _type, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address, _on_platform, _orientation, _anim_ptr, _anim_status
     .db _cpms
-    .db _ptr
+    .dw _ptr
     .db _type
     .dw _x
     .dw _y
@@ -206,7 +206,3 @@
         .dw 0x0000
     .endm
 .endm
-
-;;_entities_components = 0x0000
-;;_components_size = 0x0000
-;;_entities_access_table = 0x0000

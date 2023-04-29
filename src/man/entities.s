@@ -312,10 +312,17 @@ man_entity_create::
 	inc de
 	ldir
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;	ASSIGN ENTITY TO VECTOR OF POINTERS	- OPTIMIZE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
+	ld a, e_cmps(ix)
+	and a, #e_cmp_render
+	jr z, _noRender
+	_Render:
+	ld a, #e_cmpID_Render
+	call man_components_add
+
+	_noRender:
 	ld a, e_cmps(ix)
 	and #e_cmp_ai
 	jr z, _noAI
@@ -334,6 +341,14 @@ man_entity_create::
 	call man_components_add
 
 	_noCollisionable:
+	ld a, e_cmps(ix)
+	and #e_cmpID_Physics
+	jr z, _noPhysics
+
+	_Physics:
+	ld a, #e_cmp_physics
+	call man_components_add
+	_noPhysics:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	ret

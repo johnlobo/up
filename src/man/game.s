@@ -18,6 +18,7 @@
 
 .include "man/game.h.s"
 .include "man/array.h.s"
+.include "man/entities.h.s"
 .include "sys/render.h.s"
 .include "sys/physics.h.s"
 .include "sys/input.h.s"
@@ -59,24 +60,27 @@ game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: 
 ;;
 man_game_init::
 
-    ld ix, #entities
-    call man_array_init                 ;; Initialize entity array
-    
-    ;; Create an entity in 100, 100
-    ld hl, #entityTpl                   ;; Template of the entity to create
-    call man_array_create_element       ;; Create new entity
-    
-    ;; Create a second entity in 120, 100
-    ld hl, #entityTpl                   ;; Template of the entity to create
-    call man_array_create_element       ;; Create new entity
-    push ix                             ;; Save ix 
-    push hl                             ;; move pointer to the new entity to ix
-    pop ix                              ;;
-    ld e_x(ix), #20                     ;; move second entity to 120
-    ld e_y(ix), #140                    ;; move second entity to 120
-    ld e_vx+1(ix), #8                   ;; vx = 1
-    ld e_on_platform(ix), #1            ;; flying
-    pop ix                              ;; retrieve ix
+    ;;ld ix, #entities
+    ;;call man_array_init                 ;; Initialize entity array
+    ;;
+    ;;;; Create an entity in 100, 100
+    ;;ld hl, #entityTpl                   ;; Template of the entity to create
+    ;;call man_array_create_element       ;; Create new entity
+    ;;
+    ;;;; Create a second entity in 120, 100
+    ;;ld hl, #entityTpl                   ;; Template of the entity to create
+    ;;call man_array_create_element       ;; Create new entity
+    ;;push ix                             ;; Save ix 
+    ;;push hl                             ;; move pointer to the new entity to ix
+    ;;pop ix                              ;;
+    ;;ld e_x(ix), #20                     ;; move second entity to 120
+    ;;ld e_y(ix), #140                    ;; move second entity to 120
+    ;;ld e_vx+1(ix), #8                   ;; vx = 1
+    ;;ld e_on_platform(ix), #1            ;; flying
+    ;;pop ix                              ;; retrieve ix
+
+
+    call man_entity_init
     
     ret
 
@@ -90,8 +94,8 @@ man_game_init::
 ;;  Modified: AF, BC, DE, HL
 ;;
 man_game_update::
-    call sys_input_player_update
-    call sys_physics_update
+    ;;call sys_input_player_update
+    ;;call sys_physics_update
     call sys_render_update
     call sys_render_debug_entity
     ;;delay 
