@@ -129,8 +129,8 @@ Enum e_cmpID Num_Components
 ;; ENTITIY SCTRUCTURE CREATION
 ;;===============================================================================
 BeginStruct e
-Field e, cmps               , 1
 Field e, ptr                , 2
+Field e, cmps               , 1
 Field e, type               , 1
 Field e, x                  , 2
 Field e, y                  , 2

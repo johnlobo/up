@@ -81,6 +81,9 @@ man_game_init::
 
 
     call man_entity_init
+    ;; Create an entity in 100, 100
+    ld hl, #entityTpl                   ;; Template of the entity to create
+    call man_entity_create              ;; Create new entity
     
     ret
 

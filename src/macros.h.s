@@ -104,8 +104,8 @@
 ;;===============================================================================
 .mdelete DefineEntity
 .macro DefineEntity _cpms, _ptr, _type, _x, _y, _w, _h, _vx, _vy, _sprite, _address, _p_address, _on_platform, _orientation, _anim_ptr, _anim_status
-    .db _cpms
     .dw _ptr
+    .db _cpms
     .db _type
     .dw _x
     .dw _y

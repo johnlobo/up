@@ -1,8 +1,8 @@
 ;; File 'src/assets/maps/world_z.h.s' generated using cpct_pack
 ;; Compresor used:   zx7b
 ;; Files compressed: [ 'src/assets/maps/level_1/map_00.bin' 'src/assets/maps/level_1/map_01.bin' 'src/assets/maps/level_1/map_02.bin' 'src/assets/maps/level_1/map_03.bin' 'src/assets/maps/level_1/map_04.bin' 'src/assets/maps/level_1/map_05.bin' 'src/assets/maps/level_1/map_06.bin' 'src/assets/maps/level_1/map_07.bin' 'src/assets/maps/level_1/map_08.bin' 'src/assets/maps/level_1/map_09.bin' 'src/assets/maps/level_1/map_10.bin' 'src/assets/maps/level_1/map_11.bin' 'src/assets/maps/level_1/map_12.bin' 'src/assets/maps/level_1/map_13.bin' 'src/assets/maps/level_1/tileset_1.bin' 'src/assets/maps/level_2/map_00.bin' 'src/assets/maps/level_2/map_01.bin' 'src/assets/maps/level_2/map_02.bin' 'src/assets/maps/level_2/map_03.bin' 'src/assets/maps/level_2/map_04.bin' 'src/assets/maps/level_2/map_05.bin' 'src/assets/maps/level_2/map_06.bin' 'src/assets/maps/level_2/map_07.bin' 'src/assets/maps/level_2/map_08.bin' 'src/assets/maps/level_2/map_09.bin' 'src/assets/maps/level_2/map_10.bin' 'src/assets/maps/level_2/map_11.bin' 'src/assets/maps/level_2/tileset_2.bin' 'src/assets/maps/level_3/map_00.bin' 'src/assets/maps/level_3/map_01.bin' 'src/assets/maps/level_3/map_02.bin' 'src/assets/maps/level_3/map_03.bin' 'src/assets/maps/level_3/map_04.bin' 'src/assets/maps/level_3/map_05.bin' 'src/assets/maps/level_3/map_06.bin' 'src/assets/maps/level_3/map_07.bin' 'src/assets/maps/level_3/tileset_3.bin' ]
-;; Uncompressed:        21296 bytes
-;; Compressed:           9861 bytes
+;; Uncompressed:     21296 bytes
+;; Compressed:       9861 bytes
 ;; Space saved:      11435 bytes
 ;;
 
@@ -12,8 +12,8 @@
 .globl _world_z_end
 
 ;; Compressed and uncompressed sizes
-_world_z_size_z ==     9861
-_world_z_size   ==    21296
+_world_z_size_z == 9861
+_world_z_size   == 21296
 
 
 ;; Define constants for starting offsets of files in the uncompressed array
