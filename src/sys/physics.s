@@ -17,6 +17,7 @@
 
 .include "sys/physics.h.s"
 .include "man/array.h.s"
+.include "man/components.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
 
@@ -49,6 +50,10 @@
 ;;  Modified: AF, BC, DE, HL
 ;;
 sys_physics_init::
+    ;; set pointer array address 
+    ld a, #e_cmpID_Physics
+    call man_components_getArrayHL
+    ld  (_ent_array_ptr), hl
 
     ret
 
@@ -194,12 +199,33 @@ spuoe_Exit:
 ;;  Modified: AF, BC, DE, HL
 ;;
 
-cmps_physics = ( e_cmp_alive | e_cmp_physics)
 sys_physics_update::
-    ld hl, #sys_physics_update_one_entity
-    ld ix, #entities
-    ld a, #cmps_physics
-    call man_array_execute_each_matching
+
+_ent_array_ptr = . + 1
+    ld  hl, #0x0000
+
+    _loop:
+    ;;  Select the pointer to the entity with AI and prepare the next position for the next iteration.
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    inc hl
+
+    ;;  The entities are finished traversing when find a pointer to null.
+    ld a, e
+    or d
+    ret z
+
+    push hl
+
+    ld__ixl_e
+    ld__ixh_d
+
+    call sys_physics_update_one_entity
+
+	pop hl
+
+    jr _loop
 
     ret
     

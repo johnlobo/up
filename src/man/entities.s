@@ -292,6 +292,8 @@ __check_next_entity:
 ;;      Creates a new entity.
 ;;  INPUT:
 ;;		HL: Pointer to the entity to create
+;;	OUTPUT:
+;;		IX: Pointer to the new entity created
 ;;  MODIFY:
 ;;       DE, BC, A
 ;;	   
@@ -342,11 +344,11 @@ man_entity_create::
 
 	_noCollisionable:
 	ld a, e_cmps(ix)
-	and #e_cmpID_Physics
+	and #e_cmp_physics
 	jr z, _noPhysics
 
 	_Physics:
-	ld a, #e_cmp_physics
+	ld a, #e_cmpID_Physics
 	call man_components_add
 	_noPhysics:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

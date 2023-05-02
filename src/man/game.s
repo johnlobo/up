@@ -84,6 +84,9 @@ man_game_init::
     ;; Create an entity in 100, 100
     ld hl, #entityTpl                   ;; Template of the entity to create
     call man_entity_create              ;; Create new entity
+    ld e_vx+1(ix), #0x80                ;; vx = 1
+
+    call sys_physics_init               ;; initilize physics system
     
     ret
 
@@ -98,7 +101,7 @@ man_game_init::
 ;;
 man_game_update::
     ;;call sys_input_player_update
-    ;;call sys_physics_update
+    call sys_physics_update
     call sys_render_update
     call sys_render_debug_entity
     ;;delay 

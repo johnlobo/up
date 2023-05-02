@@ -1,5 +1,5 @@
 //
-// File maps/level_1/map_06.tmx converted to csv using cpct_tmx2data [Sun Apr 30 01:26:46 2023]
+// File maps/level_1/map_06.tmx converted to csv using cpct_tmx2data [Fri Apr 28 14:31:26 2023]
 //   * Visible Layers:  1
 //   * Layer Width:     20
 //   * Layer Height:    22
