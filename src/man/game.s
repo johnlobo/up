@@ -17,7 +17,6 @@
 .module game_manager
 
 .include "man/game.h.s"
-.include "man/array.h.s"
 .include "man/entities.h.s"
 .include "sys/render.h.s"
 .include "sys/physics.h.s"
@@ -34,10 +33,6 @@
 ;;  right after _CODE area contents.
 ;;
 .area _DATA
-
-entities::
-DefineArray e, MAX_ENTITIES, sizeof_e     
-.db 0   ;;ponemos este aqui como trampita para que siempre haya un tipo invalido al final
 
 entityTpl::
 DefineEntity e_cmp_default, #0000, e_type_player, 100, 80, 8, 40, 0, 0, _s_player_0, #0000, #0000, 1, 0, #0000, 0
@@ -60,31 +55,11 @@ game_state:: .db MAIN_MENU   ;; Game state ----- 0: Game loop, 1: Main menu, 2: 
 ;;
 man_game_init::
 
-    ;;ld ix, #entities
-    ;;call man_array_init                 ;; Initialize entity array
-    ;;
-    ;;;; Create an entity in 100, 100
-    ;;ld hl, #entityTpl                   ;; Template of the entity to create
-    ;;call man_array_create_element       ;; Create new entity
-    ;;
-    ;;;; Create a second entity in 120, 100
-    ;;ld hl, #entityTpl                   ;; Template of the entity to create
-    ;;call man_array_create_element       ;; Create new entity
-    ;;push ix                             ;; Save ix 
-    ;;push hl                             ;; move pointer to the new entity to ix
-    ;;pop ix                              ;;
-    ;;ld e_x(ix), #20                     ;; move second entity to 120
-    ;;ld e_y(ix), #140                    ;; move second entity to 120
-    ;;ld e_vx+1(ix), #8                   ;; vx = 1
-    ;;ld e_on_platform(ix), #1            ;; flying
-    ;;pop ix                              ;; retrieve ix
-
-
     call man_entity_init
     ;; Create an entity in 100, 100
     ld hl, #entityTpl                   ;; Template of the entity to create
     call man_entity_create              ;; Create new entity
-    ld e_vx+1(ix), #0x80                ;; vx = 1
+    ld e_vx+1(ix), #0xff                ;; vx = 1
 
     call sys_physics_init               ;; initilize physics system
     
@@ -100,7 +75,7 @@ man_game_init::
 ;;  Modified: AF, BC, DE, HL
 ;;
 man_game_update::
-    ;;call sys_input_player_update
+    call sys_input_player_update
     call sys_physics_update
     call sys_render_update
     call sys_render_debug_entity

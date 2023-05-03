@@ -374,8 +374,8 @@ man_entity_getEntityArrayIX::
 ;;	MODIFY:
 ;;		HL
 ;;	   
-man_entity_getPlayerPositionIY::
-	ld iy, #_entity_array
+man_entity_getPlayerPosition::
+	ld ix, #_entity_array
 	ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

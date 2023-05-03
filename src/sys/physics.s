@@ -16,7 +16,6 @@
 .module physics_system
 
 .include "sys/physics.h.s"
-.include "man/array.h.s"
 .include "man/components.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"

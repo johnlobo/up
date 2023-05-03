@@ -18,7 +18,7 @@
 
 .module input_system
 
-.include "man/array.h.s"
+.include "man/entities.h.s"
 .include "cpctelera.h.s"
 .include "../common.h.s"
 
@@ -358,9 +358,7 @@ sys_input_player_dash::
 ;;  Modified: iy, bc
 sys_input_player_update::
     push ix                             ;; save ix information
-    call man_array_first_element        ;; move ix to the first entity which will be player operated
-    push hl                             ;;
-    pop ix                              ;;
+    call man_entity_getPlayerPosition   ;; move ix to the first entity which will be player operated
 
     ld iy, #sys_input_player_actions
     call sys_input_generic_update

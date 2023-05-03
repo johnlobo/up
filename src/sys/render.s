@@ -17,7 +17,7 @@
 
 .include "sys/render.h.s"
 .include "sys/text.h.s"
-.include "man/array.h.s"
+.include "man/entities.h.s"
 .include "man/components.h.s"
 .include "common.h.s"
 .include "cpctelera.h.s"
@@ -264,16 +264,6 @@ sys_render_update_one_entity::
 ;;  Modified: AF, BC, DE, HL
 ;;
 
-;;cmps_render = ( e_cmp_alive | e_cmp_render)
-;;sys_render_update::
-;;
-;;    ld hl, #sys_render_update_one_entity
-;;    ld ix, #entities
-;;    ld a, #cmps_render
-;;    call man_array_execute_each_matching
-;;
-;;    ret
-
 sys_render_update::
 
 _ent_array_ptr = . + 1
@@ -314,10 +304,7 @@ _loop:
 ;;
 sys_render_debug_entity::
     push ix
-    call man_array_first_element
-    push hl
-    pop ix
-    ;; vx
+    call man_entity_getPlayerPosition
     cpctm_screenPtr_asm de, 0xc000, 2, 2
     m_draw_blank_small_number       ;; erases previous number
     ld h, #0
